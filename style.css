@@ -459,3 +459,22 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
  }
 }
 @media(prefers-reduced-motion:reduce){section,.project,.timeline article,.credential,.skill-list li,.contact-links a{animation:none!important;opacity:1!important;transform:none!important}}
+
+/* Final cascade override: visible content + animated mask reveal (works with legacy reveal classes) */
+.reveal,.reveal-child{opacity:1;transform:none}
+.portfolio-enter,.portfolio-child{opacity:1;transform:none}
+@keyframes portfolioWipeReveal{from{clip-path:inset(0 0 82% 0);filter:blur(5px)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes portfolioCardReveal{from{clip-path:inset(0 0 24% 0);filter:blur(4px)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@media(prefers-reduced-motion:no-preference){
+ section:not(#home){animation:portfolioWipeReveal .95s cubic-bezier(.16,.76,.24,1) both!important;animation-delay:calc(var(--section-order,0)*85ms)!important}
+ section#about{--section-order:1} section#work{--section-order:2} section#experience{--section-order:3} section#credentials{--section-order:4} section#contact{--section-order:5}
+ .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:portfolioCardReveal .8s cubic-bezier(.16,.76,.24,1) both!important;animation-delay:calc(var(--card-order,0)*60ms)!important}
+ .project:nth-child(2){--card-order:1}.project:nth-child(3){--card-order:2}.project:nth-child(4){--card-order:3}.project:nth-child(5){--card-order:4}.project:nth-child(6){--card-order:5}
+}
+@supports(animation-timeline:view()){
+ @media(prefers-reduced-motion:no-preference){
+  section:not(#home){animation:portfolioWipeReveal .9s cubic-bezier(.16,.76,.24,1) both!important;animation-timeline:view()!important;animation-range:entry 0% entry 42%!important;animation-delay:0ms!important}
+  .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:portfolioCardReveal .75s cubic-bezier(.16,.76,.24,1) both!important;animation-timeline:view()!important;animation-range:entry 0% entry 35%!important;animation-delay:0ms!important}
+ }
+}
+@media(prefers-reduced-motion:reduce){section,.project,.timeline article,.credential,.skill-list li,.contact-links a{animation:none!important;clip-path:none!important;filter:none!important}}
