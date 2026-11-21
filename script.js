@@ -32,12 +32,14 @@
   $$('.project-visual').forEach((visual,index)=>{visual.classList.add('visual-motion');visual.style.setProperty('--visual-delay',(index*110)+'ms');});
 
   // Scroll reveal for cinematic section and card entrances
-  const revealItems=Array.from(document.querySelectorAll('.section, .project, .contact, .hero-bottom'));
-  revealItems.forEach((item,index)=>{item.classList.add('reveal');if(item.classList.contains('project'))item.style.setProperty('--reveal-delay',(index%3)*90+'ms');});
+  const revealItems=Array.from(document.querySelectorAll('.section, .intro, .stats, .project, .experience-grid, .timeline, .credentials-grid, .skills, .contact, .hero-bottom'));
+  const motionTargets=Array.from(document.querySelectorAll('.section-heading, .intro-text, .stat, .project-info, .timeline-item, .credential, .skill-list, .contact-links a'));
+  revealItems.forEach((item,index)=>{item.classList.add('reveal');item.style.setProperty('--motion-delay',(index%4)*75+'ms');if(item.classList.contains('project'))item.style.setProperty('--reveal-delay',(index%3)*90+'ms');});
+  motionTargets.forEach((item,index)=>{item.classList.add('reveal-child');item.style.setProperty('--motion-delay',(index%5)*55+'ms');});
   if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-    revealItems.forEach(item=>revealObserver.observe(item));
-  }else{revealItems.forEach(item=>item.classList.add('is-visible'));}
+    revealItems.concat(motionTargets).forEach(item=>revealObserver.observe(item));
+  }else{revealItems.concat(motionTargets).forEach(item=>item.classList.add('is-visible'));}
 
   // Highlight current section in navigation
   const navLinks=$$("#nav a[href^='#']");
