@@ -1,4 +1,5 @@
 (() => {
+  document.body.classList.add('motion-ready');
   const $ = (selector, root=document) => root.querySelector(selector);
   const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
 
@@ -23,6 +24,14 @@
 
   // Dynamic copyright year
   const year=$("#year");if(year)year.textContent=String(new Date().getFullYear());
+
+  // Scroll reveal for cinematic section and card entrances
+  const revealItems=$('.section, .project, .contact, .hero-bottom');
+  revealItems.forEach((item,index)=>{item.classList.add('reveal');if(item.classList.contains('project'))item.style.setProperty('--reveal-delay',(index%3)*90+'ms');});
+  if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+    revealItems.forEach(item=>revealObserver.observe(item));
+  }else{revealItems.forEach(item=>item.classList.add('is-visible'));}
 
   // Highlight current section in navigation
   const navLinks=$$("#nav a[href^='#']");
