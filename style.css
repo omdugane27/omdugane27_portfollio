@@ -93,3 +93,25 @@ a{color:inherit;text-decoration:none}button{font:inherit}
 @keyframes stampIn{from{opacity:0;rotate:-12deg;scale:.8}to{opacity:1;rotate:0deg;scale:1}}
 @keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 #e7a1bb30}50%{box-shadow:0 0 0 7px #e7a1bb00}}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.hero-copy,.hero-photo-wrap,.hero-photo-wrap .photo-frame,.photo-frame img,.hero-glow,.photo-stamp,.live-dot{animation:none!important}.motion-ready .reveal{opacity:1!important;transform:none!important;transition:none!important}.project:hover{transform:none}}
+
+/* Distinctive cinematic details: orbit frame, animated light sweep and project parallax */
+.cinematic-hero .photo-frame{position:relative}
+.orbit-frame:before{content:"";position:absolute;inset:-13px;border:1px solid rgba(232,164,190,.32);border-radius:inherit;transform:rotate(-4deg);pointer-events:none;animation:orbitFrame 14s ease-in-out infinite;z-index:5}
+.orbit-frame:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 18%,rgba(255,220,236,.11) 42%,transparent 63%);transform:translateX(-125%);pointer-events:none;animation:photoLightSweep 7.5s ease-in-out 2s infinite;z-index:4}
+.button-glint{position:relative;overflow:hidden}
+.button-glint:after{content:"";position:absolute;top:-40%;bottom:-40%;left:-70%;width:35%;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:buttonGlint 5.5s ease-in-out 1.5s infinite}
+.button-trail{box-shadow:0 0 0 0 rgba(221,145,177,.28);animation:buttonTrail 3.6s ease-out infinite}
+.visual-motion{overflow:hidden;position:relative}
+.visual-motion:after{content:"";position:absolute;inset:-30%;background:linear-gradient(120deg,transparent 42%,rgba(255,255,255,.07) 50%,transparent 58%);transform:translateX(-65%);animation:visualSweep 9s ease-in-out var(--visual-delay,0ms) infinite;pointer-events:none}
+.visual-motion .visual-tag{transition:letter-spacing .5s ease}
+.project:hover .visual-motion .visual-tag{letter-spacing:.16em}
+.hero-copy .eyebrow{animation:eyebrowTracking 1.2s ease-out both}
+.hero-copy h1 .serif{background:linear-gradient(110deg,#e6b0c5 0%,#fff0f6 45%,#d28ca9 70%,#e6b0c5 100%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:titleShimmer 8s linear infinite}
+@keyframes orbitFrame{0%,100%{transform:rotate(-4deg) scale(1)}50%{transform:rotate(3deg) scale(1.012)}}
+@keyframes photoLightSweep{0%,68%,100%{transform:translateX(-125%)}84%{transform:translateX(125%)}}
+@keyframes buttonGlint{0%,65%,100%{left:-70%}82%{left:140%}}
+@keyframes buttonTrail{0%{box-shadow:0 0 0 0 rgba(221,145,177,.25)}70%{box-shadow:0 0 0 11px rgba(221,145,177,0)}100%{box-shadow:0 0 0 0 rgba(221,145,177,0)}}
+@keyframes visualSweep{0%,70%,100%{transform:translateX(-65%)}86%{transform:translateX(65%)}}
+@keyframes eyebrowTracking{from{opacity:0;letter-spacing:.28em}to{opacity:1;letter-spacing:normal}}
+@keyframes titleShimmer{to{background-position:220% center}}
+@media(prefers-reduced-motion:reduce){.orbit-frame:before,.orbit-frame:after,.button-glint:after,.button-trail,.visual-motion:after,.hero-copy h1 .serif{animation:none!important}.orbit-frame:before{transform:none}}
