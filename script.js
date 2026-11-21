@@ -24,3 +24,6 @@ const progress=document.getElementById("scrollProgress");const toTop=document.ge
 function updateScrollUI(){const max=document.documentElement.scrollHeight-window.innerHeight;const percent=max>0?(window.scrollY/max)*100:0;if(progress)progress.style.width=percent+"%";toTop?.classList.toggle("visible",window.scrollY>450);}
 window.addEventListener("scroll",updateScrollUI,{passive:true});updateScrollUI();
 toTop?.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+// Print a clean one-page résumé; the browser can save it as PDF.
+document.getElementById("printResume")?.addEventListener("click",()=>window.print());
