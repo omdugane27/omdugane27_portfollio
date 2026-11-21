@@ -302,3 +302,71 @@ body.motion-ready .reveal-child.is-visible{opacity:1;transform:translate3d(0,0,0
 @keyframes cleanTimelineFlow{to{background-position:0 220%}}
 @keyframes cleanContactFloat{from{transform:translate3d(-8px,8px,0) scale(.96)}to{transform:translate3d(10px,-12px,0) scale(1.05)}}
 @media(prefers-reduced-motion:reduce){.photo-frame:before,.photo-frame:after,#profilePhoto,.hero-photo-wrap,.hero-copy,.hero-glow,.hero-copy h1 .serif,.timeline:before,.contact-orb{animation:none!important}.project:hover,.contact:hover h2 .serif{transform:none!important}.btn:after{display:none}}
+
+/* ===== Full portrait visibility + complete portfolio motion system ===== */
+/* Photo: show the entire source portrait instead of cropping its head/body */
+.hero-photo-wrap{min-height:unset!important;align-self:center;display:flex!important;align-items:center!important;justify-content:center!important;padding:38px 24px!important}
+.photo-frame{
+ width:min(430px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;
+ border-radius:50%!important;overflow:hidden!important;position:relative!important;
+ background:radial-gradient(circle at 50% 35%,#322039 0%,#150d1b 74%)!important;
+ border:3px solid transparent!important;
+ background-clip:padding-box!important;
+ box-shadow:0 0 0 6px rgba(225,110,184,.12),0 0 28px rgba(231,83,174,.45),0 0 72px rgba(117,91,231,.30),0 24px 70px rgba(0,0,0,.48)!important;
+}
+#profilePhoto{
+ display:block!important;width:100%!important;height:100%!important;aspect-ratio:1/1!important;
+ object-fit:contain!important;object-position:center center!important;
+ border-radius:50%!important;background:transparent!important;
+ padding:0!important;filter:saturate(1.06) contrast(1.03)!important;
+ animation:fullPortraitBreath 15s ease-in-out infinite alternate!important;
+}
+.photo-shade{border-radius:50%!important;background:linear-gradient(180deg,transparent 65%,rgba(13,7,18,.18) 84%,rgba(13,7,18,.42) 100%)!important}
+.photo-label{left:8%!important;right:8%!important;bottom:8%!important;z-index:7!important;justify-content:center!important;gap:12px!important;text-shadow:0 2px 10px #000!important}
+.photo-frame:before{content:""!important;position:absolute!important;inset:-5px!important;border-radius:50%!important;border:2px solid transparent!important;background:linear-gradient(#170d1b,#170d1b) padding-box,conic-gradient(from 0deg,#ff70b8,#a78bfa,#62e7f2,#ffd1e8,#ff70b8) border-box!important;pointer-events:none!important;z-index:8!important;animation:fullPortraitHalo 12s linear infinite!important}
+.photo-frame:after{content:""!important;position:absolute!important;inset:0!important;border-radius:50%!important;background:linear-gradient(115deg,transparent 24%,rgba(255,255,255,.20) 48%,transparent 72%)!important;transform:translateX(-130%)!important;pointer-events:none!important;z-index:6!important;animation:fullPortraitSweep 8s ease-in-out 1.2s infinite!important}
+.photo-stamp{right:-8px!important;bottom:12px!important;z-index:9!important;transform:rotate(8deg)!important}
+@media(max-width:700px){
+ .hero-photo-wrap{padding:22px 8px 34px!important}
+ .photo-frame{width:min(350px,82vw)!important}
+ .photo-stamp{width:86px!important;height:86px!important;right:-2px!important;bottom:4px!important;font-size:8px!important}
+ .photo-stamp em{font-size:14px!important}
+ .photo-label{font-size:8px!important;letter-spacing:1px!important}
+}
+/* Restore visibility: legacy reveal rules must never leave content hidden */
+body.motion-ready .reveal,body.motion-ready .reveal-child{opacity:1!important;transform:none!important}
+body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{opacity:1!important;transform:none!important}
+.portfolio-motion{opacity:1!important;transform:none!important}
+.portfolio-motion.portfolio-motion-in{animation:portfolioSoftEntrance .78s cubic-bezier(.2,.72,.25,1) both;animation-delay:var(--portfolio-motion-delay,0ms)}
+.hero .hero-copy{animation:portfolioHeroText .95s cubic-bezier(.16,.78,.22,1) both!important}
+.hero .hero-photo-wrap{animation:portfolioHeroPortrait 1.15s cubic-bezier(.16,.78,.22,1) both!important}
+.hero-glow{animation:portfolioAmbient 9s ease-in-out infinite alternate!important}
+.hero-copy h1 .serif{animation:portfolioGradient 10s ease-in-out infinite alternate!important}
+.project{transition:transform .42s cubic-bezier(.2,.75,.25,1),box-shadow .42s ease,border-color .42s ease!important}
+.project:hover{transform:translateY(-7px)!important;box-shadow:0 22px 58px rgba(8,4,12,.3),0 0 0 1px rgba(231,161,187,.15)!important}
+.project-visual{position:relative;overflow:hidden;transition:filter .5s ease,background-position .9s ease!important}
+.project:hover .project-visual{filter:saturate(1.12) brightness(1.04)!important}
+.skill-list li,.credential,.contact-links a,.filter,.btn{transition:transform .32s cubic-bezier(.2,.7,.2,1),box-shadow .32s ease,border-color .32s ease!important}
+.skill-list li:hover,.credential:hover,.contact-links a:hover,.filter:hover{transform:translateY(-3px)!important}
+.btn:hover{transform:translateY(-2px)!important}
+.timeline{position:relative}
+.timeline:before{content:"";position:absolute;left:-1px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,#e7a1bb,#9e8bfa,transparent);background-size:100% 220%;animation:portfolioTimeline 8s linear infinite}
+.timeline article:before{transition:transform .35s ease,box-shadow .35s ease!important}
+.timeline article:hover:before{transform:scale(1.3)!important;box-shadow:0 0 0 7px #e7a1bb18,0 0 18px #e7a1bb88!important}
+.contact-orb{animation:portfolioOrb 13s ease-in-out infinite alternate!important}
+.section-kicker{transition:letter-spacing .45s ease,color .45s ease}
+.section:hover .section-kicker{letter-spacing:.24em;color:#f3c1d8}
+@keyframes fullPortraitBreath{from{transform:scale(1.01)}to{transform:scale(1.055)}}
+@keyframes fullPortraitHalo{to{transform:rotate(360deg)}}
+@keyframes fullPortraitSweep{0%,68%,100%{transform:translateX(-130%)}84%{transform:translateX(130%)}}
+@keyframes portfolioSoftEntrance{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes portfolioHeroText{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes portfolioHeroPortrait{from{opacity:0;transform:translate3d(18px,24px,0) scale(.94)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes portfolioAmbient{from{opacity:.38;transform:scale(.94)}to{opacity:.78;transform:scale(1.06)}}
+@keyframes portfolioGradient{from{background-position:0% center}to{background-position:100% center}}
+@keyframes portfolioTimeline{to{background-position:0 220%}}
+@keyframes portfolioOrb{from{transform:translate3d(-8px,8px,0) scale(.96)}to{transform:translate3d(10px,-12px,0) scale(1.05)}}
+@media(prefers-reduced-motion:reduce){
+ .photo-frame:before,.photo-frame:after,#profilePhoto,.hero .hero-copy,.hero .hero-photo-wrap,.hero-glow,.hero-copy h1 .serif,.timeline:before,.contact-orb,.portfolio-motion.portfolio-motion-in{animation:none!important}
+ .project:hover,.skill-list li:hover,.credential:hover,.contact-links a:hover,.filter:hover,.btn:hover{transform:none!important}
+}
