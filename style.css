@@ -403,3 +403,35 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 @keyframes finalGlow{from{opacity:.35;transform:scale(.94)}to{opacity:.8;transform:scale(1.06)}}
 @keyframes finalTimelineFlow{to{background-position:0 220%}}
 @media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,.hero-copy,.hero-photo-wrap,.hero-glow,.portfolio-enter.motion-entered,.portfolio-child.motion-entered,.timeline:before{animation:none!important}.portfolio-enter,.portfolio-child{opacity:1!important;transform:none!important}.project:hover,.skill-list li:hover,.credential:hover,.contact-links a:hover,.filter:hover,.btn:hover{transform:none!important}}
+
+/* ROUND PORTRAIT FIX + VISIBLE SECTION ENTRANCE MOTION */
+.hero-photo-wrap{min-height:unset!important;height:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:36px 20px 44px!important;overflow:visible!important}
+.photo-frame{width:min(430px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;min-height:0!important;border-radius:50%!important;overflow:hidden!important;position:relative!important;flex-shrink:0!important;clip-path:circle(50% at 50% 50%)!important;isolation:isolate!important;box-shadow:0 0 0 7px rgba(222,111,185,.16),0 0 32px rgba(231,83,174,.48),0 0 78px rgba(117,91,231,.32),0 28px 70px rgba(0,0,0,.48)!important}
+#profilePhoto{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-width:100%!important;min-height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:50% 26%!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;visibility:visible!important;opacity:1!important;background:#160d1d!important;filter:saturate(1.08) contrast(1.04)!important;animation:portraitRoundBreath 13s ease-in-out infinite alternate!important;z-index:1!important}
+.photo-shade{position:absolute!important;inset:0!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;z-index:2!important;pointer-events:none!important;background:linear-gradient(180deg,transparent 55%,rgba(12,7,18,.48) 100%)!important}
+.photo-label{z-index:4!important;bottom:8%!important;left:6%!important;right:6%!important;justify-content:center!important;text-align:center!important;text-shadow:0 2px 12px #000!important}
+.photo-frame:before{content:""!important;position:absolute!important;inset:0!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;pointer-events:none!important;z-index:5!important;border:3px solid transparent!important;background:linear-gradient(#160d1d,#160d1d) padding-box,conic-gradient(from 0deg,#ff70b8,#a78bfa,#62e7f2,#ffd1e8,#ff70b8) border-box!important;animation:portraitRoundRing 9s linear infinite!important}
+.photo-frame:after{content:""!important;position:absolute!important;inset:0!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;pointer-events:none!important;z-index:3!important;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.22) 48%,transparent 70%)!important;transform:translateX(-130%)!important;animation:portraitRoundSweep 7.5s ease-in-out 1s infinite!important}
+.photo-stamp{z-index:7!important}
+@media(max-width:700px){.hero-photo-wrap{padding:26px 8px 36px!important}.photo-frame{width:min(350px,82vw)!important}.photo-stamp{right:0!important;bottom:0!important}}
+/* Every section and selected content element animates when entering the viewport */
+.cinema-reveal{opacity:1!important;transform:none!important}
+.cinema-reveal.cinema-in{animation:cinemaSectionEntrance .9s cubic-bezier(.16,.76,.24,1) both!important;animation-delay:var(--cinema-delay,0ms)!important}
+.cinema-child{opacity:1!important;transform:none!important}
+.cinema-child.cinema-in{animation:cinemaContentEntrance .72s cubic-bezier(.16,.76,.24,1) both!important;animation-delay:var(--cinema-delay,0ms)!important}
+.hero-copy{animation:cinemaHeroText 1s cubic-bezier(.16,.76,.24,1) both!important}
+.hero-photo-wrap{animation:cinemaHeroPhoto 1.1s cubic-bezier(.16,.76,.24,1) .12s both!important}
+.hero-glow{animation:cinemaGlow 8s ease-in-out infinite alternate!important}
+.project{transition:transform .45s cubic-bezier(.2,.75,.25,1),box-shadow .45s ease!important}
+.project:hover{transform:translateY(-8px)!important;box-shadow:0 24px 58px rgba(0,0,0,.32),0 0 0 1px rgba(231,161,187,.18)!important}
+.skill-list li,.credential,.contact-links a,.btn,.filter{transition:transform .34s ease,box-shadow .34s ease!important}
+.skill-list li:hover,.credential:hover,.contact-links a:hover,.filter:hover,.btn:hover{transform:translateY(-3px)!important}
+@keyframes portraitRoundBreath{from{transform:scale(1.02)}to{transform:scale(1.09)}}
+@keyframes portraitRoundRing{to{transform:rotate(360deg)}}
+@keyframes portraitRoundSweep{0%,67%,100%{transform:translateX(-130%)}83%{transform:translateX(130%)}}
+@keyframes cinemaSectionEntrance{from{opacity:0;transform:translate3d(0,34px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes cinemaContentEntrance{from{opacity:0;transform:translate3d(0,22px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes cinemaHeroText{from{opacity:0;transform:translate3d(0,28px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes cinemaHeroPhoto{from{opacity:0;transform:translate3d(24px,26px,0) scale(.92)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes cinemaGlow{from{opacity:.32;transform:scale(.94)}to{opacity:.78;transform:scale(1.06)}}
+@media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,.hero-copy,.hero-photo-wrap,.hero-glow,.cinema-reveal.cinema-in,.cinema-child.cinema-in{animation:none!important}.cinema-reveal,.cinema-child{opacity:1!important;transform:none!important}.project:hover,.skill-list li:hover,.credential:hover,.contact-links a:hover,.filter:hover,.btn:hover{transform:none!important}}
