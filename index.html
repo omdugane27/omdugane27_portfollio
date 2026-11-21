@@ -8,7 +8,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="Om Dugane | Cinematic Portfolio"><meta property="og:description" content="Data analytics, finance research and web development — projects, experience and professional profile."><meta property="og:image" content="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=20261121-3"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Om Dugane | Portfolio"><meta name="twitter:description" content="Data analytics · Finance research · Web development">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=om-cinematic-intro-round-15"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=cinematic-kinetic-parallax-16"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style id="portfolio-inline-style">@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--bg:#100b12;--panel:#1a111c;--text:#f7f0f1;--muted:#b8a8b3;--line:#ffffff20;--pink:#e7a1bb;--hot:#f06a9a;--cream:#f4e5e8;--max:1200px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -526,35 +526,51 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 @keyframes omContentReveal{from{opacity:0;transform:translate3d(0,20px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
 @media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,#home .hero-copy,#home .hero-photo-wrap,#home .hero-bottom,#home .hero-glow,#home .hero-copy>* , .om-section-reveal,.om-content-reveal{animation:none!important;filter:none!important;opacity:1!important;transform:none!important}.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transform:none!important}}
 
-/* Final authoritative styles for full round portrait and intro/section animation */
-.hero-photo-wrap{display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important}
-.photo-frame{width:min(420px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;min-height:0!important;position:relative!important;overflow:hidden!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;isolation:isolate!important;flex:0 0 auto!important;box-shadow:0 0 0 6px rgba(226,124,190,.16),0 0 30px rgba(231,83,174,.42),0 0 72px rgba(117,91,231,.30),0 28px 70px rgba(0,0,0,.48)!important}
-#profilePhoto{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center center!important;transform:scale(.88)!important;transform-origin:center center!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;visibility:visible!important;opacity:1!important;background:transparent!important;z-index:2!important}
-.photo-shade{position:absolute!important;inset:0!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;pointer-events:none!important;z-index:3!important;background:linear-gradient(180deg,transparent 65%,rgba(12,7,18,.25) 100%)!important}
-.photo-label{position:absolute!important;z-index:5!important;left:8%!important;right:8%!important;bottom:8%!important;justify-content:center!important;opacity:.78!important;pointer-events:none!important;text-shadow:0 2px 12px #000!important}
-.photo-frame:before{content:""!important;position:absolute!important;inset:0!important;border:3px solid transparent!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;background:linear-gradient(transparent,transparent) padding-box,conic-gradient(from 0deg,#ff70b8,#a78bfa,#62e7f2,#ffd1e8,#ff70b8) border-box!important;pointer-events:none!important;z-index:8!important;animation:omRoundHalo 9s linear infinite!important}
-.photo-frame:after{content:""!important;position:absolute!important;inset:0!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.20) 48%,transparent 72%)!important;transform:translateX(-130%)!important;pointer-events:none!important;z-index:6!important;animation:omRoundSweep 7.8s ease-in-out 1s infinite!important}
-.photo-stamp{z-index:9!important}
-@media(max-width:700px){.photo-frame{width:min(350px,82vw)!important}.hero-photo-wrap{padding:28px 8px 38px!important}}
-#home .om-intro-target{animation:omIntroText .95s cubic-bezier(.16,.78,.22,1) both!important;animation-delay:var(--om-intro-delay,0ms)!important}
-#home .hero-photo-wrap.om-intro-target{animation:omIntroPortrait 1.12s cubic-bezier(.16,.78,.22,1) both!important;animation-delay:140ms!important}
-#home .hero-bottom.om-intro-target{animation:omIntroFooter .8s ease-out both!important;animation-delay:280ms!important}
-#home .hero-glow{animation:omIntroGlow 7s ease-in-out infinite alternate!important}
-.om-section-target{opacity:1!important;transform:none!important}
-.om-section-target.om-revealed{animation:omSectionReveal .86s cubic-bezier(.16,.78,.22,1) both!important;animation-delay:var(--om-delay,0ms)!important}
-.om-content-target{opacity:1!important;transform:none!important}
-.om-content-target.om-revealed{animation:omContentReveal .72s cubic-bezier(.16,.78,.22,1) both!important;animation-delay:var(--om-delay,0ms)!important}
-.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transition:transform .35s ease,box-shadow .35s ease!important}
-.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transform:translateY(-4px)!important}
-@keyframes omRoundHalo{to{transform:rotate(360deg)}}
-@keyframes omRoundSweep{0%,68%,100%{transform:translateX(-130%)}84%{transform:translateX(130%)}}
-@keyframes omIntroText{from{opacity:0;transform:translate3d(0,28px,0);filter:blur(5px)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
-@keyframes omIntroPortrait{from{opacity:0;transform:translate3d(26px,30px,0) scale(.91);filter:blur(4px)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
-@keyframes omIntroFooter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-@keyframes omIntroGlow{from{opacity:.28;transform:scale(.94)}to{opacity:.75;transform:scale(1.07)}}
-@keyframes omSectionReveal{from{opacity:0;transform:translate3d(0,32px,0);filter:blur(3px)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
-@keyframes omContentReveal{from{opacity:0;transform:translate3d(0,20px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
-@media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,#home .om-intro-target,#home .hero-glow,.om-section-target.om-revealed,.om-content-target.om-revealed{animation:none!important;filter:none!important;opacity:1!important;transform:none!important}.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transform:none!important}}
+/* === CINEMATIC INTERACTION PACK v16 === */
+:root{--motion-ease:cubic-bezier(.18,.78,.22,1)}
+/* Masked kinetic typography */
+#home .hero-copy h1{overflow:hidden;clip-path:inset(0 0 0 0)}
+#home .hero-copy h1 .serif,#home .hero-copy h1 .outline{display:inline-block;will-change:transform,opacity}
+#home .hero-copy h1 .serif{animation:kineticLine .95s var(--motion-ease) .22s both}
+#home .hero-copy h1 .outline{animation:kineticLine .95s var(--motion-ease) .34s both}
+#home .hero-copy .eyebrow{animation:eyebrowSlide .7s var(--motion-ease) .05s both}
+#home .hero-copy .hero-sub{animation:kineticLine .85s var(--motion-ease) .4s both}
+#home .hero-copy .hero-actions{animation:kineticLine .85s var(--motion-ease) .52s both}
+/* Sections and case-study content reveal */
+.om-v16-section{opacity:1;transform:none}
+.om-v16-section.om-v16-visible{animation:depthReveal .9s var(--motion-ease) both;animation-delay:var(--v16-delay,0ms)}
+.om-v16-item{opacity:1;transform:none}
+.om-v16-item.om-v16-visible{animation:staggerReveal .72s var(--motion-ease) both;animation-delay:var(--v16-delay,0ms)}
+/* Depth parallax layers */
+.hero-backdrop{transform:translate3d(0,var(--hero-parallax,0px),0);will-change:transform}
+.hero-glow{transform:translate3d(0,var(--glow-parallax,0px),0);will-change:transform}
+.project-visual{overflow:hidden;isolation:isolate;position:relative}
+.project-visual>*{transition:transform .7s var(--motion-ease)}
+.project:hover .project-visual>*{transform:scale(1.035)}
+.project-visual:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.13) 48%,transparent 72%);transform:translateX(-130%);transition:transform .8s var(--motion-ease);z-index:5}
+.project:hover .project-visual:after{transform:translateX(130%)}
+.project{transform-style:preserve-3d;transition:transform .45s var(--motion-ease),box-shadow .45s ease!important}
+.project-v16-cursor{position:fixed;left:0;top:0;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;pointer-events:none;z-index:9999;background:rgba(233,154,199,.13);border:1px solid rgba(241,185,218,.62);color:var(--text,#fff);font-size:10px;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(8px);transform:translate(-50%,-50%) scale(.65);opacity:0;transition:opacity .2s,transform .2s;mix-blend-mode:screen}
+.project-v16-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1)}
+/* Seamless navigation overlay */
+#v16-transition{position:fixed;inset:0;z-index:10000;pointer-events:none;background:radial-gradient(circle at 50% 45%,#382144,#0c0913 72%);opacity:0;clip-path:circle(0% at 50% 50%)}
+#v16-transition.play{animation:transitionBloom .72s var(--motion-ease) both}
+/* Lightweight SVG/vector micro-motion */
+.v16-vector{display:inline-block;vertical-align:middle;overflow:visible}
+.v16-vector .v16-draw{stroke-dasharray:90;stroke-dashoffset:90;animation:vectorDraw 2.6s ease-in-out infinite alternate}
+.v16-vector .v16-orbit{transform-origin:center;animation:vectorOrbit 8s linear infinite}
+.v16-loader{width:28px;height:28px;display:inline-block;vertical-align:middle;animation:vectorOrbit 2.4s linear infinite}
+.v16-loader circle{stroke-dasharray:48 24;animation:loaderDash 1.5s ease-in-out infinite}
+@keyframes kineticLine{from{opacity:0;transform:translate3d(0,105%,0);clip-path:inset(0 0 100% 0);filter:blur(6px)}to{opacity:1;transform:translate3d(0,0,0);clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes eyebrowSlide{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes depthReveal{from{opacity:0;transform:translate3d(0,38px,0) scale(.985);filter:blur(4px)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+@keyframes staggerReveal{from{opacity:0;transform:translate3d(0,24px,0) scale(.98)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes transitionBloom{0%{opacity:0;clip-path:circle(0% at 50% 50%)}45%{opacity:1;clip-path:circle(120% at 50% 50%)}100%{opacity:0;clip-path:circle(140% at 50% 50%)}}
+@keyframes vectorDraw{to{stroke-dashoffset:0}}
+@keyframes vectorOrbit{to{transform:rotate(360deg)}}
+@keyframes loaderDash{0%{stroke-dasharray:1 70;stroke-dashoffset:0}50%{stroke-dasharray:42 70;stroke-dashoffset:-16}100%{stroke-dasharray:1 70;stroke-dashoffset:-70}}
+@media(pointer:coarse),(max-width:800px){.project-v16-cursor{display:none!important}}
+@media(prefers-reduced-motion:reduce){#home .hero-copy h1 .serif,#home .hero-copy h1 .outline,#home .hero-copy .eyebrow,#home .hero-copy .hero-sub,#home .hero-copy .hero-actions,.om-v16-section.om-v16-visible,.om-v16-item.om-v16-visible,.project-visual:after,.v16-vector .v16-draw,.v16-vector .v16-orbit,.v16-loader,.v16-loader circle{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;filter:none!important}#v16-transition{display:none!important}}
 </style>
 </head>
 <body>
@@ -773,6 +789,85 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
     });
   }
 
-})();
-</script>
+
+  // V16: masked kinetic hero and reveal-on-scroll for the full page.
+  const v16Targets=[];
+  document.querySelectorAll("section:not(#home):not(#resumePrintArea)").forEach((section,si)=>{
+    section.classList.add("om-v16-section");
+    section.style.setProperty("--v16-delay",(si%3)*70+"ms");
+    v16Targets.push(section);
+    section.querySelectorAll(".section-kicker,.section-heading,.intro-grid > *, .stats > div, .project, .timeline > *, .credential, .skill-list li, .contact-links a, .contact-form, .contact-card").forEach((item,ii)=>{
+      item.classList.add("om-v16-item");
+      item.style.setProperty("--v16-delay",(ii%7)*55+"ms");
+      v16Targets.push(item);
+    });
+  });
+  if("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    const v16Observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("om-v16-visible");
+          v16Observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.08,rootMargin:"0px 0px -28px 0px"});
+    v16Targets.forEach(target=>v16Observer.observe(target));
+  }else v16Targets.forEach(target=>target.classList.add("om-v16-visible"));
+  // Subtle pointer parallax, clamped for accessibility and performance.
+  let v16Frame=0;
+  window.addEventListener("pointermove",event=>{
+    if(event.pointerType==="touch"||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    if(v16Frame)return;
+    v16Frame=requestAnimationFrame(()=>{
+      v16Frame=0;
+      const y=(event.clientY/window.innerHeight-.5)*-10;
+      document.documentElement.style.setProperty("--hero-parallax",y.toFixed(2)+"px");
+      document.documentElement.style.setProperty("--glow-parallax",(y*.55).toFixed(2)+"px");
+    });
+  },{passive:true});
+  // Project hover cursor and restrained tilt only on fine-pointer devices.
+  if(window.matchMedia("(pointer:fine) and (min-width:801px)").matches){
+    const v16Cursor=document.createElement("div");
+    v16Cursor.className="project-v16-cursor";
+    v16Cursor.textContent="View work";
+    document.body.appendChild(v16Cursor);
+    document.querySelectorAll(".project").forEach(card=>{
+      card.addEventListener("pointerenter",()=>v16Cursor.classList.add("active"));
+      card.addEventListener("pointerleave",()=>{
+        v16Cursor.classList.remove("active");
+        card.style.transform="";
+      });
+      card.addEventListener("pointermove",event=>{
+        v16Cursor.style.left=event.clientX+"px";
+        v16Cursor.style.top=event.clientY+"px";
+        const rect=card.getBoundingClientRect();
+        const rx=((event.clientY-rect.top)/rect.height-.5)*-3;
+        const ry=((event.clientX-rect.left)/rect.width-.5)*3;
+        card.style.transform="perspective(900px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-3px)";
+      });
+    });
+  }
+  // Smooth crossfade/bloom on same-page navigation, respecting reduced motion.
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    const v16Overlay=document.createElement("div");
+    v16Overlay.id="v16-transition";
+    document.body.appendChild(v16Overlay);
+    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(link=>{
+      link.addEventListener("click",event=>{
+        const target=document.querySelector(link.getAttribute("href"));
+        if(!target)return;
+        v16Overlay.classList.remove("play");
+        void v16Overlay.offsetWidth;
+        v16Overlay.classList.add("play");
+      });
+    });
+  }
+  // Small animated SVG brand mark; vector-only, no external animation library.
+  document.querySelectorAll(".eyebrow .live-dot").forEach(dot=>{
+    if(dot.dataset.v16Mark)return;
+    dot.dataset.v16Mark="1";
+    dot.innerHTML='<svg class="v16-vector" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle class="v16-draw" cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle class="v16-orbit" cx="7" cy="7" r="1.8" fill="currentColor"/></svg>';
+  });
+
+})();</script>
 </body></html>
