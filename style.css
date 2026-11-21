@@ -478,3 +478,39 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
  }
 }
 @media(prefers-reduced-motion:reduce){section,.project,.timeline article,.credential,.skill-list li,.contact-links a{animation:none!important;clip-path:none!important;filter:none!important}}
+
+/* === FINAL PORTRAIT + INTRO + PORTFOLIO-WIDE MOTION === */
+.hero-photo-wrap{display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important}
+.photo-frame{width:min(430px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;min-height:0!important;position:relative!important;overflow:hidden!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;isolation:isolate!important;flex:0 0 auto!important;box-shadow:0 0 0 6px rgba(226,124,190,.16),0 0 30px rgba(231,83,174,.42),0 0 72px rgba(117,91,231,.30),0 28px 70px rgba(0,0,0,.48)!important}
+#profilePhoto{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center center!important;transform:scale(.82)!important;transform-origin:center center!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;visibility:visible!important;opacity:1!important;background:transparent!important;z-index:2!important}
+.photo-shade{position:absolute!important;inset:0!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;pointer-events:none!important;z-index:3!important;background:linear-gradient(180deg,transparent 65%,rgba(12,7,18,.25) 100%)!important}
+.photo-label{position:absolute!important;z-index:5!important;left:8%!important;right:8%!important;bottom:8%!important;justify-content:center!important;opacity:.78!important;pointer-events:none!important;text-shadow:0 2px 12px #000!important}
+.photo-frame:before{content:""!important;position:absolute!important;inset:0!important;border:3px solid transparent!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;background:linear-gradient(transparent,transparent) padding-box,conic-gradient(from 0deg,#ff70b8,#a78bfa,#62e7f2,#ffd1e8,#ff70b8) border-box!important;pointer-events:none!important;z-index:8!important;animation:omRoundHalo 9s linear infinite!important}
+.photo-frame:after{content:""!important;position:absolute!important;inset:0!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.20) 48%,transparent 72%)!important;transform:translateX(-130%)!important;pointer-events:none!important;z-index:6!important;animation:omRoundSweep 7.8s ease-in-out 1s infinite!important}
+.photo-stamp{z-index:9!important}
+@media(max-width:700px){.photo-frame{width:min(350px,82vw)!important}.hero-photo-wrap{padding:28px 8px 38px!important}}
+/* Intro arrives as a coordinated cinematic sequence */
+#home .hero-copy{animation:omIntroText .95s cubic-bezier(.16,.78,.22,1) both!important}
+#home .hero-photo-wrap{animation:omIntroPortrait 1.12s cubic-bezier(.16,.78,.22,1) .12s both!important}
+#home .hero-bottom{animation:omIntroFooter .8s ease-out .48s both!important}
+#home .hero-glow{animation:omIntroGlow 7s ease-in-out infinite alternate!important}
+#home .hero-copy .hero-eyebrow,#home .hero-copy h1,#home .hero-copy .hero-description,#home .hero-copy .hero-actions,#home .hero-copy .hero-meta{animation:omIntroText .8s cubic-bezier(.16,.78,.22,1) both!important}
+#home .hero-copy .hero-eyebrow{animation-delay:.08s!important}
+#home .hero-copy h1{animation-delay:.18s!important}
+#home .hero-copy .hero-description{animation-delay:.30s!important}
+#home .hero-copy .hero-actions{animation-delay:.42s!important}
+#home .hero-copy .hero-meta{animation-delay:.52s!important}
+/* Section and card reveal classes are added by IntersectionObserver */
+.om-section-reveal{animation:omSectionReveal .86s cubic-bezier(.16,.78,.22,1) both!important;animation-delay:var(--om-delay,0ms)!important}
+.om-content-reveal{animation:omContentReveal .72s cubic-bezier(.16,.78,.22,1) both!important;animation-delay:var(--om-delay,0ms)!important}
+.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transition:transform .35s ease,box-shadow .35s ease!important}
+.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transform:translateY(-4px)!important}
+@keyframes omRoundHalo{to{transform:rotate(360deg)}}
+@keyframes omRoundSweep{0%,68%,100%{transform:translateX(-130%)}84%{transform:translateX(130%)}}
+@keyframes omIntroText{from{opacity:0;transform:translate3d(0,28px,0);filter:blur(5px)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+@keyframes omIntroPortrait{from{opacity:0;transform:translate3d(26px,30px,0) scale(.91);filter:blur(4px)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+@keyframes omIntroFooter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes omIntroGlow{from{opacity:.28;transform:scale(.94)}to{opacity:.75;transform:scale(1.07)}}
+@keyframes omSectionReveal{from{opacity:0;transform:translate3d(0,32px,0);filter:blur(3px)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+@keyframes omContentReveal{from{opacity:0;transform:translate3d(0,20px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,#home .hero-copy,#home .hero-photo-wrap,#home .hero-bottom,#home .hero-glow,#home .hero-copy>* , .om-section-reveal,.om-content-reveal{animation:none!important;filter:none!important;opacity:1!important;transform:none!important}.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transform:none!important}}
