@@ -206,3 +206,59 @@ body.motion-ready .reveal-child.is-visible{opacity:1;transform:translate3d(0,0,0
 }
 @keyframes motionScrollReveal{from{opacity:.12;transform:translate3d(0,28px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @media(prefers-reduced-motion:reduce){.section,.intro,.stats,.project,.experience-grid,.timeline,.credentials-grid,.skills,.contact,.hero-bottom,.credential,.timeline-item,.stat,.contact-links a{animation:none!important;opacity:1!important;transform:none!important}}
+
+/* ===== Circular portrait + premium color halo + visible motion pass ===== */
+.hero-photo-wrap{min-height:470px!important;perspective:1000px}
+.photo-frame{
+ width:min(410px,84vw)!important;height:auto!important;aspect-ratio:1/1!important;
+ border-radius:50%!important;overflow:hidden!important;position:relative!important;
+ border:3px solid transparent!important;
+ background:linear-gradient(#17101b,#17101b) padding-box,linear-gradient(135deg,#ff70b8 0%,#a78bfa 38%,#62e7f2 70%,#ffd1e8 100%) border-box!important;
+ box-shadow:0 0 0 7px rgba(213,107,177,.10),0 0 32px rgba(231,83,174,.42),0 0 72px rgba(117,91,231,.28),0 28px 75px rgba(0,0,0,.55)!important;
+ animation:portraitCircleFloat 6.5s ease-in-out infinite!important;
+}
+#profilePhoto{
+ display:block!important;width:100%!important;height:100%!important;aspect-ratio:1/1!important;
+ object-fit:cover!important;object-position:50% 30%!important;border-radius:50%!important;
+ filter:saturate(1.08) contrast(1.04)!important;
+ animation:portraitCircleZoom 16s ease-in-out infinite alternate!important;
+}
+.photo-frame:before{
+ content:""!important;position:absolute!important;inset:-9px!important;border-radius:50%!important;
+ border:1px solid rgba(255,128,202,.72)!important;pointer-events:none!important;z-index:6!important;
+ animation:portraitCircleRing 10s ease-in-out infinite!important;
+}
+.photo-frame:after{
+ content:""!important;position:absolute!important;inset:0!important;border-radius:50%!important;
+ background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.22) 48%,transparent 70%)!important;
+ transform:translateX(-130%)!important;animation:portraitCircleSweep 7.5s ease-in-out 1s infinite!important;
+ pointer-events:none!important;z-index:5!important;
+}
+.photo-shade{border-radius:50%!important;background:linear-gradient(180deg,transparent 48%,rgba(12,7,16,.05) 62%,rgba(12,7,16,.78) 100%)!important}
+.photo-label{z-index:7!important;bottom:12%!important;left:0!important;right:0!important;text-align:center!important}
+.photo-stamp{filter:drop-shadow(0 8px 20px rgba(231,83,174,.25))}
+.hero-photo-wrap{animation:circlePhotoEntrance 1.25s cubic-bezier(.16,.78,.22,1) both!important}
+.hero-copy{animation:circleTextEntrance 1s cubic-bezier(.16,.78,.22,1) both!important}
+.hero-glow{animation:circleAmbient 8s ease-in-out infinite alternate!important}
+.hero-copy h1 .serif{background:linear-gradient(110deg,#f2a9d1,#fff1f8,#b9a5ff,#f2a9d1)!important;background-size:250% auto!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;animation:circleTypeGlow 9s linear infinite!important}
+.btn-primary{box-shadow:0 8px 28px rgba(215,95,167,.17);transition:transform .3s ease,box-shadow .3s ease!important}
+.btn-primary:hover{transform:translateY(-3px)!important;box-shadow:0 12px 34px rgba(215,95,167,.32)!important}
+.project{transition:transform .45s cubic-bezier(.2,.75,.25,1),box-shadow .45s ease!important}
+.project:hover{transform:translateY(-7px)!important;box-shadow:0 22px 55px rgba(0,0,0,.28)!important}
+@keyframes portraitCircleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes portraitCircleZoom{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+@keyframes portraitCircleRing{0%,100%{transform:rotate(-3deg) scale(1)}50%{transform:rotate(3deg) scale(1.025)}}
+@keyframes portraitCircleSweep{0%,68%,100%{transform:translateX(-130%)}84%{transform:translateX(130%)}}
+@keyframes circlePhotoEntrance{from{opacity:0;transform:translate3d(25px,28px,0) scale(.92)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes circleTextEntrance{from{opacity:0;transform:translate3d(0,24px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes circleAmbient{from{opacity:.35;transform:scale(.92)}to{opacity:.78;transform:scale(1.08)}}
+@keyframes circleTypeGlow{to{background-position:250% center}}
+@media(max-width:700px){
+ .hero-photo-wrap{min-height:370px!important}
+ .photo-frame{width:min(320px,80vw)!important}
+ .photo-stamp{right:0!important;bottom:25px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .photo-frame,#profilePhoto,.photo-frame:before,.photo-frame:after,.hero-photo-wrap,.hero-copy,.hero-glow,.hero-copy h1 .serif{animation:none!important}
+ .photo-frame{transform:none!important}
+}
