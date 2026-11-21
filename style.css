@@ -581,3 +581,31 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 @keyframes portfolioCardReveal{from{clip-path:inset(0 0 5% 0);filter:blur(0)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
 @keyframes transitionBloom{0%{opacity:0;clip-path:circle(0% at 50% 50%)}35%{opacity:.32;clip-path:circle(95% at 50% 50%)}100%{opacity:0;clip-path:circle(120% at 50% 50%)}}
 @media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,#home .hero-copy,#home .hero-photo-wrap,#home .hero-bottom,#home .hero-glow,#home .hero-copy>* ,.om-v16-section.om-v16-visible,.om-v16-item.om-v16-visible,.om-section-target.om-revealed,.om-content-target.om-revealed,.portfolio-enter.motion-entered,.portfolio-child.motion-entered,.portfolio-motion.portfolio-motion-in{animation:none!important;filter:none!important;opacity:1!important;transform:none!important;clip-path:none!important}}
+
+/* V19 FULL-PORTFOLIO 3D MOTION SYSTEM */
+:root{--v19-perspective:1200px;--v19-ease:cubic-bezier(.2,.72,.22,1)}
+body{perspective:var(--v19-perspective);perspective-origin:50% 35%}
+section:not(#resumePrintArea){transform-style:preserve-3d}
+#home .hero-copy,#home .hero-photo-wrap{transform-style:preserve-3d}
+#home .hero-photo-wrap{transition:transform .85s var(--v19-ease)!important}
+#profilePhoto{object-position:50% 19%!important;object-fit:cover!important}
+.photo-frame{transform-style:preserve-3d!important;transition:transform .8s var(--v19-ease),box-shadow .8s ease!important}
+.photo-frame:hover{transform:perspective(900px) rotateY(-3deg) rotateX(2deg) translateZ(7px)!important}
+.project,.credential,.stats>div,.finance-card,.grocery-card,.contact-links a,.timeline>*,.skill-list li,.intro-grid>*{transform-style:preserve-3d!important;backface-visibility:hidden;will-change:transform}
+.v19-tilt-card{--v19-rx:0deg;--v19-ry:0deg;--v19-lift:0px;transform:perspective(1000px) rotateX(var(--v19-rx)) rotateY(var(--v19-ry)) translateY(var(--v19-lift))!important;transition:transform .7s var(--v19-ease),box-shadow .7s ease!important}
+.v19-tilt-card.v19-hover{--v19-lift:-5px;box-shadow:0 22px 48px rgba(0,0,0,.27),0 0 0 1px rgba(231,161,187,.16)!important}
+.v19-tilt-card .project-visual,.v19-tilt-card .credential-icon,.v19-tilt-card .stat-number,.v19-tilt-card .timeline-top,.v19-tilt-card .project-info{transform:translateZ(14px);transition:transform .7s var(--v19-ease)!important}
+.v19-tilt-card.v19-hover .project-visual,.v19-tilt-card.v19-hover .credential-icon,.v19-tilt-card.v19-hover .stat-number,.v19-tilt-card.v19-hover .timeline-top,.v19-tilt-card.v19-hover .project-info{transform:translateZ(24px)}
+.v19-depth-reveal{opacity:1;transform:translate3d(0,0,0) rotateX(0)!important}
+.v19-depth-reveal.v19-in{animation:v19DepthEnter 1.15s var(--v19-ease) both;animation-delay:var(--v19-delay,0ms)}
+.v19-section-title{transform-style:preserve-3d}
+.v19-section-title.v19-in{animation:v19TitleEnter 1.25s var(--v19-ease) both}
+.v19-skill-3d{transition:transform .45s var(--v19-ease),background .45s ease,box-shadow .45s ease!important;transform:translateZ(0)}
+.v19-skill-3d:hover{transform:perspective(700px) rotateX(5deg) rotateY(-6deg) translateY(-3px) translateZ(8px)!important;box-shadow:0 12px 24px rgba(0,0,0,.2)}
+.v19-contact-orb{transform-style:preserve-3d;animation:v19OrbFloat 8s ease-in-out infinite}
+.v19-contact-orb>*{transform:translateZ(20px)}
+@keyframes v19DepthEnter{0%{opacity:0;transform:perspective(900px) translate3d(0,28px,0) rotateX(4deg) scale(.985)!important}100%{opacity:1;transform:perspective(900px) translate3d(0,0,0) rotateX(0) scale(1)!important}}
+@keyframes v19TitleEnter{0%{opacity:0;transform:perspective(800px) translate3d(0,18px,-18px) rotateX(7deg)}100%{opacity:1;transform:perspective(800px) translate3d(0,0,0) rotateX(0)}}
+@keyframes v19OrbFloat{0%,100%{transform:perspective(900px) translateY(0) rotateX(0) rotateY(0)}50%{transform:perspective(900px) translateY(-8px) rotateX(2deg) rotateY(-3deg)}}
+@media(pointer:coarse),(max-width:800px){.v19-tilt-card{transform:translateY(var(--v19-lift,0px))!important}.v19-tilt-card .project-visual,.v19-tilt-card .credential-icon,.v19-tilt-card .stat-number,.v19-tilt-card .timeline-top,.v19-tilt-card .project-info{transform:none!important}.v19-skill-3d:hover{transform:translateY(-2px)!important}}
+@media(prefers-reduced-motion:reduce){.v19-tilt-card,.v19-depth-reveal.v19-in,.v19-section-title.v19-in,.v19-skill-3d,.v19-contact-orb,.photo-frame{animation:none!important;transition:none!important;transform:none!important;opacity:1!important;box-shadow:none!important}}
