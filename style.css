@@ -262,3 +262,43 @@ body.motion-ready .reveal-child.is-visible{opacity:1;transform:translate3d(0,0,0
  .photo-frame,#profilePhoto,.photo-frame:before,.photo-frame:after,.hero-photo-wrap,.hero-copy,.hero-glow,.hero-copy h1 .serif{animation:none!important}
  .photo-frame{transform:none!important}
 }
+
+/* Clean editorial portfolio motion — no numeric section/project labels */
+.project-index{display:none!important}
+.section-kicker{letter-spacing:.19em;opacity:.92}
+.photo-frame{isolation:isolate}
+.photo-frame:before{border:2px solid transparent!important;background:linear-gradient(transparent,transparent) padding-box,conic-gradient(from var(--halo-angle,0deg),#ff70b8,#a78bfa,#62e7f2,#ffd1e8,#ff70b8) border-box!important;inset:-7px!important;animation:cleanHaloRotate 8s linear infinite!important}
+.photo-frame:after{animation:cleanPhotoGlide 6.8s cubic-bezier(.4,0,.2,1) 1s infinite!important}
+.photo-frame{box-shadow:0 0 0 6px rgba(213,107,177,.10),0 0 26px rgba(231,83,174,.38),0 0 66px rgba(117,91,231,.25),0 28px 75px rgba(0,0,0,.5)!important}
+#profilePhoto{animation:cleanPortraitBreath 13s ease-in-out infinite alternate!important}
+.hero-photo-wrap{animation:cleanHeroPhotoArrival 1.2s cubic-bezier(.16,.78,.22,1) both!important}
+.hero-copy{animation:cleanHeroTextArrival .95s cubic-bezier(.16,.78,.22,1) both!important}
+.hero-glow{animation:cleanAmbientBreath 9s ease-in-out infinite alternate!important}
+.hero-copy h1 .serif{animation:cleanTitleLight 11s ease-in-out infinite alternate!important}
+.project{transform:translateZ(0);transition:transform .5s cubic-bezier(.2,.75,.25,1),box-shadow .5s ease,border-color .5s ease!important}
+.project:hover{transform:translateY(-8px) scale(1.008)!important;box-shadow:0 24px 60px rgba(10,5,15,.32),0 0 0 1px rgba(231,161,187,.13)!important}
+.project-visual{transition:background-position 1.2s ease,filter .7s ease!important}
+.project:hover .project-visual{filter:saturate(1.14)!important}
+.project-info h3{transition:color .35s ease}
+.project:hover .project-info h3{color:#f3c1d8}
+.timeline{position:relative}
+.timeline:before{content:"";position:absolute;left:-1px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,#e7a1bb,#9e8bfa,transparent);background-size:100% 220%;animation:cleanTimelineFlow 7s linear infinite}
+.timeline article:before{transition:transform .35s ease,box-shadow .35s ease}
+.timeline article:hover:before{transform:scale(1.35);box-shadow:0 0 0 7px #e7a1bb18,0 0 18px #e7a1bb88}
+.contact-orb{animation:cleanContactFloat 12s ease-in-out infinite alternate!important}
+.contact h2 .serif{display:inline-block;transition:transform .6s cubic-bezier(.2,.75,.25,1)}
+.contact:hover h2 .serif{transform:translateY(-4px)}
+.btn{position:relative;overflow:hidden}
+.btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.13) 50%,transparent 65%);transform:translateX(-130%);transition:transform .8s ease;pointer-events:none}
+.btn:hover:after{transform:translateX(130%)}
+@keyframes cleanHaloRotate{to{--halo-angle:360deg}}
+@property --halo-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes cleanPhotoGlide{0%,65%,100%{transform:translateX(-130%)}82%{transform:translateX(130%)}}
+@keyframes cleanPortraitBreath{from{transform:scale(1.015)}to{transform:scale(1.09)}}
+@keyframes cleanHeroPhotoArrival{from{opacity:0;transform:translate3d(20px,24px,0) scale(.94)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes cleanHeroTextArrival{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes cleanAmbientBreath{from{opacity:.36;transform:scale(.94)}to{opacity:.78;transform:scale(1.06)}}
+@keyframes cleanTitleLight{from{background-position:0% center}to{background-position:100% center}}
+@keyframes cleanTimelineFlow{to{background-position:0 220%}}
+@keyframes cleanContactFloat{from{transform:translate3d(-8px,8px,0) scale(.96)}to{transform:translate3d(10px,-12px,0) scale(1.05)}}
+@media(prefers-reduced-motion:reduce){.photo-frame:before,.photo-frame:after,#profilePhoto,.hero-photo-wrap,.hero-copy,.hero-glow,.hero-copy h1 .serif,.timeline:before,.contact-orb{animation:none!important}.project:hover,.contact:hover h2 .serif{transform:none!important}.btn:after{display:none}}
