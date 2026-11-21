@@ -8,7 +8,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="Om Dugane | Cinematic Portfolio"><meta property="og:description" content="Data analytics, finance research and web development — projects, experience and professional profile."><meta property="og:image" content="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=20261121-3"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Om Dugane | Portfolio"><meta name="twitter:description" content="Data analytics · Finance research · Web development">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=round-cinema-motion-13"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=round-cinema-motion-14"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style id="portfolio-inline-style">@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--bg:#100b12;--panel:#1a111c;--text:#f7f0f1;--muted:#b8a8b3;--line:#ffffff20;--pink:#e7a1bb;--hot:#f06a9a;--cream:#f4e5e8;--max:1200px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -446,6 +446,49 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 @keyframes cinemaHeroPhoto{from{opacity:0;transform:translate3d(24px,26px,0) scale(.92)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
 @keyframes cinemaGlow{from{opacity:.32;transform:scale(.94)}to{opacity:.78;transform:scale(1.06)}}
 @media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,.hero-copy,.hero-photo-wrap,.hero-glow,.cinema-reveal.cinema-in,.cinema-child.cinema-in{animation:none!important}.cinema-reveal,.cinema-child{opacity:1!important;transform:none!important}.project:hover,.skill-list li:hover,.credential:hover,.contact-links a:hover,.filter:hover,.btn:hover{transform:none!important}}
+
+/* Guaranteed visual motion even if the observer script is delayed */
+.hero-photo-wrap{overflow:visible!important}
+.photo-frame{overflow:visible!important;clip-path:none!important;border-radius:50%!important;isolation:isolate!important}
+#profilePhoto,.photo-frame img{border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-shade{border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-frame:before{content:""!important;position:absolute!important;inset:-6px!important;border-radius:50%!important;padding:3px!important;background:conic-gradient(from 0deg,#ff70b8,#a78bfa,#62e7f2,#ffd1e8,#ff70b8)!important;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0)!important;mask-composite:exclude!important;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0)!important;-webkit-mask-composite:xor!important;pointer-events:none!important;z-index:30!important;animation:portraitRoundRing 8s linear infinite!important}
+.photo-frame:after{z-index:20!important;clip-path:circle(50% at 50% 50%)!important}
+@keyframes allSectionsOnLoad{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes allCardsOnLoad{from{opacity:0;transform:translate3d(0,18px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@media(prefers-reduced-motion:no-preference){
+ section:not(#home){animation:allSectionsOnLoad .95s cubic-bezier(.16,.76,.24,1) both;animation-delay:calc(var(--section-order,0)*90ms)}
+ section#about{--section-order:1} section#work{--section-order:2} section#experience{--section-order:3} section#credentials{--section-order:4} section#contact{--section-order:5}
+ .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:allCardsOnLoad .8s cubic-bezier(.16,.76,.24,1) both;animation-delay:calc(var(--card-order,0)*65ms)}
+ .project:nth-child(2){--card-order:1}.project:nth-child(3){--card-order:2}.project:nth-child(4){--card-order:3}.project:nth-child(5){--card-order:4}.project:nth-child(6){--card-order:5}
+}
+/* Modern Android/Chrome: sections and cards animate on scroll into view */
+@supports(animation-timeline:view()){
+ @media(prefers-reduced-motion:no-preference){
+  section:not(#home){animation:allSectionsOnLoad .9s cubic-bezier(.16,.76,.24,1) both;animation-timeline:view();animation-range:entry 0% entry 42%;animation-delay:0ms}
+  .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:allCardsOnLoad .75s cubic-bezier(.16,.76,.24,1) both;animation-timeline:view();animation-range:entry 0% entry 35%;animation-delay:0ms}
+ }
+}
+@media(prefers-reduced-motion:reduce){section,.project,.timeline article,.credential,.skill-list li,.contact-links a{animation:none!important;opacity:1!important;transform:none!important}}
+
+/* Final cascade override: visible content + animated mask reveal (works with legacy reveal classes) */
+.reveal,.reveal-child{opacity:1;transform:none}
+.portfolio-enter,.portfolio-child{opacity:1;transform:none}
+@keyframes portfolioWipeReveal{from{clip-path:inset(0 0 82% 0);filter:blur(5px)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes portfolioCardReveal{from{clip-path:inset(0 0 24% 0);filter:blur(4px)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@media(prefers-reduced-motion:no-preference){
+ section:not(#home){animation:portfolioWipeReveal .95s cubic-bezier(.16,.76,.24,1) both!important;animation-delay:calc(var(--section-order,0)*85ms)!important}
+ section#about{--section-order:1} section#work{--section-order:2} section#experience{--section-order:3} section#credentials{--section-order:4} section#contact{--section-order:5}
+ .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:portfolioCardReveal .8s cubic-bezier(.16,.76,.24,1) both!important;animation-delay:calc(var(--card-order,0)*60ms)!important}
+ .project:nth-child(2){--card-order:1}.project:nth-child(3){--card-order:2}.project:nth-child(4){--card-order:3}.project:nth-child(5){--card-order:4}.project:nth-child(6){--card-order:5}
+}
+@supports(animation-timeline:view()){
+ @media(prefers-reduced-motion:no-preference){
+  section:not(#home){animation:portfolioWipeReveal .9s cubic-bezier(.16,.76,.24,1) both!important;animation-timeline:view()!important;animation-range:entry 0% entry 42%!important;animation-delay:0ms!important}
+  .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:portfolioCardReveal .75s cubic-bezier(.16,.76,.24,1) both!important;animation-timeline:view()!important;animation-range:entry 0% entry 35%!important;animation-delay:0ms!important}
+ }
+}
+@media(prefers-reduced-motion:reduce){section,.project,.timeline article,.credential,.skill-list li,.contact-links a{animation:none!important;clip-path:none!important;filter:none!important}}
 </style>
 </head>
 <body>
@@ -462,7 +505,7 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 <p class="hero-sub">I turn curiosity into insights and ideas into useful digital experiences—through analytics, research and web development.</p>
 <div class="hero-actions"><a class="btn btn-primary" href="#work">Explore my work <i class="fa-solid fa-arrow-down"></i></a><button class="btn btn-ghost" id="printResume"><i class="fa-regular fa-file-lines"></i> Résumé / Save PDF</button></div>
 <div class="hero-meta"><span><i class="fa-solid fa-location-dot"></i> India</span><span class="meta-sep"></span><span>Open to entry-level opportunities</span></div></div>
-<div class="hero-photo-wrap" style="position:relative!important;z-index:12!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;"><div class="photo-frame" style="position:relative!important;z-index:13!important;width:min(430px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;border-radius:50%!important;overflow:hidden!important;box-shadow:0 0 0 7px rgba(222,111,185,.14),0 0 32px rgba(231,83,174,.48),0 0 78px rgba(117,91,231,.32),0 28px 70px rgba(0,0,0,.48)!important;"><img id="profilePhoto" src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=round-cinema-motion-13" alt="Om Dugane profile photo" width="720" height="1280" loading="eager" fetchpriority="high" decoding="async" style="display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 26%!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;visibility:visible!important;opacity:1!important;background:#160d1d!important;" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg?v=round-cinema-motion-13'"><div class="photo-shade"></div><div class="photo-label"><span>OM DUGANE</span><span>ANALYTICS · WEB</span></div></div><div class="photo-stamp">BUILD<br>WITH<br><em>purpose.</em></div></div>
+<div class="hero-photo-wrap" style="position:relative!important;z-index:12!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;"><div class="photo-frame" style="position:relative!important;z-index:13!important;width:min(430px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;border-radius:50%!important;overflow:hidden!important;box-shadow:0 0 0 7px rgba(222,111,185,.14),0 0 32px rgba(231,83,174,.48),0 0 78px rgba(117,91,231,.32),0 28px 70px rgba(0,0,0,.48)!important;"><img id="profilePhoto" src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=round-cinema-motion-14" alt="Om Dugane profile photo" width="720" height="1280" loading="eager" fetchpriority="high" decoding="async" style="display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 26%!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;visibility:visible!important;opacity:1!important;background:#160d1d!important;" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg?v=round-cinema-motion-14'"><div class="photo-shade"></div><div class="photo-label"><span>OM DUGANE</span><span>ANALYTICS · WEB</span></div></div><div class="photo-stamp">BUILD<br>WITH<br><em>purpose.</em></div></div>
 <div class="hero-bottom"><span>PORTFOLIO / 2026</span><span>SCROLL TO DISCOVER <i class="fa-solid fa-arrow-down-long"></i></span></div>
 </section>
 <section class="intro section" id="about"><div class="section-kicker">A LITTLE ABOUT ME</div><div class="intro-grid"><h2>Curious mind.<br><span class="serif">Practical maker.</span></h2><div class="intro-text"><p class="lead">I’m Om, a BCA student at Sant Gadge Baba Amravati University with an interest in data analytics, finance research and building responsive web applications.</p><p>I enjoy exploring data, learning new tools and creating projects that solve real-world problems. My approach is simple: stay curious, work with care and keep improving.</p><a class="text-link" href="https://www.linkedin.com/in/om-dugane-48b6b02a8/" target="_blank" rel="noreferrer">More on LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
