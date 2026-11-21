@@ -132,4 +132,50 @@
     });
     finalPortrait.addEventListener("load",()=>{finalPortrait.style.visibility="visible";finalPortrait.style.opacity="1";});
   }
+
+  // Dedicated final cinematic entrances for the intro and every portfolio section.
+  const omMotionTargets=[];
+  const omSections=[...document.querySelectorAll("section:not(#home)")];
+  omSections.forEach((section,index)=>{
+    section.classList.add("om-section-target");
+    section.style.setProperty("--om-delay",(index%3)*90+"ms");
+    omMotionTargets.push(section);
+    const children=section.querySelectorAll(".section-kicker, .intro-grid > *, .stat, .project, .timeline-item, .timeline article, .credential, .skill-list li, .contact-links a, .section-heading, .contact > *");
+    children.forEach((child,i)=>{
+      child.classList.add("om-content-target");
+      child.style.setProperty("--om-delay",(i%6)*65+"ms");
+      omMotionTargets.push(child);
+    });
+  });
+  const omIntroTargets=document.querySelectorAll("#home .hero-copy, #home .hero-photo-wrap, #home .hero-bottom");
+  omIntroTargets.forEach((item,index)=>{
+    item.classList.add("om-intro-target");
+    item.style.setProperty("--om-intro-delay",index*140+"ms");
+  });
+  if("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    const omRevealObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("om-revealed");
+          omRevealObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.05,rootMargin:"0px 0px -24px 0px"});
+    omMotionTargets.forEach(item=>omRevealObserver.observe(item));
+  }else{
+    omMotionTargets.forEach(item=>item.classList.add("om-revealed"));
+  }
+  // Ensure portrait visibility and use the alternate file only if the main image fails.
+  const omPhoto=document.getElementById("profilePhoto");
+  if(omPhoto){
+    omPhoto.style.visibility="visible";
+    omPhoto.style.opacity="1";
+    omPhoto.addEventListener("error",()=>{
+      if(!omPhoto.dataset.omFallback){
+        omPhoto.dataset.omFallback="1";
+        omPhoto.src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg";
+      }
+    });
+  }
+
 })();
