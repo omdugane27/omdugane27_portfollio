@@ -1,6 +1,10 @@
-<script>
-function openSite() {
-    document.getElementById("intro").style.display = "none"}
-   { document.getElementById("main").style.display = "block"
-}
-</script>
+const menuToggle=document.getElementById("menuToggle");
+const navMenu=document.getElementById("navMenu");
+menuToggle?.addEventListener("click",()=>{const open=navMenu.classList.toggle("open");menuToggle.setAttribute("aria-expanded",String(open));menuToggle.innerHTML=open?'<i class="fa-solid fa-xmark"></i>':'<i class="fa-solid fa-bars"></i>';});
+navMenu?.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>{navMenu.classList.remove("open");menuToggle.setAttribute("aria-expanded","false");menuToggle.innerHTML='<i class="fa-solid fa-bars"></i>';}));
+const roles=["BCA Student","Aspiring Data Analyst","Web Developer","Lifelong Learner"];
+const roleEl=document.getElementById("dynamic-text");let roleIndex=0,charIndex=0,deleting=false;
+function typeRole(){if(!roleEl)return;const word=roles[roleIndex];roleEl.textContent=word.slice(0,charIndex);if(!deleting&&charIndex<word.length){charIndex++;setTimeout(typeRole,85);}else if(!deleting){deleting=true;setTimeout(typeRole,1150);}else if(charIndex>0){charIndex--;setTimeout(typeRole,42);}else{deleting=false;roleIndex=(roleIndex+1)%roles.length;setTimeout(typeRole,250);}}
+typeRole();
+document.getElementById("year").textContent=new Date().getFullYear();
+document.getElementById("contactForm")?.addEventListener("submit",event=>{event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;const data=new FormData(form);const name=String(data.get("name")).trim();const email=String(data.get("email")).trim();const subject=String(data.get("subject")).trim();const message=String(data.get("message")).trim();const body=`Name: ${name}\nEmail: ${email}\n\n${message}`;const mailto="mailto:omdugane25@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);document.getElementById("formNote").textContent="Your email app should open with the message prepared. Review it and press Send.";window.location.href=mailto;});
