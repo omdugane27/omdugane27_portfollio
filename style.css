@@ -435,3 +435,27 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 @keyframes cinemaHeroPhoto{from{opacity:0;transform:translate3d(24px,26px,0) scale(.92)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
 @keyframes cinemaGlow{from{opacity:.32;transform:scale(.94)}to{opacity:.78;transform:scale(1.06)}}
 @media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,.hero-copy,.hero-photo-wrap,.hero-glow,.cinema-reveal.cinema-in,.cinema-child.cinema-in{animation:none!important}.cinema-reveal,.cinema-child{opacity:1!important;transform:none!important}.project:hover,.skill-list li:hover,.credential:hover,.contact-links a:hover,.filter:hover,.btn:hover{transform:none!important}}
+
+/* Guaranteed visual motion even if the observer script is delayed */
+.hero-photo-wrap{overflow:visible!important}
+.photo-frame{overflow:visible!important;clip-path:none!important;border-radius:50%!important;isolation:isolate!important}
+#profilePhoto,.photo-frame img{border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-shade{border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-frame:before{content:""!important;position:absolute!important;inset:-6px!important;border-radius:50%!important;padding:3px!important;background:conic-gradient(from 0deg,#ff70b8,#a78bfa,#62e7f2,#ffd1e8,#ff70b8)!important;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0)!important;mask-composite:exclude!important;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0)!important;-webkit-mask-composite:xor!important;pointer-events:none!important;z-index:30!important;animation:portraitRoundRing 8s linear infinite!important}
+.photo-frame:after{z-index:20!important;clip-path:circle(50% at 50% 50%)!important}
+@keyframes allSectionsOnLoad{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes allCardsOnLoad{from{opacity:0;transform:translate3d(0,18px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@media(prefers-reduced-motion:no-preference){
+ section:not(#home){animation:allSectionsOnLoad .95s cubic-bezier(.16,.76,.24,1) both;animation-delay:calc(var(--section-order,0)*90ms)}
+ section#about{--section-order:1} section#work{--section-order:2} section#experience{--section-order:3} section#credentials{--section-order:4} section#contact{--section-order:5}
+ .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:allCardsOnLoad .8s cubic-bezier(.16,.76,.24,1) both;animation-delay:calc(var(--card-order,0)*65ms)}
+ .project:nth-child(2){--card-order:1}.project:nth-child(3){--card-order:2}.project:nth-child(4){--card-order:3}.project:nth-child(5){--card-order:4}.project:nth-child(6){--card-order:5}
+}
+/* Modern Android/Chrome: sections and cards animate on scroll into view */
+@supports(animation-timeline:view()){
+ @media(prefers-reduced-motion:no-preference){
+  section:not(#home){animation:allSectionsOnLoad .9s cubic-bezier(.16,.76,.24,1) both;animation-timeline:view();animation-range:entry 0% entry 42%;animation-delay:0ms}
+  .project,.timeline article,.credential,.skill-list li,.contact-links a{animation:allCardsOnLoad .75s cubic-bezier(.16,.76,.24,1) both;animation-timeline:view();animation-range:entry 0% entry 35%;animation-delay:0ms}
+ }
+}
+@media(prefers-reduced-motion:reduce){section,.project,.timeline article,.credential,.skill-list li,.contact-links a{animation:none!important;opacity:1!important;transform:none!important}}
