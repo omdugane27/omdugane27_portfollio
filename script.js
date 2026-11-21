@@ -179,3 +179,60 @@
   }
 
 })();
+
+  // V19: add coordinated depth motion to every portfolio section and content type.
+  const v19Reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const v19Fine=window.matchMedia("(pointer:fine) and (min-width:801px)").matches;
+  const v19Cards=[...document.querySelectorAll(".project,.credential,.stats>div,.finance-card,.grocery-card,.contact-links a,.timeline>*,.skill-list li,.intro-grid>*")];
+  v19Cards.forEach((card,index)=>{
+    card.classList.add("v19-tilt-card","v19-depth-reveal");
+    card.style.setProperty("--v19-delay",(index%6)*65+"ms");
+  });
+  document.querySelectorAll("section:not(#home):not(#resumePrintArea)").forEach((section,index)=>{
+    section.querySelectorAll(".section-heading,.section-kicker,.intro-copy,.contact-orb").forEach(el=>{
+      el.classList.add("v19-depth-reveal");
+      el.style.setProperty("--v19-delay",(index%4)*80+"ms");
+    });
+  });
+  document.querySelectorAll(".section-heading h2,.section-heading p,.intro h2,.contact h2").forEach(el=>el.classList.add("v19-section-title"));
+  document.querySelectorAll(".skill-list li").forEach(el=>el.classList.add("v19-skill-3d"));
+  const v19RevealTargets=[...document.querySelectorAll(".v19-depth-reveal,.v19-section-title")];
+  if(!v19Reduced&&"IntersectionObserver" in window){
+    const v19Observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("v19-in");
+          v19Observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.09,rootMargin:"0px 0px -35px 0px"});
+    v19RevealTargets.forEach(el=>v19Observer.observe(el));
+  }else v19RevealTargets.forEach(el=>el.classList.add("v19-in"));
+  if(!v19Reduced&&v19Fine){
+    v19Cards.forEach(card=>{
+      card.addEventListener("pointerenter",()=>card.classList.add("v19-hover"));
+      card.addEventListener("pointerleave",()=>{
+        card.classList.remove("v19-hover");
+        card.style.setProperty("--v19-rx","0deg");
+        card.style.setProperty("--v19-ry","0deg");
+      });
+      card.addEventListener("pointermove",event=>{
+        const rect=card.getBoundingClientRect();
+        const px=(event.clientX-rect.left)/rect.width;
+        const py=(event.clientY-rect.top)/rect.height;
+        card.style.setProperty("--v19-rx",((.5-py)*4.5).toFixed(2)+"deg");
+        card.style.setProperty("--v19-ry",((px-.5)*4.5).toFixed(2)+"deg");
+      },{passive:true});
+    });
+    const v19Hero=document.querySelector(".hero-photo-wrap");
+    if(v19Hero){
+      v19Hero.addEventListener("pointermove",event=>{
+        const rect=v19Hero.getBoundingClientRect();
+        const rx=((event.clientY-rect.top)/rect.height-.5)*-3;
+        const ry=((event.clientX-rect.left)/rect.width-.5)*3;
+        v19Hero.style.transform="perspective(1000px) rotateX("+rx.toFixed(2)+"deg) rotateY("+ry.toFixed(2)+"deg) translateZ(5px)";
+      },{passive:true});
+      v19Hero.addEventListener("pointerleave",()=>v19Hero.style.transform="");
+    }
+  }
+  document.querySelector(".contact-orb")?.classList.add("v19-contact-orb");
