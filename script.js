@@ -32,7 +32,7 @@
   $('.project-visual').forEach((visual,index)=>{visual.classList.add('visual-motion');visual.style.setProperty('--visual-delay',(index*110)+'ms');});
 
   // Scroll reveal for cinematic section and card entrances
-  const revealItems=$('.section, .project, .contact, .hero-bottom');
+  const revealItems=Array.from(document.querySelectorAll('.section, .project, .contact, .hero-bottom'));
   revealItems.forEach((item,index)=>{item.classList.add('reveal');if(item.classList.contains('project'))item.style.setProperty('--reveal-delay',(index%3)*90+'ms');});
   if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}}),{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
