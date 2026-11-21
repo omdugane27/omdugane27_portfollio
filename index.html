@@ -8,7 +8,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="Om Dugane | Cinematic Portfolio"><meta property="og:description" content="Data analytics, finance research and web development — projects, experience and professional profile."><meta property="og:image" content="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=20261121-3"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Om Dugane | Portfolio"><meta name="twitter:description" content="Data analytics · Finance research · Web development">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=scroll-click-3d-photo-fix-v22"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=complete-fix-3d-scroll-click-photo-v23"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style id="portfolio-inline-style">@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--bg:#100b12;--panel:#1a111c;--text:#f7f0f1;--muted:#b8a8b3;--line:#ffffff20;--pink:#e7a1bb;--hot:#f06a9a;--cream:#f4e5e8;--max:1200px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -724,6 +724,35 @@ body.motion-enabled .v21-project.v21-visible{animation:v21ProjectIn 1s cubic-bez
 @keyframes v22PhotoClick{0%,100%{transform:perspective(1000px) rotateX(0) rotateY(0) translateZ(0)}35%{transform:perspective(1000px) rotateX(4deg) rotateY(-5deg) translateZ(16px)}}
 @media(pointer:fine) and (min-width:801px){.v22-motion-ready .v22-card.v22-pointer-active{transform:perspective(1100px) rotateX(var(--v22-rx,0deg)) rotateY(var(--v22-ry,0deg)) translateZ(12px)!important);box-shadow:0 24px 52px rgba(0,0,0,.28)!important}}
 @media(prefers-reduced-motion:reduce){.v22-motion-ready .v22-animated.v22-in,.v22-motion-ready .v22-section.v22-section-active,.v22-motion-ready .v22-card.v22-clicked,.v22-motion-ready .v22-click-target.v22-clicked,.v22-motion-ready .v22-photo-stage.v22-photo-active{animation-duration:.4s!important}.v22-motion-ready #profilePhoto{transform:none!important}}
+
+/* V23: reliable scroll replays, real 3D scroll depth, tap feedback and portrait framing */
+.photo-frame.v23-photo-frame{width:min(380px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;margin-top:clamp(26px,4.5vw,48px)!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;overflow:hidden!important;position:relative!important;isolation:isolate!important}
+#home .hero-photo-wrap{min-height:570px!important;align-items:center!important;justify-content:center!important;transform-style:preserve-3d!important}
+#profilePhoto.v23-portrait{object-fit:cover!important;object-position:50% 20%!important;transform:scale(1)!important;transform-origin:50% 24%!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;filter:saturate(.9) contrast(1.02)!important}
+.photo-frame.v23-photo-frame .photo-shade{border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-frame.v23-photo-frame:before,.photo-frame.v23-photo-frame:after{border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-frame.v23-photo-frame .photo-label{bottom:6%!important;left:6%!important;right:6%!important}
+@media(max-width:800px){.photo-frame.v23-photo-frame{width:min(340px,82vw)!important;margin-top:24px!important}#home .hero-photo-wrap{min-height:470px!important}}
+html.v23-motion-on .v23-reveal:not(.v23-shown){opacity:0!important;transform:perspective(1000px) translate3d(0,28px,-24px) rotateX(6deg) scale(.985)!important}
+html.v23-motion-on .v23-reveal.v23-shown{opacity:1!important;transform:perspective(1000px) translate3d(0,0,0) rotateX(0) scale(1)!important}
+html.v23-motion-on .v23-reveal.v23-entering{animation:v23Reveal3D 1.05s cubic-bezier(.18,.72,.2,1) both!important;animation-delay:var(--v23-delay,0ms)!important}
+html.v23-motion-on .v23-scroll-section{transform-style:preserve-3d!important;transform-origin:50% 45%!important;transition:transform .16s linear!important;transform:perspective(1500px) rotateX(var(--v23-scroll-angle,0deg))!important}
+html.v23-motion-on .v23-scroll-section.v23-section-entering{animation:v23SectionIn 1.05s cubic-bezier(.18,.72,.2,1) both!important}
+html.v23-motion-on .v23-3d-card{transform-style:preserve-3d!important;backface-visibility:hidden!important;transition:transform .6s cubic-bezier(.18,.72,.2,1),box-shadow .6s ease!important}
+html.v23-motion-on .v23-3d-card .project-visual,html.v23-motion-on .v23-3d-card .project-info,html.v23-motion-on .v23-3d-card .credential-icon,html.v23-motion-on .v23-3d-card .timeline-top{transform:translateZ(16px)!important;transition:transform .6s ease!important}
+html.v23-motion-on .v23-3d-card.v23-card-hover{box-shadow:0 24px 48px rgba(0,0,0,.28),0 0 0 1px rgba(231,161,187,.18)!important}
+html.v23-motion-on .v23-3d-card.v23-card-tap{animation:v23CardTap .72s cubic-bezier(.18,.72,.2,1) both!important}
+html.v23-motion-on .v23-tap-target{transform-style:preserve-3d!important;backface-visibility:hidden!important;transition:transform .35s ease,filter .35s ease!important}
+html.v23-motion-on .v23-tap-target.v23-tapped{animation:v23TapFeedback .68s cubic-bezier(.18,.72,.2,1) both!important}
+html.v23-motion-on .v23-photo-frame.v23-photo-tapped{animation:v23PhotoTap 1s ease-in-out both!important}
+@keyframes v23Reveal3D{0%{opacity:0;transform:perspective(1000px) translate3d(0,30px,-28px) rotateX(7deg) scale(.98)}100%{opacity:1;transform:perspective(1000px) translate3d(0,0,0) rotateX(0) scale(1)}}
+@keyframes v23SectionIn{0%{opacity:.65;filter:blur(2px)}100%{opacity:1;filter:blur(0)}}
+@keyframes v23CardTap{0%{transform:perspective(1100px) translateZ(0) rotateX(0) rotateY(0)}35%{transform:perspective(1100px) translateZ(18px) rotateX(4deg) rotateY(-4deg) scale(1.015)}100%{transform:perspective(1100px) translateZ(0) rotateX(0) rotateY(0)}}
+@keyframes v23TapFeedback{0%{transform:perspective(800px) translateZ(0) rotateX(0) scale(1)}40%{transform:perspective(800px) translateZ(12px) rotateX(5deg) scale(1.025)}100%{transform:perspective(800px) translateZ(0) rotateX(0) scale(1)}}
+@keyframes v23PhotoTap{0%,100%{transform:perspective(1000px) rotateX(0) rotateY(0) translateZ(0)}35%{transform:perspective(1000px) rotateX(4deg) rotateY(-5deg) translateZ(14px)}}
+@media(pointer:fine) and (min-width:801px){html.v23-motion-on .v23-3d-card.v23-card-hover{transform:perspective(1100px) rotateX(var(--v23-rx,0deg)) rotateY(var(--v23-ry,0deg)) translateZ(10px)!important}}
+@media(max-width:800px){html.v23-motion-on .v23-scroll-section{transform:perspective(1200px) rotateX(calc(var(--v23-scroll-angle,0deg)*.45))!important}}
+@media(prefers-reduced-motion:reduce){html.v23-motion-on .v23-reveal:not(.v23-shown){opacity:1!important;transform:none!important}html.v23-motion-on .v23-reveal.v23-entering,html.v23-motion-on .v23-section-entering,html.v23-motion-on .v23-tap-target.v23-tapped{animation-duration:.35s!important}}
 </style>
 </head>
 <body>
@@ -740,7 +769,7 @@ body.motion-enabled .v21-project.v21-visible{animation:v21ProjectIn 1s cubic-bez
 <p class="hero-sub">I turn curiosity into insights and ideas into useful digital experiences—through analytics, research and web development.</p>
 <div class="hero-actions"><a class="btn btn-primary" href="#work">Explore my work <i class="fa-solid fa-arrow-down"></i></a><button class="btn btn-ghost" id="printResume"><i class="fa-regular fa-file-lines"></i> Résumé / Save PDF</button></div>
 <div class="hero-meta"><span><i class="fa-solid fa-location-dot"></i> India</span><span class="meta-sep"></span><span>Open to entry-level opportunities</span></div></div>
-<div class="hero-photo-wrap" style="position:relative!important;z-index:12!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;"><div class="photo-frame" style="position:relative!important;z-index:13!important;width:min(430px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;border-radius:50%!important;overflow:hidden!important;box-shadow:0 0 0 7px rgba(222,111,185,.14),0 0 32px rgba(231,83,174,.48),0 0 78px rgba(117,91,231,.32),0 28px 70px rgba(0,0,0,.48)!important;"><img id="profilePhoto" src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=scroll-click-3d-photo-fix-v22" alt="Om Dugane profile photo" width="720" height="1280" loading="eager" fetchpriority="high" decoding="async" style="display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 24%!important;transform:scale(1.015)!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;visibility:visible!important;opacity:1!important;background:transparent!important;" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg?v=scroll-click-3d-photo-fix-v22'"><div class="photo-shade"></div><div class="photo-label"><span>OM DUGANE</span><span>ANALYTICS · WEB</span></div></div><div class="photo-stamp">BUILD<br>WITH<br><em>purpose.</em></div></div>
+<div class="hero-photo-wrap" style="position:relative!important;z-index:12!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;"><div class="photo-frame" style="position:relative!important;z-index:13!important;width:min(430px,82vw)!important;height:auto!important;aspect-ratio:1/1!important;border-radius:50%!important;overflow:hidden!important;box-shadow:0 0 0 7px rgba(222,111,185,.14),0 0 32px rgba(231,83,174,.48),0 0 78px rgba(117,91,231,.32),0 28px 70px rgba(0,0,0,.48)!important;"><img id="profilePhoto" src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=complete-fix-3d-scroll-click-photo-v23" alt="Om Dugane profile photo" width="720" height="1280" loading="eager" fetchpriority="high" decoding="async" style="display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 24%!important;transform:scale(1.015)!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;visibility:visible!important;opacity:1!important;background:transparent!important;" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg?v=complete-fix-3d-scroll-click-photo-v23'"><div class="photo-shade"></div><div class="photo-label"><span>OM DUGANE</span><span>ANALYTICS · WEB</span></div></div><div class="photo-stamp">BUILD<br>WITH<br><em>purpose.</em></div></div>
 <div class="hero-bottom"><span>PORTFOLIO / 2026</span><span>SCROLL TO DISCOVER <i class="fa-solid fa-arrow-down-long"></i></span></div>
 </section>
 <section class="intro section" id="about"><div class="section-kicker">A LITTLE ABOUT ME</div><div class="intro-grid"><h2>Curious mind.<br><span class="serif">Practical maker.</span></h2><div class="intro-text"><p class="lead">I’m Om, a BCA student at Sant Gadge Baba Amravati University with an interest in data analytics, finance research and building responsive web applications.</p><p>I enjoy exploring data, learning new tools and creating projects that solve real-world problems. My approach is simple: stay curious, work with care and keep improving.</p><a class="text-link" href="https://www.linkedin.com/in/om-dugane-48b6b02a8/" target="_blank" rel="noreferrer">More on LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
@@ -1295,6 +1324,133 @@ body.motion-enabled .v21-project.v21-visible{animation:v21ProjectIn 1s cubic-bez
     }
     if(target.closest(".hero-photo-wrap")||target.id==="profilePhoto"){
       v22Photo?.classList.remove("v22-photo-active");void v22Photo?.offsetWidth;v22Photo?.classList.add("v22-photo-active");
+    }
+  },true);
+
+
+  // V23: one consistent, tested interaction layer. Existing portfolio content is preserved.
+  const v23Reduced=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const v23Sections=[...document.querySelectorAll("#home,#about,#work,#experience,#credentials,#contact")];
+  const v23Cards=[...document.querySelectorAll(".project,.credential,.stats>div,.contact-links a,.timeline article,.skill-list b,.intro-grid>*, .filters button")];
+  const v23RevealNodes=[...new Set([...v23Sections,...v23Cards,...document.querySelectorAll(".section-kicker,.section-heading,.section-heading h2,.section-heading p,.intro-grid h2,.contact h2,.contact-orb,.skills > span")])];
+  const v23Photo=document.querySelector(".photo-frame");
+  if(v23Photo){
+    v23Photo.classList.add("v23-photo-frame","v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+    v23Photo.classList.add("v23-photo-frame");
+  }
+  const v23Portrait=document.getElementById("profilePhoto");
+  if(v23Portrait)v23Portrait.classList.add("v23-portrait");
+  document.documentElement.classList.add("v23-motion-on");
+  v23Sections.forEach(section=>section.classList.add("v23-scroll-section"));
+  v23Cards.forEach((card,i)=>{
+    card.classList.add("v23-3d-card","v23-reveal");
+    card.style.setProperty("--v23-delay",(i%6)*65+"ms");
+  });
+  v23RevealNodes.forEach((el,i)=>{
+    el.classList.add("v23-reveal");
+    if(!el.style.getPropertyValue("--v23-delay"))el.style.setProperty("--v23-delay",(i%5)*55+"ms");
+  });
+  const v23Show=el=>{
+    el.classList.add("v23-shown");
+    el.classList.remove("v23-entering");
+    void el.offsetWidth;
+    el.classList.add("v23-entering");
+  };
+  const v23VisibleNow=el=>{
+    const r=el.getBoundingClientRect();
+    return r.top<window.innerHeight&&r.bottom>0;
+  };
+  v23RevealNodes.forEach(el=>{if(v23VisibleNow(el))v23Show(el)});
+  if("IntersectionObserver" in window){
+    const v23Observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          v23Show(entry.target);
+          entry.target.classList.add("v23-section-entering");
+        }else{
+          entry.target.classList.remove("v23-entering","v23-section-entering");
+        }
+      });
+    },{threshold:.035,rootMargin:"0px 0px -10px 0px"});
+    v23RevealNodes.forEach(el=>v23Observer.observe(el));
+  }else v23RevealNodes.forEach(v23Show);
+  let v23Raf=false;
+  const v23ScrollUpdate=()=>{
+    v23Raf=false;
+    const vh=window.innerHeight||1;
+    v23Sections.forEach(section=>{
+      const r=section.getBoundingClientRect();
+      const center=(r.top+r.height*.5-vh*.5)/vh;
+      const angle=Math.max(-1,Math.min(1,center))*1.6;
+      section.style.setProperty("--v23-scroll-angle",angle.toFixed(2)+"deg");
+      if(r.top<vh&&r.bottom>0&&!section.classList.contains("v23-shown"))v23Show(section);
+    });
+    v23RevealNodes.forEach(el=>{if(v23VisibleNow(el)&&!el.classList.contains("v23-shown"))v23Show(el)});
+  };
+  window.addEventListener("scroll",()=>{
+    if(!v23Raf){v23Raf=true;window.requestAnimationFrame(v23ScrollUpdate)}
+  },{passive:true});
+  window.addEventListener("resize",v23ScrollUpdate,{passive:true});
+  v23ScrollUpdate();
+  if(!v23Reduced&&window.matchMedia("(pointer:fine) and (min-width:801px)").matches){
+    v23Cards.forEach(card=>{
+      card.addEventListener("pointerenter",()=>card.classList.add("v23-card-hover"));
+      card.addEventListener("pointerleave",()=>{
+        card.classList.remove("v23-card-hover");
+        card.style.setProperty("--v23-rx","0deg");card.style.setProperty("--v23-ry","0deg");
+      });
+      card.addEventListener("pointermove",event=>{
+        const r=card.getBoundingClientRect(),x=(event.clientX-r.left)/r.width,y=(event.clientY-r.top)/r.height;
+        card.style.setProperty("--v23-rx",((.5-y)*6).toFixed(2)+"deg");
+        card.style.setProperty("--v23-ry",((x-.5)*6).toFixed(2)+"deg");
+      },{passive:true});
+    });
+  }
+  document.addEventListener("click",event=>{
+    const target=event.target.closest("a,button,[role=button],.project,.credential,.skill-list b");
+    if(!target)return;
+    target.classList.add("v23-tap-target");
+    target.classList.remove("v23-tapped","v23-card-tap");
+    void target.offsetWidth;
+    target.classList.add("v23-tapped");
+    if(target.matches(".project,.credential"))target.classList.add("v23-card-tap");
+    window.setTimeout(()=>target.classList.remove("v23-tapped","v23-card-tap"),800);
+    const anchor=target.closest("a[href^='#']");
+    if(anchor){
+      const id=anchor.getAttribute("href").slice(1);
+      const destination=document.getElementById(id);
+      if(destination){
+        v23Show(destination);
+        destination.classList.remove("v23-section-entering");
+        void destination.offsetWidth;
+        destination.classList.add("v23-section-entering");
+        window.setTimeout(()=>destination.classList.remove("v23-section-entering"),1100);
+      }
+    }
+    if(v23Photo&&(target.closest(".photo-frame")||target.id==="profilePhoto")){
+      v23Photo.classList.remove("v23-photo-tapped");
+      void v23Photo.offsetWidth;
+      v23Photo.classList.add("v23-photo-tapped");
+      window.setTimeout(()=>v23Photo.classList.remove("v23-photo-tapped"),1100);
     }
   },true);
 
