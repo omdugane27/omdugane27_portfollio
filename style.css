@@ -193,3 +193,16 @@ body.motion-ready .reveal-child.is-visible{opacity:1;transform:translate3d(0,0,0
 @keyframes motionOrbDrift{from{transform:translate3d(-4px,8px,0) scale(.98)}to{transform:translate3d(10px,-10px,0) scale(1.04)}}
 @media(max-width:700px){body.motion-ready .reveal{transform:translate3d(0,16px,0)}.project:hover{transform:translateY(-3px)}}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}body.motion-ready .reveal,body.motion-ready .reveal-child{opacity:1!important;transform:none!important;transition:none!important}.project:hover,.btn:hover,.contact-links a:hover{transform:none}}
+
+/* Native CSS scroll-driven reveals: independent of JS class injection */
+@keyframes motionNativeFallback{from{opacity:.78;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.section,.intro,.stats,.project,.experience-grid,.timeline,.credentials-grid,.skills,.contact,.hero-bottom,.credential,.timeline-item,.stat,.contact-links a{
+ animation:motionNativeFallback .85s cubic-bezier(.2,.7,.2,1) both;
+}
+@supports (animation-timeline:view()){
+ .section,.intro,.stats,.project,.experience-grid,.timeline,.credentials-grid,.skills,.contact,.hero-bottom,.credential,.timeline-item,.stat,.contact-links a{
+  animation-name:motionScrollReveal;animation-duration:1ms;animation-timing-function:linear;animation-fill-mode:both;animation-timeline:view();animation-range:entry 0% entry 38%;
+ }
+}
+@keyframes motionScrollReveal{from{opacity:.12;transform:translate3d(0,28px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@media(prefers-reduced-motion:reduce){.section,.intro,.stats,.project,.experience-grid,.timeline,.credentials-grid,.skills,.contact,.hero-bottom,.credential,.timeline-item,.stat,.contact-links a{animation:none!important;opacity:1!important;transform:none!important}}
