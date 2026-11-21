@@ -48,4 +48,14 @@
     const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+entry.target.id));}}),{rootMargin:"-35% 0px -55% 0px"});
     sections.forEach(section=>observer.observe(section));
   }
+
+  // Reliable whole-portfolio motion: visible by default, animate once as each item enters view.
+  const allMotionTargets=$$('.hero-bottom, .section, .section-kicker, .intro-grid > *, .stat, .project, .timeline article, .credential, .skill-list li, .contact-links a, .contact > *');
+  allMotionTargets.forEach((item,index)=>{item.classList.add('portfolio-motion');item.style.setProperty('--portfolio-motion-delay',(index%4)*65+'ms');});
+  if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const portfolioMotionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add('portfolio-motion-in');portfolioMotionObserver.unobserve(entry.target);}
+    }),{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+    allMotionTargets.forEach(item=>portfolioMotionObserver.observe(item));
+  }else{allMotionTargets.forEach(item=>item.classList.add('portfolio-motion-in'));}
 })();
