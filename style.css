@@ -65,3 +65,31 @@ a{color:inherit;text-decoration:none}button{font:inherit}
 .visual-weather{background:radial-gradient(circle at 70% 25%,#526e99 0,transparent 50%),linear-gradient(135deg,#1b263c,#11131e)}
 .visual-grocery{background:radial-gradient(circle at 65% 30%,#a67d44 0,transparent 48%),linear-gradient(135deg,#302519,#17120e)}
 .project[hidden]{display:none!important}
+
+/* Cinematic motion system: restrained, smooth and mobile-friendly */
+:root{scroll-behavior:smooth}
+.hero{isolation:isolate}
+.hero-copy{animation:heroCopyIn .95s cubic-bezier(.2,.75,.25,1) both}
+.hero-photo-wrap{animation:heroPhotoIn 1.15s cubic-bezier(.2,.75,.25,1) .12s both}
+.hero-photo-wrap .photo-frame{transform-origin:50% 45%;animation:photoFloat 7s ease-in-out 1.2s infinite}
+.photo-frame img{animation:cinematicPhotoZoom 18s ease-in-out infinite alternate;will-change:transform}
+.photo-frame:after{content:"";position:absolute;inset:0;border:1px solid #f5c2d53b;pointer-events:none;z-index:4;box-shadow:inset 0 0 45px #08060b38}
+.hero-glow{animation:glowPulse 8s ease-in-out infinite alternate}
+.photo-stamp{animation:stampIn .8s ease-out .9s both}
+.live-dot{animation:dotPulse 2.2s ease-in-out infinite}
+.btn,.project,.filter,.contact-links a{transition:transform .35s cubic-bezier(.2,.75,.25,1),border-color .35s,background .35s,box-shadow .35s}
+.project:hover{transform:translateY(-7px)}
+.project:hover .project-visual>div{transform:scale(1.035)}
+.project-visual>div{transition:transform .6s cubic-bezier(.2,.75,.25,1)}
+.btn:hover{transform:translateY(-2px)}
+.motion-ready .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.75,.25,1)}
+.motion-ready .reveal.is-visible{opacity:1;transform:translateY(0)}
+.motion-ready .project.reveal{transition-delay:var(--reveal-delay,0ms)}
+@keyframes heroCopyIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes heroPhotoIn{from{opacity:0;transform:translate3d(24px,22px,0) scale(.97)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes cinematicPhotoZoom{from{transform:scale(1.015)}to{transform:scale(1.075)}}
+@keyframes photoFloat{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@keyframes glowPulse{from{opacity:.55;transform:scale(.94)}to{opacity:1;transform:scale(1.06)}}
+@keyframes stampIn{from{opacity:0;rotate:-12deg;scale:.8}to{opacity:1;rotate:0deg;scale:1}}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 #e7a1bb30}50%{box-shadow:0 0 0 7px #e7a1bb00}}
+@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.hero-copy,.hero-photo-wrap,.hero-photo-wrap .photo-frame,.photo-frame img,.hero-glow,.photo-stamp,.live-dot{animation:none!important}.motion-ready .reveal{opacity:1!important;transform:none!important;transition:none!important}.project:hover{transform:none}}
