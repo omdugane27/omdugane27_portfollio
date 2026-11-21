@@ -8,7 +8,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="Om Dugane | Cinematic Portfolio"><meta property="og:description" content="Data analytics, finance research and web development — projects, experience and professional profile."><meta property="og:image" content="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=20261121-3"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Om Dugane | Portfolio"><meta name="twitter:description" content="Data analytics · Finance research · Web development">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=portrait-3d-cards-18"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=full-portfolio-3d-19"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style id="portfolio-inline-style">@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--bg:#100b12;--panel:#1a111c;--text:#f7f0f1;--muted:#b8a8b3;--line:#ffffff20;--pink:#e7a1bb;--hot:#f06a9a;--cream:#f4e5e8;--max:1200px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -614,6 +614,34 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 @keyframes v18CardEnter{from{opacity:0;transform:translate3d(0,18px,0) scale(.992)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
 @media(pointer:coarse),(max-width:800px){.project{transform:none!important}.project.card-v18-active{transform:translateY(-2px)!important}.project-visual,.project-info{transform:none!important}}
 @media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,.project,.project-visual,.project-info,.credential,.stats>div,.finance-card,.grocery-card,.contact-links a,.card-v18-reveal.card-v18-in{animation:none!important;transition:none!important;transform:none!important;filter:none!important}}
+
+/* V19 FULL-PORTFOLIO 3D MOTION SYSTEM */
+:root{--v19-perspective:1200px;--v19-ease:cubic-bezier(.2,.72,.22,1)}
+body{perspective:var(--v19-perspective);perspective-origin:50% 35%}
+section:not(#resumePrintArea){transform-style:preserve-3d}
+#home .hero-copy,#home .hero-photo-wrap{transform-style:preserve-3d}
+#home .hero-photo-wrap{transition:transform .85s var(--v19-ease)!important}
+#profilePhoto{object-position:50% 19%!important;object-fit:cover!important}
+.photo-frame{transform-style:preserve-3d!important;transition:transform .8s var(--v19-ease),box-shadow .8s ease!important}
+.photo-frame:hover{transform:perspective(900px) rotateY(-3deg) rotateX(2deg) translateZ(7px)!important}
+.project,.credential,.stats>div,.finance-card,.grocery-card,.contact-links a,.timeline>*,.skill-list li,.intro-grid>*{transform-style:preserve-3d!important;backface-visibility:hidden;will-change:transform}
+.v19-tilt-card{--v19-rx:0deg;--v19-ry:0deg;--v19-lift:0px;transform:perspective(1000px) rotateX(var(--v19-rx)) rotateY(var(--v19-ry)) translateY(var(--v19-lift))!important;transition:transform .7s var(--v19-ease),box-shadow .7s ease!important}
+.v19-tilt-card.v19-hover{--v19-lift:-5px;box-shadow:0 22px 48px rgba(0,0,0,.27),0 0 0 1px rgba(231,161,187,.16)!important}
+.v19-tilt-card .project-visual,.v19-tilt-card .credential-icon,.v19-tilt-card .stat-number,.v19-tilt-card .timeline-top,.v19-tilt-card .project-info{transform:translateZ(14px);transition:transform .7s var(--v19-ease)!important}
+.v19-tilt-card.v19-hover .project-visual,.v19-tilt-card.v19-hover .credential-icon,.v19-tilt-card.v19-hover .stat-number,.v19-tilt-card.v19-hover .timeline-top,.v19-tilt-card.v19-hover .project-info{transform:translateZ(24px)}
+.v19-depth-reveal{opacity:1;transform:translate3d(0,0,0) rotateX(0)!important}
+.v19-depth-reveal.v19-in{animation:v19DepthEnter 1.15s var(--v19-ease) both;animation-delay:var(--v19-delay,0ms)}
+.v19-section-title{transform-style:preserve-3d}
+.v19-section-title.v19-in{animation:v19TitleEnter 1.25s var(--v19-ease) both}
+.v19-skill-3d{transition:transform .45s var(--v19-ease),background .45s ease,box-shadow .45s ease!important;transform:translateZ(0)}
+.v19-skill-3d:hover{transform:perspective(700px) rotateX(5deg) rotateY(-6deg) translateY(-3px) translateZ(8px)!important;box-shadow:0 12px 24px rgba(0,0,0,.2)}
+.v19-contact-orb{transform-style:preserve-3d;animation:v19OrbFloat 8s ease-in-out infinite}
+.v19-contact-orb>*{transform:translateZ(20px)}
+@keyframes v19DepthEnter{0%{opacity:0;transform:perspective(900px) translate3d(0,28px,0) rotateX(4deg) scale(.985)!important}100%{opacity:1;transform:perspective(900px) translate3d(0,0,0) rotateX(0) scale(1)!important}}
+@keyframes v19TitleEnter{0%{opacity:0;transform:perspective(800px) translate3d(0,18px,-18px) rotateX(7deg)}100%{opacity:1;transform:perspective(800px) translate3d(0,0,0) rotateX(0)}}
+@keyframes v19OrbFloat{0%,100%{transform:perspective(900px) translateY(0) rotateX(0) rotateY(0)}50%{transform:perspective(900px) translateY(-8px) rotateX(2deg) rotateY(-3deg)}}
+@media(pointer:coarse),(max-width:800px){.v19-tilt-card{transform:translateY(var(--v19-lift,0px))!important}.v19-tilt-card .project-visual,.v19-tilt-card .credential-icon,.v19-tilt-card .stat-number,.v19-tilt-card .timeline-top,.v19-tilt-card .project-info{transform:none!important}.v19-skill-3d:hover{transform:translateY(-2px)!important}}
+@media(prefers-reduced-motion:reduce){.v19-tilt-card,.v19-depth-reveal.v19-in,.v19-section-title.v19-in,.v19-skill-3d,.v19-contact-orb,.photo-frame{animation:none!important;transition:none!important;transform:none!important;opacity:1!important;box-shadow:none!important}}
 </style>
 </head>
 <body>
@@ -953,6 +981,64 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
   }else{
     document.querySelectorAll(".project,.credential,.stats>div,.finance-card,.grocery-card,.contact-links a").forEach(card=>card.classList.add("card-v18-in"));
   }
+
+
+  // V19: add coordinated depth motion to every portfolio section and content type.
+  const v19Reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const v19Fine=window.matchMedia("(pointer:fine) and (min-width:801px)").matches;
+  const v19Cards=[...document.querySelectorAll(".project,.credential,.stats>div,.finance-card,.grocery-card,.contact-links a,.timeline>*,.skill-list li,.intro-grid>*")];
+  v19Cards.forEach((card,index)=>{
+    card.classList.add("v19-tilt-card","v19-depth-reveal");
+    card.style.setProperty("--v19-delay",(index%6)*65+"ms");
+  });
+  document.querySelectorAll("section:not(#home):not(#resumePrintArea)").forEach((section,index)=>{
+    section.querySelectorAll(".section-heading,.section-kicker,.intro-copy,.contact-orb").forEach(el=>{
+      el.classList.add("v19-depth-reveal");
+      el.style.setProperty("--v19-delay",(index%4)*80+"ms");
+    });
+  });
+  document.querySelectorAll(".section-heading h2,.section-heading p,.intro h2,.contact h2").forEach(el=>el.classList.add("v19-section-title"));
+  document.querySelectorAll(".skill-list li").forEach(el=>el.classList.add("v19-skill-3d"));
+  const v19RevealTargets=[...document.querySelectorAll(".v19-depth-reveal,.v19-section-title")];
+  if(!v19Reduced&&"IntersectionObserver" in window){
+    const v19Observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("v19-in");
+          v19Observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.09,rootMargin:"0px 0px -35px 0px"});
+    v19RevealTargets.forEach(el=>v19Observer.observe(el));
+  }else v19RevealTargets.forEach(el=>el.classList.add("v19-in"));
+  if(!v19Reduced&&v19Fine){
+    v19Cards.forEach(card=>{
+      card.addEventListener("pointerenter",()=>card.classList.add("v19-hover"));
+      card.addEventListener("pointerleave",()=>{
+        card.classList.remove("v19-hover");
+        card.style.setProperty("--v19-rx","0deg");
+        card.style.setProperty("--v19-ry","0deg");
+      });
+      card.addEventListener("pointermove",event=>{
+        const rect=card.getBoundingClientRect();
+        const px=(event.clientX-rect.left)/rect.width;
+        const py=(event.clientY-rect.top)/rect.height;
+        card.style.setProperty("--v19-rx",((.5-py)*4.5).toFixed(2)+"deg");
+        card.style.setProperty("--v19-ry",((px-.5)*4.5).toFixed(2)+"deg");
+      },{passive:true});
+    });
+    const v19Hero=document.querySelector(".hero-photo-wrap");
+    if(v19Hero){
+      v19Hero.addEventListener("pointermove",event=>{
+        const rect=v19Hero.getBoundingClientRect();
+        const rx=((event.clientY-rect.top)/rect.height-.5)*-3;
+        const ry=((event.clientX-rect.left)/rect.width-.5)*3;
+        v19Hero.style.transform="perspective(1000px) rotateX("+rx.toFixed(2)+"deg) rotateY("+ry.toFixed(2)+"deg) translateZ(5px)";
+      },{passive:true});
+      v19Hero.addEventListener("pointerleave",()=>v19Hero.style.transform="");
+    }
+  }
+  document.querySelector(".contact-orb")?.classList.add("v19-contact-orb");
 
 })();</script>
 </body></html>
