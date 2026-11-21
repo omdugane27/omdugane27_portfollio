@@ -41,6 +41,41 @@
     revealItems.concat(motionTargets).forEach(item=>revealObserver.observe(item));
   }else{revealItems.concat(motionTargets).forEach(item=>item.classList.add('is-visible'));}
 
+
+  // Portfolio-wide cinematic reveal: use real NodeLists (not the single-element $ helper).
+  const cinemaItems=[];
+  document.querySelectorAll("section").forEach((section,index)=>{
+    section.classList.add("cinema-reveal");
+    section.style.setProperty("--cinema-delay",(index%3)*80+"ms");
+    cinemaItems.push(section);
+    section.querySelectorAll(".section-kicker, .intro-grid > *, .project, .timeline article, .credential, .skill-list li, .contact-links a, .hero-bottom, .hero-actions .btn, .hero-meta span").forEach((child,i)=>{
+      child.classList.add("cinema-child");
+      child.style.setProperty("--cinema-delay",(i%5)*60+"ms");
+      cinemaItems.push(child);
+    });
+  });
+  const cinemaObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("cinema-in");
+        cinemaObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.04,rootMargin:"0px 0px -20px 0px"});
+  cinemaItems.forEach(item=>cinemaObserver.observe(item));
+  // Keep the round profile image visible and retry the alternate repository portrait on failure.
+  const roundPhoto=document.querySelector("#profilePhoto");
+  if(roundPhoto){
+    roundPhoto.style.visibility="visible";
+    roundPhoto.style.opacity="1";
+    roundPhoto.addEventListener("error",()=>{
+      if(!roundPhoto.dataset.roundFallback){
+        roundPhoto.dataset.roundFallback="yes";
+        roundPhoto.src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg";
+      }
+    });
+  }
+
   // Highlight current section in navigation
   const navLinks=$$("#nav a[href^='#']");
   const sections=navLinks.map(link=>$(link.getAttribute("href"))).filter(Boolean);
