@@ -8,7 +8,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="Om Dugane | Cinematic Portfolio"><meta property="og:description" content="Data analytics, finance research and web development — projects, experience and professional profile."><meta property="og:image" content="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=20261121-3"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Om Dugane | Portfolio"><meta name="twitter:description" content="Data analytics · Finance research · Web development">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=full-portfolio-3d-19"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=complete-3d-motion-20"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style id="portfolio-inline-style">@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--bg:#100b12;--panel:#1a111c;--text:#f7f0f1;--muted:#b8a8b3;--line:#ffffff20;--pink:#e7a1bb;--hot:#f06a9a;--cream:#f4e5e8;--max:1200px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -642,6 +642,39 @@ section:not(#resumePrintArea){transform-style:preserve-3d}
 @keyframes v19OrbFloat{0%,100%{transform:perspective(900px) translateY(0) rotateX(0) rotateY(0)}50%{transform:perspective(900px) translateY(-8px) rotateX(2deg) rotateY(-3deg)}}
 @media(pointer:coarse),(max-width:800px){.v19-tilt-card{transform:translateY(var(--v19-lift,0px))!important}.v19-tilt-card .project-visual,.v19-tilt-card .credential-icon,.v19-tilt-card .stat-number,.v19-tilt-card .timeline-top,.v19-tilt-card .project-info{transform:none!important}.v19-skill-3d:hover{transform:translateY(-2px)!important}}
 @media(prefers-reduced-motion:reduce){.v19-tilt-card,.v19-depth-reveal.v19-in,.v19-section-title.v19-in,.v19-skill-3d,.v19-contact-orb,.photo-frame{animation:none!important;transition:none!important;transform:none!important;opacity:1!important;box-shadow:none!important}}
+
+/* V20: complete portfolio 3D presentation */
+:root{--v20-perspective:1450px;--v20-ease:cubic-bezier(.18,.72,.2,1)}
+html{scroll-behavior:smooth}
+body{perspective:var(--v20-perspective);perspective-origin:50% 20%;transform-style:preserve-3d}
+main{transform-style:preserve-3d}
+section:not(#resumePrintArea){position:relative;transform-style:preserve-3d;perspective:1250px;perspective-origin:50% 35%}
+section:not(#home):not(#resumePrintArea).v20-section-in{animation:v20SectionArrival 1.15s var(--v20-ease) both}
+section .section-heading,section .intro-grid,section .project-grid,section .experience-grid,section .credentials-grid,section .skills,section .contact-orb{transform-style:preserve-3d}
+.v20-depth-card{transform-style:preserve-3d!important;backface-visibility:hidden;will-change:transform;transition:transform .75s var(--v20-ease),box-shadow .75s var(--v20-ease)!important}
+.v20-depth-card.v20-depth-active{box-shadow:0 28px 58px rgba(0,0,0,.28),0 0 0 1px rgba(231,161,187,.17)!important}
+.v20-depth-card .project-visual,.v20-depth-card .project-info,.v20-depth-card .credential-icon,.v20-depth-card .timeline-top,.v20-depth-card .finance-card,.v20-depth-card .grocery-card{transform:translateZ(18px);transition:transform .75s var(--v20-ease)!important}
+.v20-depth-card.v20-depth-active .project-visual,.v20-depth-card.v20-depth-active .project-info,.v20-depth-card.v20-depth-active .credential-icon,.v20-depth-card.v20-depth-active .timeline-top{transform:translateZ(32px)}
+.v20-reveal{opacity:0;transform:perspective(900px) translate3d(0,32px,-28px) rotateX(5deg) scale(.985);transform-origin:50% 100%;transition:opacity 1.1s var(--v20-ease),transform 1.1s var(--v20-ease);transition-delay:var(--v20-delay,0ms)}
+.v20-reveal.v20-revealed{opacity:1;transform:perspective(900px) translate3d(0,0,0) rotateX(0) scale(1)}
+.v20-section-title{transform-style:preserve-3d;backface-visibility:hidden}
+.v20-section-title.v20-revealed{animation:v20TitleFlip 1.25s var(--v20-ease) both}
+.project .project-visual{overflow:hidden;transform-style:preserve-3d}
+.project .project-visual>*{transform:translateZ(14px);transition:transform .8s var(--v20-ease)}
+.project.v20-depth-active .project-visual>*{transform:translateZ(28px) scale(1.025)}
+.photo-frame{transform-style:preserve-3d;backface-visibility:hidden;transition:transform .8s var(--v20-ease),box-shadow .8s ease!important}
+.photo-frame:before{transform:translateZ(8px);animation-duration:26s!important}
+.photo-frame:after{transform:translateZ(4px);animation-duration:20s!important}
+#profilePhoto{object-fit:cover!important;object-position:50% 17%!important;width:100%!important;height:100%!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important;backface-visibility:hidden}
+.v20-float{animation:v20Float 7.5s ease-in-out infinite}
+.v20-skill-chip{transform-style:preserve-3d;transition:transform .5s var(--v20-ease),box-shadow .5s ease}
+.v20-skill-chip.v20-revealed{animation:v20ChipReveal .8s var(--v20-ease) both;animation-delay:var(--v20-delay,0ms)}
+@keyframes v20SectionArrival{from{opacity:.82;transform:translate3d(0,18px,-12px)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes v20TitleFlip{0%{opacity:0;transform:perspective(850px) rotateX(12deg) translate3d(0,20px,-24px)}100%{opacity:1;transform:perspective(850px) rotateX(0) translate3d(0,0,0)}}
+@keyframes v20Float{0%,100%{transform:perspective(1000px) translate3d(0,0,0) rotateX(0) rotateY(0)}50%{transform:perspective(1000px) translate3d(0,-9px,0) rotateX(1.5deg) rotateY(-2deg)}}
+@keyframes v20ChipReveal{from{opacity:0;transform:perspective(650px) translateY(14px) rotateX(14deg)}to{opacity:1;transform:perspective(650px) translateY(0) rotateX(0)}}
+@media(pointer:coarse),(max-width:800px){body{perspective:none}section:not(#resumePrintArea){perspective:900px}.v20-depth-card{transform:translateY(0)!important}.v20-depth-card .project-visual,.v20-depth-card .project-info,.v20-depth-card .credential-icon,.v20-depth-card .timeline-top{transform:translateZ(0)!important}.v20-reveal{transform:translate3d(0,18px,0)!important}.photo-frame{transform:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body,main,section:not(#resumePrintArea),.v20-depth-card,.v20-reveal,.v20-section-title,.photo-frame,.photo-frame:before,.photo-frame:after,.v20-float,.v20-skill-chip{animation:none!important;transition:none!important;transform:none!important;opacity:1!important;filter:none!important}}
 </style>
 </head>
 <body>
@@ -1039,6 +1072,64 @@ section:not(#resumePrintArea){transform-style:preserve-3d}
     }
   }
   document.querySelector(".contact-orb")?.classList.add("v19-contact-orb");
+
+
+  // V20: full-site depth system; reveal all sections and interactive cards.
+  const v20Reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const v20Desktop=window.matchMedia("(pointer:fine) and (min-width:801px)").matches;
+  const v20Cards=[...document.querySelectorAll(".project,.credential,.stats>*, .finance-card,.grocery-card,.contact-links a,.timeline>*,.skill-list li,.intro-grid>*,.experience-grid>*")];
+  v20Cards.forEach((card,i)=>{
+    card.classList.add("v20-depth-card","v20-reveal");
+    card.style.setProperty("--v20-delay",(i%7)*75+"ms");
+  });
+  const v20RevealEls=[...document.querySelectorAll("#about > *,#work > *,#experience > *,#credentials > *,#contact > *,.section-heading,.intro-grid > *,.project-grid > *,.experience-grid > *,.credentials-grid > *,.skills > *,.contact-orb,.contact-links > *")];
+  v20RevealEls.forEach((el,i)=>{
+    if(!el.classList.contains("v20-depth-card"))el.classList.add("v20-reveal");
+    el.style.setProperty("--v20-delay",(i%5)*65+"ms");
+  });
+  document.querySelectorAll(".section-heading h2,.section-heading p,#about h2,#contact h2").forEach(el=>el.classList.add("v20-section-title"));
+  document.querySelector(".contact-orb")?.classList.add("v20-float");
+  const v20All=[...new Set([...v20Cards,...v20RevealEls,...document.querySelectorAll(".v20-section-title")])];
+  if(!v20Reduced&&"IntersectionObserver" in window){
+    const v20Observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("v20-revealed");
+          if(entry.target.matches("section"))entry.target.classList.add("v20-section-in");
+          v20Observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.06,rootMargin:"0px 0px -28px 0px"});
+    v20All.forEach(el=>v20Observer.observe(el));
+    document.querySelectorAll("section:not(#home):not(#resumePrintArea)").forEach(section=>v20Observer.observe(section));
+  }else v20All.forEach(el=>el.classList.add("v20-revealed"));
+  if(!v20Reduced&&v20Desktop){
+    v20Cards.forEach(card=>{
+      card.addEventListener("pointerenter",()=>card.classList.add("v20-depth-active"));
+      card.addEventListener("pointerleave",()=>{
+        card.classList.remove("v20-depth-active");
+        card.style.setProperty("--v20-x","0deg");
+        card.style.setProperty("--v20-y","0deg");
+        card.style.transform="";
+      });
+      card.addEventListener("pointermove",event=>{
+        const rect=card.getBoundingClientRect();
+        const rx=((.5-(event.clientY-rect.top)/rect.height)*7).toFixed(2);
+        const ry=(((event.clientX-rect.left)/rect.width-.5)*7).toFixed(2);
+        card.style.transform="perspective(1050px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateZ(8px)";
+      },{passive:true});
+    });
+    const v20Hero=document.querySelector(".hero-photo-wrap");
+    if(v20Hero){
+      v20Hero.addEventListener("pointermove",event=>{
+        const r=v20Hero.getBoundingClientRect();
+        const rx=((event.clientY-r.top)/r.height-.5)*-4;
+        const ry=((event.clientX-r.left)/r.width-.5)*4;
+        v20Hero.style.transform="perspective(1100px) rotateX("+rx.toFixed(2)+"deg) rotateY("+ry.toFixed(2)+"deg) translateZ(8px)";
+      },{passive:true});
+      v20Hero.addEventListener("pointerleave",()=>v20Hero.style.transform="");
+    }
+  }
 
 })();</script>
 </body></html>
