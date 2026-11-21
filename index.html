@@ -8,7 +8,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="Om Dugane | Cinematic Portfolio"><meta property="og:description" content="Data analytics, finance research and web development — projects, experience and professional profile."><meta property="og:image" content="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg?v=20261121-3"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Om Dugane | Portfolio"><meta name="twitter:description" content="Data analytics · Finance research · Web development">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=cinematic-kinetic-parallax-16"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=calm-motion-photo-fit-17"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style id="portfolio-inline-style">@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 :root{--bg:#100b12;--panel:#1a111c;--text:#f7f0f1;--muted:#b8a8b3;--line:#ffffff20;--pink:#e7a1bb;--hot:#f06a9a;--cream:#f4e5e8;--max:1200px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -526,51 +526,71 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
 @keyframes omContentReveal{from{opacity:0;transform:translate3d(0,20px,0) scale(.985)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
 @media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,#home .hero-copy,#home .hero-photo-wrap,#home .hero-bottom,#home .hero-glow,#home .hero-copy>* , .om-section-reveal,.om-content-reveal{animation:none!important;filter:none!important;opacity:1!important;transform:none!important}.project:hover,.credential:hover,.skill-list li:hover,.contact-links a:hover,.btn:hover{transform:none!important}}
 
-/* === CINEMATIC INTERACTION PACK v16 === */
-:root{--motion-ease:cubic-bezier(.18,.78,.22,1)}
-/* Masked kinetic typography */
-#home .hero-copy h1{overflow:hidden;clip-path:inset(0 0 0 0)}
-#home .hero-copy h1 .serif,#home .hero-copy h1 .outline{display:inline-block;will-change:transform,opacity}
-#home .hero-copy h1 .serif{animation:kineticLine .95s var(--motion-ease) .22s both}
-#home .hero-copy h1 .outline{animation:kineticLine .95s var(--motion-ease) .34s both}
-#home .hero-copy .eyebrow{animation:eyebrowSlide .7s var(--motion-ease) .05s both}
-#home .hero-copy .hero-sub{animation:kineticLine .85s var(--motion-ease) .4s both}
-#home .hero-copy .hero-actions{animation:kineticLine .85s var(--motion-ease) .52s both}
-/* Sections and case-study content reveal */
-.om-v16-section{opacity:1;transform:none}
-.om-v16-section.om-v16-visible{animation:depthReveal .9s var(--motion-ease) both;animation-delay:var(--v16-delay,0ms)}
-.om-v16-item{opacity:1;transform:none}
-.om-v16-item.om-v16-visible{animation:staggerReveal .72s var(--motion-ease) both;animation-delay:var(--v16-delay,0ms)}
-/* Depth parallax layers */
-.hero-backdrop{transform:translate3d(0,var(--hero-parallax,0px),0);will-change:transform}
-.hero-glow{transform:translate3d(0,var(--glow-parallax,0px),0);will-change:transform}
-.project-visual{overflow:hidden;isolation:isolate;position:relative}
-.project-visual>*{transition:transform .7s var(--motion-ease)}
-.project:hover .project-visual>*{transform:scale(1.035)}
-.project-visual:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.13) 48%,transparent 72%);transform:translateX(-130%);transition:transform .8s var(--motion-ease);z-index:5}
-.project:hover .project-visual:after{transform:translateX(130%)}
-.project{transform-style:preserve-3d;transition:transform .45s var(--motion-ease),box-shadow .45s ease!important}
-.project-v16-cursor{position:fixed;left:0;top:0;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;pointer-events:none;z-index:9999;background:rgba(233,154,199,.13);border:1px solid rgba(241,185,218,.62);color:var(--text,#fff);font-size:10px;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(8px);transform:translate(-50%,-50%) scale(.65);opacity:0;transition:opacity .2s,transform .2s;mix-blend-mode:screen}
-.project-v16-cursor.active{opacity:1;transform:translate(-50%,-50%) scale(1)}
-/* Seamless navigation overlay */
-#v16-transition{position:fixed;inset:0;z-index:10000;pointer-events:none;background:radial-gradient(circle at 50% 45%,#382144,#0c0913 72%);opacity:0;clip-path:circle(0% at 50% 50%)}
-#v16-transition.play{animation:transitionBloom .72s var(--motion-ease) both}
-/* Lightweight SVG/vector micro-motion */
-.v16-vector{display:inline-block;vertical-align:middle;overflow:visible}
-.v16-vector .v16-draw{stroke-dasharray:90;stroke-dashoffset:90;animation:vectorDraw 2.6s ease-in-out infinite alternate}
-.v16-vector .v16-orbit{transform-origin:center;animation:vectorOrbit 8s linear infinite}
-.v16-loader{width:28px;height:28px;display:inline-block;vertical-align:middle;animation:vectorOrbit 2.4s linear infinite}
-.v16-loader circle{stroke-dasharray:48 24;animation:loaderDash 1.5s ease-in-out infinite}
-@keyframes kineticLine{from{opacity:0;transform:translate3d(0,105%,0);clip-path:inset(0 0 100% 0);filter:blur(6px)}to{opacity:1;transform:translate3d(0,0,0);clip-path:inset(0 0 0 0);filter:blur(0)}}
-@keyframes eyebrowSlide{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
-@keyframes depthReveal{from{opacity:0;transform:translate3d(0,38px,0) scale(.985);filter:blur(4px)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
-@keyframes staggerReveal{from{opacity:0;transform:translate3d(0,24px,0) scale(.98)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
-@keyframes transitionBloom{0%{opacity:0;clip-path:circle(0% at 50% 50%)}45%{opacity:1;clip-path:circle(120% at 50% 50%)}100%{opacity:0;clip-path:circle(140% at 50% 50%)}}
-@keyframes vectorDraw{to{stroke-dashoffset:0}}
-@keyframes vectorOrbit{to{transform:rotate(360deg)}}
-@keyframes loaderDash{0%{stroke-dasharray:1 70;stroke-dashoffset:0}50%{stroke-dasharray:42 70;stroke-dashoffset:-16}100%{stroke-dasharray:1 70;stroke-dashoffset:-70}}
-@media(pointer:coarse),(max-width:800px){.project-v16-cursor{display:none!important}}
-@media(prefers-reduced-motion:reduce){#home .hero-copy h1 .serif,#home .hero-copy h1 .outline,#home .hero-copy .eyebrow,#home .hero-copy .hero-sub,#home .hero-copy .hero-actions,.om-v16-section.om-v16-visible,.om-v16-item.om-v16-visible,.project-visual:after,.v16-vector .v16-draw,.v16-vector .v16-orbit,.v16-loader,.v16-loader circle{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;filter:none!important}#v16-transition{display:none!important}}
+/* Gentle, polished motion tuning — keep the portfolio cinematic, not busy */
+#profilePhoto{object-fit:cover!important;object-position:50% 27%!important;transform:none!important;transform-origin:center center!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-frame{width:min(390px,78vw)!important;aspect-ratio:1/1!important;border-radius:50%!important;overflow:hidden!important;clip-path:circle(50% at 50% 50%)!important;box-shadow:0 0 0 4px rgba(226,124,190,.13),0 0 22px rgba(231,83,174,.25),0 0 48px rgba(117,91,231,.18),0 18px 42px rgba(0,0,0,.34)!important}
+.photo-frame:before{border-width:2px!important;animation-duration:18s!important}
+.photo-frame:after{animation-duration:13s!important;opacity:.55!important}
+@media(max-width:700px){.photo-frame{width:min(320px,78vw)!important}}
+/* Slower timing, restrained movement, less blur */
+#home .hero-copy,#home .hero-copy .hero-eyebrow,#home .hero-copy h1,#home .hero-copy .hero-description,#home .hero-copy .hero-actions,#home .hero-copy .hero-meta{animation-duration:1.25s!important;animation-timing-function:cubic-bezier(.2,.7,.25,1)!important}
+#home .hero-photo-wrap{animation-duration:1.45s!important;animation-timing-function:cubic-bezier(.2,.7,.25,1)!important}
+#home .hero-bottom{animation-duration:1.2s!important}
+#home .hero-copy h1 .serif,#home .hero-copy h1 .outline{animation-duration:1.35s!important}
+#home .hero-copy .eyebrow{animation-duration:1.15s!important}
+#home .hero-glow{animation-duration:14s!important}
+.om-v16-section.om-v16-visible,.om-section-target.om-revealed,.om-v16-item.om-v16-visible,.om-content-target.om-revealed,.om-section-reveal.om-revealed,.om-content-reveal.om-revealed,.portfolio-enter.motion-entered,.portfolio-child.motion-entered,.portfolio-motion.portfolio-motion-in{animation-duration:1.15s!important;animation-timing-function:cubic-bezier(.2,.7,.25,1)!important}
+.om-v16-section.om-v16-visible,.om-section-target.om-revealed,.om-section-reveal.om-revealed,.portfolio-enter.motion-entered{animation-delay:var(--v16-delay,var(--om-delay,var(--enter-delay,0ms)))!important}
+.om-v16-item.om-v16-visible,.om-content-target.om-revealed,.om-content-reveal.om-revealed,.portfolio-child.motion-entered,.portfolio-motion.portfolio-motion-in{animation-delay:var(--v16-delay,var(--om-delay,var(--enter-delay,var(--portfolio-motion-delay,0ms)))))!important}
+.project{transition:transform .65s cubic-bezier(.2,.7,.25,1),box-shadow .65s ease!important}
+.project:hover .project-visual>*{transform:scale(1.015)!important}
+.project-visual:after{transition-duration:1.35s!important;opacity:.5!important}
+.project-v16-cursor{display:none!important}
+#v16-transition.play{animation:transitionBloom 1.05s ease-in-out both!important}
+.hero-backdrop{transform:translate3d(0,calc(var(--hero-parallax,0px)*.35),0)!important}
+.hero-glow{transform:translate3d(0,calc(var(--glow-parallax,0px)*.35),0)!important}
+@keyframes kineticLine{from{opacity:0;transform:translate3d(0,22%,0);clip-path:inset(0 0 35% 0);filter:blur(1px)}to{opacity:1;transform:translate3d(0,0,0);clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes depthReveal{from{opacity:0;transform:translate3d(0,18px,0) scale(.995);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+@keyframes staggerReveal{from{opacity:0;transform:translate3d(0,14px,0) scale(.995)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes omIntroText{from{opacity:0;transform:translate3d(0,18px,0);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+@keyframes omIntroPortrait{from{opacity:0;transform:translate3d(10px,14px,0) scale(.98);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+@keyframes omSectionReveal{from{opacity:0;transform:translate3d(0,18px,0);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+@keyframes omContentReveal{from{opacity:0;transform:translate3d(0,12px,0) scale(.995)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes portfolioWipeReveal{from{clip-path:inset(0 0 12% 0);filter:blur(0)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes portfolioCardReveal{from{clip-path:inset(0 0 8% 0);filter:blur(0)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes transitionBloom{0%{opacity:0;clip-path:circle(0% at 50% 50%)}35%{opacity:.45;clip-path:circle(100% at 50% 50%)}100%{opacity:0;clip-path:circle(130% at 50% 50%)}}
+@media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,#home .hero-copy,#home .hero-photo-wrap,#home .hero-bottom,#home .hero-glow,#home .hero-copy>* ,.om-v16-section.om-v16-visible,.om-v16-item.om-v16-visible,.om-section-target.om-revealed,.om-content-target.om-revealed,.portfolio-enter.motion-entered,.portfolio-child.motion-entered,.portfolio-motion.portfolio-motion-in{animation:none!important;filter:none!important;opacity:1!important;transform:none!important;clip-path:none!important}}
+
+/* User-requested calmer pacing and better portrait fit */
+#profilePhoto{object-fit:cover!important;object-position:50% 24%!important;transform:none!important;transform-origin:center center!important;border-radius:50%!important;clip-path:circle(50% at 50% 50%)!important}
+.photo-frame{width:min(380px,78vw)!important;aspect-ratio:1/1!important;border-radius:50%!important;overflow:hidden!important;clip-path:circle(50% at 50% 50%)!important;box-shadow:0 0 0 4px rgba(226,124,190,.12),0 0 18px rgba(231,83,174,.22),0 0 40px rgba(117,91,231,.16),0 16px 38px rgba(0,0,0,.32)!important}
+.photo-frame:before{border-width:2px!important;animation-duration:22s!important}
+.photo-frame:after{animation-duration:16s!important;opacity:.42!important}
+@media(max-width:700px){.photo-frame{width:min(315px,78vw)!important}}
+#home .hero-copy,#home .hero-copy .hero-eyebrow,#home .hero-copy h1,#home .hero-copy .hero-description,#home .hero-copy .hero-actions,#home .hero-copy .hero-meta{animation-duration:1.35s!important;animation-timing-function:cubic-bezier(.2,.7,.25,1)!important}
+#home .hero-photo-wrap{animation-duration:1.55s!important;animation-timing-function:cubic-bezier(.2,.7,.25,1)!important}
+#home .hero-bottom{animation-duration:1.3s!important}
+#home .hero-copy h1 .serif,#home .hero-copy h1 .outline{animation-duration:1.5s!important}
+#home .hero-glow{animation-duration:18s!important}
+.om-v16-section.om-v16-visible,.om-section-target.om-revealed,.om-v16-item.om-v16-visible,.om-content-target.om-revealed,.om-section-reveal.om-revealed,.om-content-reveal.om-revealed,.portfolio-enter.motion-entered,.portfolio-child.motion-entered,.portfolio-motion.portfolio-motion-in{animation-duration:1.3s!important;animation-timing-function:cubic-bezier(.2,.7,.25,1)!important}
+.project{transition:transform .7s cubic-bezier(.2,.7,.25,1),box-shadow .7s ease!important}
+.project:hover .project-visual>*{transform:scale(1.012)!important}
+.project-visual:after{transition-duration:1.5s!important;opacity:.38!important}
+.project-v16-cursor{display:none!important}
+#v16-transition.play{animation:transitionBloom 1.2s ease-in-out both!important}
+.hero-backdrop{transform:translate3d(0,calc(var(--hero-parallax,0px)*.3),0)!important}
+.hero-glow{transform:translate3d(0,calc(var(--glow-parallax,0px)*.3),0)!important}
+@keyframes kineticLine{from{opacity:0;transform:translate3d(0,18%,0);clip-path:inset(0 0 22% 0);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0);clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes depthReveal{from{opacity:0;transform:translate3d(0,16px,0) scale(.996);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+@keyframes staggerReveal{from{opacity:0;transform:translate3d(0,12px,0) scale(.997)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes omIntroText{from{opacity:0;transform:translate3d(0,14px,0);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+@keyframes omIntroPortrait{from{opacity:0;transform:translate3d(8px,10px,0) scale(.99);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+@keyframes omSectionReveal{from{opacity:0;transform:translate3d(0,15px,0);filter:blur(0)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+@keyframes omContentReveal{from{opacity:0;transform:translate3d(0,10px,0) scale(.997)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
+@keyframes portfolioWipeReveal{from{clip-path:inset(0 0 8% 0);filter:blur(0)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes portfolioCardReveal{from{clip-path:inset(0 0 5% 0);filter:blur(0)}to{clip-path:inset(0 0 0 0);filter:blur(0)}}
+@keyframes transitionBloom{0%{opacity:0;clip-path:circle(0% at 50% 50%)}35%{opacity:.32;clip-path:circle(95% at 50% 50%)}100%{opacity:0;clip-path:circle(120% at 50% 50%)}}
+@media(prefers-reduced-motion:reduce){#profilePhoto,.photo-frame:before,.photo-frame:after,#home .hero-copy,#home .hero-photo-wrap,#home .hero-bottom,#home .hero-glow,#home .hero-copy>* ,.om-v16-section.om-v16-visible,.om-v16-item.om-v16-visible,.om-section-target.om-revealed,.om-content-target.om-revealed,.portfolio-enter.motion-entered,.portfolio-child.motion-entered,.portfolio-motion.portfolio-motion-in{animation:none!important;filter:none!important;opacity:1!important;transform:none!important;clip-path:none!important}}
 </style>
 </head>
 <body>
@@ -820,13 +840,13 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
     if(v16Frame)return;
     v16Frame=requestAnimationFrame(()=>{
       v16Frame=0;
-      const y=(event.clientY/window.innerHeight-.5)*-10;
+      const y=(event.clientY/window.innerHeight-.5)*-3;
       document.documentElement.style.setProperty("--hero-parallax",y.toFixed(2)+"px");
       document.documentElement.style.setProperty("--glow-parallax",(y*.55).toFixed(2)+"px");
     });
   },{passive:true});
   // Project hover cursor and restrained tilt only on fine-pointer devices.
-  if(window.matchMedia("(pointer:fine) and (min-width:801px)").matches){
+  if(false && window.matchMedia("(pointer:fine) and (min-width:801px)").matches){
     const v16Cursor=document.createElement("div");
     v16Cursor.className="project-v16-cursor";
     v16Cursor.textContent="View work";
@@ -841,8 +861,8 @@ body.motion-ready .reveal.is-visible,body.motion-ready .reveal-child.is-visible{
         v16Cursor.style.left=event.clientX+"px";
         v16Cursor.style.top=event.clientY+"px";
         const rect=card.getBoundingClientRect();
-        const rx=((event.clientY-rect.top)/rect.height-.5)*-3;
-        const ry=((event.clientX-rect.left)/rect.width-.5)*3;
+        const rx=((event.clientY-rect.top)/rect.height-.5)*-1.2;
+        const ry=((event.clientX-rect.left)/rect.width-.5)*1.2;
         card.style.transform="perspective(900px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-3px)";
       });
     });
