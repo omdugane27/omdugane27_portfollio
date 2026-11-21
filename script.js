@@ -58,4 +58,43 @@
     }),{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
     allMotionTargets.forEach(item=>portfolioMotionObserver.observe(item));
   }else{allMotionTargets.forEach(item=>item.classList.add('portfolio-motion-in'));}
+
+  // Final reliable viewport entrance system for every portfolio section.
+  const finalSections=[...document.querySelectorAll("section")];
+  const finalMotionItems=[];
+  finalSections.forEach((section,index)=>{
+    section.classList.add("portfolio-enter");
+    section.style.setProperty("--enter-delay",(index%3)*70+"ms");
+    finalMotionItems.push(section);
+    const children=section.querySelectorAll(".section-kicker, .section-heading, .intro-grid > *, .project, .timeline article, .credential, .skill-list li, .contact-links a, .hero-bottom, .hero-actions .btn, .hero-meta span");
+    children.forEach((item,i)=>{
+      item.classList.add("portfolio-child");
+      item.style.setProperty("--enter-delay",(i%5)*55+"ms");
+      finalMotionItems.push(item);
+    });
+  });
+  if("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    const finalEntranceObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("motion-entered");
+          finalEntranceObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.06,rootMargin:"0px 0px -35px 0px"});
+    finalMotionItems.forEach(item=>finalEntranceObserver.observe(item));
+  }else{
+    finalMotionItems.forEach(item=>item.classList.add("motion-entered"));
+  }
+  // Make portrait visible if the primary repository image fails; use the known secondary image.
+  const finalPortrait=document.querySelector("#profilePhoto");
+  if(finalPortrait){
+    finalPortrait.addEventListener("error",()=>{
+      if(!finalPortrait.dataset.fallbackUsed){
+        finalPortrait.dataset.fallbackUsed="true";
+        finalPortrait.src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg";
+      }
+    });
+    finalPortrait.addEventListener("load",()=>{finalPortrait.style.visibility="visible";finalPortrait.style.opacity="1";});
+  }
 })();
