@@ -28,8 +28,8 @@
   // Add distinctive motion hooks to the cinematic portfolio elements
   $('.hero')?.classList.add('cinematic-hero');
   $('.photo-frame')?.classList.add('orbit-frame');
-  $('.hero-actions .btn').forEach((button,index)=>button.classList.add(index===0?'button-trail':'button-glint'));
-  $('.project-visual').forEach((visual,index)=>{visual.classList.add('visual-motion');visual.style.setProperty('--visual-delay',(index*110)+'ms');});
+  $$('.hero-actions .btn').forEach((button,index)=>button.classList.add(index===0?'button-trail':'button-glint'));
+  $$('.project-visual').forEach((visual,index)=>{visual.classList.add('visual-motion');visual.style.setProperty('--visual-delay',(index*110)+'ms');});
 
   // Scroll reveal for cinematic section and card entrances
   const revealItems=Array.from(document.querySelectorAll('.section, .project, .contact, .hero-bottom'));
