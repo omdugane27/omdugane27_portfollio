@@ -66,6 +66,13 @@ body.motion-armed .hero-intro .hero-meta{opacity:0}
 .hero-intro .hero-meta{opacity:0;animation:heroEnter .8s cubic-bezier(.16,1,.3,1) 1s both}
 @media(prefers-reduced-motion:reduce){#siteLoader{animation:none!important;opacity:0!important;visibility:hidden!important}.hero-intro,.hero-intro .hero-title,.hero-intro .hero-copy,.hero-intro .hero-actions,.hero-intro .hero-meta{animation:none!important;opacity:1!important;transform:none!important}}
 
+
+/* Make the signature X-panels visibly read on mobile and desktop */
+.cinema-hero .hero-x-left,.cinema-hero .hero-x-right{opacity:.48;filter:drop-shadow(0 0 26px #e5091450);}
+.cinema-hero .hero-x-left{background:linear-gradient(135deg,#ff252d 0%,#8d0008 48%,#260000 100%);}
+.cinema-hero .hero-x-right{background:linear-gradient(35deg,#240000 0%,#e50914 52%,#ff3138 100%);opacity:.38;}
+.cinema-hero .hero-x-cross{opacity:.65;width:2px;background:linear-gradient(transparent,#ff1e1e,transparent);box-shadow:0 0 16px #ff1e1e66;}
+@media(max-width:900px){.cinema-hero .hero-x-left,.cinema-hero .hero-x-right{opacity:.4;}.cinema-hero .hero-x-cross{opacity:.45;}}
 /* CINEMATIC SIGNATURE DESIGN */
 :root{--crimson:#e50914;--blood:#650000;--cin-red:#ff1e1e}
 body{background:#050505}
