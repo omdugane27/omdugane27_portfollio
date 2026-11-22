@@ -291,6 +291,30 @@ a.red-progress:not(.nav-link):hover::after,a.red-progress:not(.nav-link):focus-v
 .hero-x-right.scroll-parallax{translate:0 calc(var(--parallax-y,0px)*-.72)}
 .hero-portrait-wrap.scroll-parallax{translate:0 calc(var(--parallax-y,0px)*-.32)}
 @media(prefers-reduced-motion:reduce){.scroll-motion-target.scroll-motion-active{animation:none!important}.scroll-parallax{translate:none!important}}
+
+/* 3D scroll reveal override — intentionally outranks the legacy one-shot motion-stage rules */
+.scroll-3d-target{transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity,filter}
+body.cinematic-ready main section .scroll-3d-target.scroll-3d-in{opacity:1!important;animation:d3RevealUp .95s cubic-bezier(.16,1,.3,1) both!important;animation-delay:var(--d3-delay,0ms)!important}
+body.cinematic-ready main #about .scroll-3d-target.scroll-3d-in{animation-name:d3RevealLeft!important}
+body.cinematic-ready main #work .scroll-3d-target.scroll-3d-in{animation-name:d3RevealFlip!important}
+body.cinematic-ready main #services .scroll-3d-target.scroll-3d-in{animation-name:d3RevealDepth!important}
+body.cinematic-ready main #skills .scroll-3d-target.scroll-3d-in{animation-name:d3RevealRotate!important}
+body.cinematic-ready main #experience .scroll-3d-target.scroll-3d-in{animation-name:d3RevealRight!important}
+body.cinematic-ready main #certifications .scroll-3d-target.scroll-3d-in{animation-name:d3RevealFlip!important}
+body.cinematic-ready main #contact .scroll-3d-target.scroll-3d-in{animation-name:d3RevealBloom!important}
+@keyframes d3RevealUp{0%{opacity:0;transform:perspective(1100px) translate3d(0,56px,-90px) rotateX(16deg) scale(.92);filter:blur(8px)}70%{filter:blur(0)}100%{opacity:1;transform:perspective(1100px) translate3d(0,0,0) rotateX(0) scale(1);filter:none}}
+@keyframes d3RevealLeft{0%{opacity:0;transform:perspective(1000px) translate3d(-80px,18px,-60px) rotateY(24deg) scale(.92);filter:blur(6px)}100%{opacity:1;transform:perspective(1000px) translate3d(0,0,0) rotateY(0) scale(1);filter:none}}
+@keyframes d3RevealRight{0%{opacity:0;transform:perspective(1000px) translate3d(80px,18px,-60px) rotateY(-24deg) scale(.92);filter:blur(6px)}100%{opacity:1;transform:perspective(1000px) translate3d(0,0,0) rotateY(0) scale(1);filter:none}}
+@keyframes d3RevealFlip{0%{opacity:0;transform:perspective(1200px) translate3d(0,40px,-120px) rotateX(25deg) rotateY(-12deg) scale(.88);filter:blur(7px)}100%{opacity:1;transform:perspective(1200px) translate3d(0,0,0) rotateX(0) rotateY(0) scale(1);filter:none}}
+@keyframes d3RevealDepth{0%{opacity:0;transform:perspective(1200px) translateZ(-180px) rotateX(28deg) scale(.78);filter:blur(9px)}100%{opacity:1;transform:perspective(1200px) translateZ(0) rotateX(0) scale(1);filter:none}}
+@keyframes d3RevealRotate{0%{opacity:0;transform:perspective(1100px) translate3d(0,35px,-90px) rotateY(32deg) rotateX(14deg) scale(.86);filter:blur(7px)}100%{opacity:1;transform:perspective(1100px) translate3d(0,0,0) rotateY(0) rotateX(0) scale(1);filter:none}}
+@keyframes d3RevealBloom{0%{opacity:0;transform:perspective(1000px) translateZ(-140px) rotateX(-20deg) scale(.76);filter:blur(10px)}100%{opacity:1;transform:perspective(1000px) translateZ(0) rotateX(0) scale(1);filter:none}}
+.scroll-3d-out{opacity:0!important;transform:perspective(1000px) translateZ(-70px) scale(.96)!important;transition:opacity .22s,transform .22s!important}
+.hero-x-left,.hero-x-right,.hero-portrait-wrap,.hero-light{transform-style:preserve-3d;translate:0 var(--d3-depth,0px);rotate:0 1 0 var(--d3-rotate,0deg)}
+.hero-x-left{transform:perspective(1000px) rotateY(var(--d3-rotate,0deg))}
+.hero-x-right{transform:perspective(1000px) rotateY(var(--d3-rotate,0deg))}
+.hero-portrait-wrap{transform:perspective(1000px) translateZ(var(--d3-depth,0px))}
+@media(prefers-reduced-motion:reduce){.scroll-3d-target,.scroll-3d-target.scroll-3d-in,.scroll-3d-out{animation:none!important;transform:none!important;opacity:1!important;filter:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -574,53 +598,75 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  motionSections.forEach(id=>{const section=document.getElementById(id),heading=section?.querySelector('h2');if(!heading)return;heading.style.cursor='pointer';heading.title='Tap to replay section animation';heading.addEventListener('click',()=>{section.querySelectorAll('.motion-stage').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');});});});
 
 
-/* Scroll replay system: animations trigger on scroll in AND re-trigger when revisiting */
+/* Reliable 3D scroll replay: re-trigger section choreography on each viewport entry */
 (function(){
- const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- if(reduced)return;
+ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  const sectionIds=['home','work','about','services','skills','experience','certifications','contact'];
- sectionIds.forEach(id=>{
-  const section=document.getElementById(id);if(!section)return;
-  const candidates=[...section.querySelectorAll('h1,h2,.hero-intro,.hero-title,.role-line,.hero-copy,.hero-actions a,.hero-meta,.hero-portrait-wrap,.hero-stats .glass > div,article,.card,.glass,.pill,.contact-links a')];
-  const unique=[...new Set(candidates)].filter(el=>!el.closest('#projectModal'));
-  unique.forEach((el,i)=>{el.classList.add('scroll-motion-target');el.style.setProperty('--scroll-delay',Math.min(i%7,6)*75+'ms');});
+ if(reduce)return;
+ const sections=sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
+ const allTargets=[];
+ sections.forEach((section,si)=>{
+  const selectors='h1,h2,.hero-intro,.hero-title,.role-line,.hero-copy,.hero-actions a,.hero-meta,.hero-portrait-wrap,.hero-stats .glass > div,article,.card,.glass,.pill,.contact-links a';
+  [...section.querySelectorAll(selectors)].forEach((el,i)=>{
+   if(el.closest('#projectModal'))return;
+   if(el.matches('a,button,input,textarea,select'))return;
+   el.classList.add('scroll-3d-target');
+   el.style.setProperty('--d3-delay',Math.min(i%6,5)*70+'ms');
+   el.style.setProperty('--d3-index',String(i));
+   allTargets.push(el);
+  });
  });
- const targets=[...document.querySelectorAll('.scroll-motion-target')];
- const replayObserver=new IntersectionObserver(entries=>{
+ const reveal=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
+   const el=entry.target;
    if(entry.isIntersecting){
-    entry.target.classList.remove('scroll-motion-active');
-    void entry.target.offsetWidth;
-    entry.target.classList.add('scroll-motion-active');
+    el.classList.remove('scroll-3d-in');
+    el.classList.add('scroll-3d-out');
+    void el.offsetWidth;
+    el.classList.remove('scroll-3d-out');
+    el.classList.add('scroll-3d-in');
    }else{
-    entry.target.classList.remove('scroll-motion-active');
+    el.classList.remove('scroll-3d-in');
+    el.classList.add('scroll-3d-out');
    }
   });
- },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
- targets.forEach(el=>replayObserver.observe(el));
- // Gentle scroll-linked depth on hero lighting and X panels, updated once per frame.
- const parallaxEls=[...document.querySelectorAll('.hero-light,.hero-x-left,.hero-x-right,.hero-portrait-wrap')];
- parallaxEls.forEach(el=>el.classList.add('scroll-parallax'));
- let rafId=0;
- const updateParallax=()=>{
-  rafId=0;
-  const vh=window.innerHeight||1;
-  parallaxEls.forEach((el,i)=>{
-   const rect=el.getBoundingClientRect();
-   const shift=(rect.top+rect.height*.5-vh*.5)*-.035*(i===3?.55:1);
-   el.style.setProperty('--parallax-y',Math.max(-26,Math.min(26,shift)).toFixed(1)+'px');
+ },{threshold:.18,rootMargin:'0px 0px -7% 0px'});
+ allTargets.forEach(el=>reveal.observe(el));
+ // Active heading tap/click replays the entire section with its 3D entrance.
+ sections.forEach(section=>{
+  const heading=section.querySelector('h1,h2');
+  if(!heading)return;
+  heading.style.cursor='pointer';
+  heading.setAttribute('title','Tap to replay section animation');
+  heading.addEventListener('click',()=>{
+   section.querySelectorAll('.scroll-3d-target').forEach(el=>{
+    el.classList.remove('scroll-3d-in');el.classList.add('scroll-3d-out');
+   });
+   requestAnimationFrame(()=>section.querySelectorAll('.scroll-3d-target').forEach(el=>{
+    el.classList.remove('scroll-3d-out');void el.offsetWidth;el.classList.add('scroll-3d-in');
+   }));
+  });
+ });
+ // Scroll-linked 3D depth for the hero composition, frame-rate friendly.
+ const depthEls=[...document.querySelectorAll('.hero-x-left,.hero-x-right,.hero-portrait-wrap,.hero-light')];
+ let raf=0;
+ const update=()=>{
+  raf=0;const h=innerHeight||1;
+  depthEls.forEach((el,i)=>{
+   const r=el.getBoundingClientRect();
+   const p=Math.max(-1,Math.min(1,(r.top+r.height*.5-h*.5)/h));
+   el.style.setProperty('--d3-depth',(p*(i===2?18:34)).toFixed(1)+'px');
+   el.style.setProperty('--d3-rotate',(p*(i===0?-5:i===1?5:2)).toFixed(2)+'deg');
   });
  };
- const requestParallax=()=>{if(!rafId)rafId=requestAnimationFrame(updateParallax)};
- window.addEventListener('scroll',requestParallax,{passive:true});
- window.addEventListener('resize',requestParallax,{passive:true});
- requestParallax();
- // If the user returns to the Home section by scrolling, replay the hero entrance too.
- const home=document.getElementById('home');
- if(home){let homeWasVisible=false;const homeObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
-  if(entry.isIntersecting&&!homeWasVisible){homeWasVisible=true;runPostIntroEntrance();}
-  if(!entry.isIntersecting)homeWasVisible=false;
- }),{threshold:.35});homeObserver.observe(home);}
-})();
+ const onScroll=()=>{if(!raf)raf=requestAnimationFrame(update)};
+ addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll,{passive:true});onScroll();
+ // Re-run the home entrance when scrolling back into view, only after intro is finished.
+ const home=document.getElementById('home');let wasIn=false;
+ if(home){const homeIO=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting&&!wasIn){wasIn=true;if(document.body.classList.contains('cinematic-ready'))runPostIntroEntrance();}
+  if(!e.isIntersecting)wasIn=false;
+ }),{threshold:.42});homeIO.observe(home);}
+})();;
 </script>
 </body></html>
