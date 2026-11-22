@@ -231,6 +231,37 @@ body.cursor-enabled,body.cursor-enabled a,body.cursor-enabled button{cursor:none
 @media(max-width:480px){.cinema-hero{min-height:auto!important;padding-top:92px!important;padding-bottom:42px!important}.hero-layout{gap:18px!important}.hero-intro{padding-top:8px!important}.hero-title{font-size:clamp(2.7rem,12.3vw,4.4rem)!important;line-height:.94!important}.hero-portrait-wrap{height:clamp(330px,94vw,390px)!important;min-height:330px!important;margin-top:0!important}.hero-stats{margin-top:18px!important}.hero-stats .glass{overflow:hidden}.hero-stats .glass>div{padding:14px 10px!important}.hero-stats .glass b{font-size:clamp(1.35rem,6vw,2rem)!important}.hero-stats .glass p{font-size:10px!important;line-height:1.35}.hero-x-left,.hero-x-right{clip-path:polygon(0 0,30% 0,100% 100%,70% 100%)!important}}
 @media(prefers-reduced-motion:reduce){.hero-x-left,.hero-x-right,.hero-x-cross,.hero-portrait-wrap,.hero-intro>p:first-child,.hero-title,.hero-stats>div.glass>div,.motion-v20.motion-seen,.motion-heading.motion-seen{animation:none!important;opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}}
 
+
+/* POST-INTRO STAGING: main content enters only after the cinematic opener */
+body:not(.cinematic-ready) main #home .hero-intro,body:not(.cinematic-ready) main #home .hero-portrait-wrap,body:not(.cinematic-ready) main #home .hero-stats{opacity:0}
+body.cinematic-ready main #home .hero-intro{animation:postIntroCopy .95s cubic-bezier(.16,1,.3,1) both}
+body.cinematic-ready main #home .hero-portrait-wrap{animation:postIntroPortrait 1.2s cubic-bezier(.16,1,.3,1) .12s both,portraitFloat 7s ease-in-out 1.5s infinite}
+body.cinematic-ready main #home .hero-stats{animation:postIntroStats .9s cubic-bezier(.16,1,.3,1) .48s both}
+body.cinematic-ready main #home .hero-intro .hero-title{animation:postIntroHeadline 1.05s cubic-bezier(.16,1,.3,1) .22s both}
+body.cinematic-ready main #home .hero-intro .hero-copy{animation:postIntroCopy .8s cubic-bezier(.16,1,.3,1) .52s both}
+body.cinematic-ready main #home .hero-intro .hero-actions{animation:postIntroCopy .8s cubic-bezier(.16,1,.3,1) .7s both}
+body.cinematic-ready main #home .hero-intro .hero-meta{animation:postIntroCopy .8s cubic-bezier(.16,1,.3,1) .88s both}
+@keyframes postIntroCopy{from{opacity:0;transform:translate3d(0,30px,0);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@keyframes postIntroHeadline{from{opacity:0;transform:translate3d(0,42px,0) scale(.96);clip-path:inset(0 0 30% 0)}70%{opacity:1;clip-path:inset(0)}to{transform:none;clip-path:inset(0)}}
+@keyframes postIntroPortrait{from{opacity:0;transform:translate3d(35px,25px,0) scale(.88);clip-path:polygon(50% 0,50% 0,50% 100%,50% 100%);filter:brightness(.4)}to{opacity:1;transform:none;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);filter:brightness(1)}}
+@keyframes postIntroStats{from{opacity:0;transform:perspective(900px) rotateX(22deg) translateY(24px)}to{opacity:1;transform:none}}
+body.cinematic-ready main section .motion-stage{opacity:0;animation-duration:1s;animation-timing-function:cubic-bezier(.16,1,.3,1);animation-fill-mode:both;animation-delay:var(--stage-delay,0ms)}
+body.cinematic-ready main #work .motion-stage{animation-name:stageWork}
+body.cinematic-ready main #about .motion-stage{animation-name:stageAbout}
+body.cinematic-ready main #services .motion-stage{animation-name:stageServices}
+body.cinematic-ready main #skills .motion-stage{animation-name:stageSkills}
+body.cinematic-ready main #experience .motion-stage{animation-name:stageExperience}
+body.cinematic-ready main #certifications .motion-stage{animation-name:stageCertificates}
+body.cinematic-ready main #contact .motion-stage{animation-name:stageContact}
+@keyframes stageWork{from{opacity:0;transform:translateY(42px) scale(.92);clip-path:inset(0 0 18% 0);filter:blur(5px)}to{opacity:1;transform:none;clip-path:inset(0);filter:none}}
+@keyframes stageAbout{from{opacity:0;transform:translateX(-48px) rotateY(-9deg);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes stageServices{from{opacity:0;transform:perspective(800px) translateY(30px) rotateX(16deg) scale(.88)}65%{opacity:1;transform:perspective(800px) translateY(-3px) rotateX(0) scale(1.01)}to{opacity:1;transform:none}}
+@keyframes stageSkills{from{opacity:0;transform:scale(.84) translateY(18px);filter:blur(6px)}60%{opacity:1;transform:scale(1.025);filter:none}to{opacity:1;transform:none}}
+@keyframes stageExperience{from{opacity:0;transform:translateX(38px);clip-path:inset(0 0 0 15%)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes stageCertificates{from{opacity:0;transform:perspective(900px) rotateY(17deg) translateZ(-30px)}to{opacity:1;transform:none}}
+@keyframes stageContact{from{opacity:0;transform:translateY(26px) scale(.94);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@media(prefers-reduced-motion:reduce){body.cinematic-ready main #home .hero-intro,body.cinematic-ready main #home .hero-portrait-wrap,body.cinematic-ready main #home .hero-stats,body.cinematic-ready main #home .hero-intro .hero-title,body.cinematic-ready main #home .hero-intro .hero-copy,body.cinematic-ready main #home .hero-intro .hero-actions,body.cinematic-ready main #home .hero-intro .hero-meta,body.cinematic-ready main section .motion-stage{animation:none!important;opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}}
+
 </style>
 </head>
 <body>
@@ -386,7 +417,7 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
 (function(){
  const intro=document.getElementById('introSequence'),skip=document.getElementById('skipIntro');
  let introDone=false,introTimeline=null;
- const finishIntro=()=>{if(introDone)return;introDone=true;introTimeline?.kill();intro?.classList.add('intro-out');document.body.classList.add('intro-complete');};
+ const finishIntro=()=>{if(introDone)return;introDone=true;introTimeline?.kill();intro?.classList.add('intro-out');document.body.classList.add('intro-complete');requestAnimationFrame(()=>{document.body.classList.add('cinematic-ready');runPostIntroEntrance();});};
  skip?.addEventListener('click',finishIntro);
  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  if(reduce){finishIntro();}else{
@@ -462,6 +493,34 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{const section=document.getElementById(link.getAttribute('href').slice(1));if(!section)return;setTimeout(()=>{section.querySelectorAll('.motion-v20').forEach((el,i)=>{el.style.setProperty('--motion-delay',(i%6)*85+'ms');play(el);});const heading=section.querySelector('h1,h2');if(heading)play(heading);},reduced?0:350);}));
  if(!reduced&&matchMedia('(hover:hover) and (pointer:fine)').matches)document.querySelectorAll('#work article,#services article,#certifications article').forEach(card=>{card.addEventListener('pointerenter',()=>card.classList.add('motion-hover'));card.addEventListener('pointerleave',()=>card.classList.remove('motion-hover'));});
 })();
+
+
+ /* After the intro, run a deliberate hero entrance; other sections animate when entering the viewport. */
+ function runPostIntroEntrance(){
+  const home=document.getElementById('home');if(!home)return;
+  ['.hero-intro','.hero-title','.hero-copy','.hero-actions','.hero-meta','.hero-portrait-wrap','.hero-stats'].forEach(sel=>{const el=home.querySelector(sel);if(!el)return;el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');});
+ }
+ const motionSections=['work','about','services','skills','experience','certifications','contact'];
+ const motionStyles={
+  work:['h2','#projectsGrid article'],
+  about:['h2','.wrap .glass,.wrap .card,.wrap .pill'],
+  services:['h2','.wrap article'],
+  skills:['h2','.wrap .glass,.wrap .card,.wrap .pill'],
+  experience:['h2','.wrap article,.wrap .glass'],
+  certifications:['h2','.wrap article,.wrap .glass'],
+  contact:['h2','.wrap .glass,.wrap .contact-links a']
+ };
+ const motionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  const section=entry.target,id=section.id,selectors=motionStyles[id]||[];
+  section.querySelectorAll(selectors.join(',')).forEach((el,i)=>{
+   if(el.classList.contains('motion-stage'))return;
+   el.classList.add('motion-stage');el.style.setProperty('--stage-delay',Math.min(i%7,6)*95+'ms');
+  });
+  motionObserver.unobserve(section);
+ }),{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+ motionSections.forEach(id=>{const section=document.getElementById(id);if(section)motionObserver.observe(section);});
+ motionSections.forEach(id=>{const section=document.getElementById(id),heading=section?.querySelector('h2');if(!heading)return;heading.style.cursor='pointer';heading.title='Tap to replay section animation';heading.addEventListener('click',()=>{section.querySelectorAll('.motion-stage').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');});});});
 
 </script>
 </body></html>
