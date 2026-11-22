@@ -5,7 +5,77 @@
 <meta name="theme-color" content="#0a0a0a">
 <meta name="description" content="Personal portfolio — data analytics, finance research and web development.">
 <title>Portfolio | Data & Web</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com">
+/* Final single-owner Home reveal: disable overlapping hero scroll animations, then animate as one timeline. */
+runPostIntroEntrance = function(){
+ const home=document.getElementById('home');
+ if(!home)return;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const intro=document.getElementById('introSequence');
+ const targets=[...home.querySelectorAll('.hero-intro,.hero-title,.role-line,.hero-copy,.hero-actions a,.hero-meta,.hero-portrait-wrap,.hero-stats,.hero-stats .glass > div,.hero-x-left,.hero-x-right,.hero-x-cross')];
+ const header=document.querySelector('header');
+ // Hero elements must not simultaneously run generic scroll-reveal keyframes.
+ [...home.querySelectorAll('.motion-v20,.motion-stage,.scroll-3d-target')].forEach(el=>el.classList.remove('motion-v20','motion-stage','scroll-3d-target','scroll-3d-in'));
+ document.body.classList.add('home-reveal-pending');
+ const begin=()=>{
+  document.body.classList.remove('home-reveal-pending');
+  document.body.classList.add('home-reveal-playing');
+  home.classList.add('home-entrance-playing');
+  const all=[header,...targets].filter(Boolean);
+  if(reduced){
+   all.forEach(el=>{el.style.opacity='1';el.style.visibility='visible';el.style.transform='none';el.style.filter='none';el.style.clipPath='none';el.style.animation='none';});
+   document.body.classList.remove('home-reveal-playing');home.classList.remove('home-entrance-playing');return;
+  }
+  if(window.gsap){
+   const gs=window.gsap;gs.killTweensOf(all);
+   // Force a clean starting frame; prevents CSS/previous timeline states from flashing.
+   gs.set(all,{clearProps:'transform,opacity,visibility,filter,clipPath'});
+   const tl=gs.timeline({defaults:{ease:'power3.out'},onComplete:()=>{
+    gs.set(all,{autoAlpha:1,clearProps:'transform,filter,clipPath,transformPerspective'});
+    document.body.classList.remove('home-reveal-playing');home.classList.remove('home-entrance-playing');
+   }});
+   if(header)tl.fromTo(header,{y:-18,autoAlpha:0},{y:0,autoAlpha:1,duration:.9,ease:'power2.out',immediateRender:false},0);
+   const left=home.querySelector('.hero-x-left'),right=home.querySelector('.hero-x-right'),cross=home.querySelector('.hero-x-cross');
+   if(left)tl.fromTo(left,{xPercent:-12,rotation:-2,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.52,duration:1.65,ease:'power2.out',immediateRender:false},0);
+   if(right)tl.fromTo(right,{xPercent:12,rotation:2,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.42,duration:1.65,ease:'power2.out',immediateRender:false},0);
+   if(cross)tl.fromTo(cross,{scaleY:.5,autoAlpha:0},{scaleY:1,autoAlpha:.6,duration:1.35,ease:'power2.out',immediateRender:false},.15);
+   const introLabel=home.querySelector('.hero-intro');
+   const title=home.querySelector('.hero-title');
+   const role=home.querySelector('.role-line');
+   const desc=home.querySelector('.hero-copy');
+   const buttons=[...home.querySelectorAll('.hero-actions a')];
+   const meta=home.querySelector('.hero-meta');
+   const portrait=home.querySelector('.hero-portrait-wrap');
+   const stats=home.querySelector('.hero-stats');
+   const statCards=[...home.querySelectorAll('.hero-stats .glass > div')];
+   if(introLabel)tl.fromTo(introLabel,{y:22,autoAlpha:0,filter:'blur(5px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:1.05,immediateRender:false},.25);
+   if(title)tl.fromTo(title,{y:42,autoAlpha:0,scale:.975,filter:'blur(8px)'},{y:0,autoAlpha:1,scale:1,filter:'blur(0px)',duration:1.4,ease:'power2.out',immediateRender:false},.42);
+   if(role)tl.fromTo(role,{y:16,autoAlpha:0},{y:0,autoAlpha:1,duration:.9,immediateRender:false},.8);
+   if(desc)tl.fromTo(desc,{y:18,autoAlpha:0,filter:'blur(4px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:1.05,immediateRender:false},.92);
+   if(buttons.length)tl.fromTo(buttons,{y:18,autoAlpha:0,scale:.985},{y:0,autoAlpha:1,scale:1,duration:.9,stagger:.16,immediateRender:false},1.18);
+   if(meta)tl.fromTo(meta,{y:12,autoAlpha:0},{y:0,autoAlpha:1,duration:.8,immediateRender:false},1.42);
+   if(portrait)tl.fromTo(portrait,{x:36,y:14,scale:.96,autoAlpha:0,filter:'blur(8px)',clipPath:'inset(0 0 0 10%)'},{x:0,y:0,scale:1,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0)',duration:1.75,ease:'power2.out',immediateRender:false},.25);
+   if(stats)tl.fromTo(stats,{y:24,autoAlpha:0,filter:'blur(5px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:1.1,immediateRender:false},1.45);
+   if(statCards.length)tl.fromTo(statCards,{y:16,autoAlpha:0,scale:.985},{y:0,autoAlpha:1,scale:1,duration:.85,stagger:.14,immediateRender:false},1.62);
+   return;
+  }
+  // Smooth native fallback: same sequencing and eased transitions without GSAP.
+  const animate=(els,delay,duration,from,to)=>els.filter(Boolean).forEach(el=>el.animate([from,to],{duration,delay,easing:'cubic-bezier(.22,.72,.24,1)',fill:'both'}));
+  animate([header],0,850,{opacity:0,transform:'translateY(-16px)'},{opacity:1,transform:'translateY(0)'});
+  animate([home.querySelector('.hero-x-left')],100,1500,{opacity:0,transform:'translateX(-7%) rotate(-2deg)'},{opacity:.52,transform:'none'});
+  animate([home.querySelector('.hero-x-right')],100,1500,{opacity:0,transform:'translateX(7%) rotate(2deg)'},{opacity:.42,transform:'none'});
+  animate([home.querySelector('.hero-intro')],250,1000,{opacity:0,transform:'translateY(20px)',filter:'blur(5px)'},{opacity:1,transform:'none',filter:'blur(0)'});
+  animate([home.querySelector('.hero-title')],420,1350,{opacity:0,transform:'translateY(36px) scale(.975)',filter:'blur(8px)'},{opacity:1,transform:'none',filter:'blur(0)'});
+  animate([home.querySelector('.role-line'),home.querySelector('.hero-copy')],850,1000,{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'});
+  animate([...home.querySelectorAll('.hero-actions a')],1180,900,{opacity:0,transform:'translateY(16px)'},{opacity:1,transform:'none'});
+  animate([home.querySelector('.hero-portrait-wrap')],250,1750,{opacity:0,transform:'translate(30px,12px) scale(.96)',filter:'blur(8px)',clipPath:'inset(0 0 0 10%)'},{opacity:1,transform:'none',filter:'blur(0)',clipPath:'inset(0)'});
+  animate([home.querySelector('.hero-stats')],1450,1100,{opacity:0,transform:'translateY(22px)'},{opacity:1,transform:'none'});
+  setTimeout(()=>{document.body.classList.remove('home-reveal-playing');home.classList.remove('home-entrance-playing');},3500);
+ };
+ // Wait for the full 800ms intro-overlay fade before revealing any hero content.
+ window.setTimeout(begin,intro?.classList.contains('intro-out')?820:0);
+};
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -358,14 +428,7 @@ body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-title,
 body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-copy,
 body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-actions,
 body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-meta{animation:none!important}
-body.cinematic-ready main #home.home-entrance-playing .hero-intro,
-body.cinematic-ready main #home.home-entrance-playing .hero-portrait-wrap,
-body.cinematic-ready main #home.home-entrance-playing .hero-stats{opacity:1!important;visibility:visible!important}
-body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-title,
-body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-copy,
-body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-actions,
-body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-meta{opacity:1!important;visibility:visible!important}
-body.cinematic-ready main #home.home-entrance-playing .hero-intro .hero-title{clip-path:none!important}
+/* Home reveal opacity is controlled by the single GSAP entrance timeline; no !important visibility overrides. */
 body.cinematic-ready main #home.home-entrance-fallback .hero-intro{animation:homeCopySmooth .8s cubic-bezier(.22,.72,.24,1) both!important}
 body.cinematic-ready main #home.home-entrance-fallback .hero-title{animation:homeTitleSmooth .9s cubic-bezier(.22,.72,.24,1) .18s both!important}
 body.cinematic-ready main #home.home-entrance-fallback .hero-portrait-wrap{animation:homePortraitSmooth 1.1s cubic-bezier(.22,.72,.24,1) .15s both!important}
@@ -396,6 +459,19 @@ body.home-reveal-playing #home .hero-stats{visibility:visible}
  body.home-reveal-pending #home .hero-stats{visibility:visible!important}
 }
 
+
+/* Final smooth entrance overrides: prevent competing scroll keyframes on the hero */
+body.home-reveal-playing #home .hero-intro,
+body.home-reveal-playing #home .hero-title,
+body.home-reveal-playing #home .role-line,
+body.home-reveal-playing #home .hero-copy,
+body.home-reveal-playing #home .hero-actions,
+body.home-reveal-playing #home .hero-meta,
+body.home-reveal-playing #home .hero-portrait-wrap,
+body.home-reveal-playing #home .hero-stats{animation:none!important;transition:none!important}
+body.home-reveal-pending #home .hero-intro,
+body.home-reveal-pending #home .hero-portrait-wrap,
+body.home-reveal-pending #home .hero-stats{visibility:hidden!important}
 </style>
 </head>
 <body>
