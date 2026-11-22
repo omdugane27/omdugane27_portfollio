@@ -315,6 +315,40 @@ body.cinematic-ready main #contact .scroll-3d-target.scroll-3d-in{animation-name
 .hero-x-right{transform:perspective(1000px) rotateY(var(--d3-rotate,0deg))}
 .hero-portrait-wrap{transform:perspective(1000px) translateZ(var(--d3-depth,0px))}
 @media(prefers-reduced-motion:reduce){.scroll-3d-target,.scroll-3d-target.scroll-3d-in,.scroll-3d-out{animation:none!important;transform:none!important;opacity:1!important;filter:none!important;transition:none!important}}
+
+/* Smooth motion tuning: one animation system owns the scroll reveal */
+.scroll-3d-target{transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity}
+.scroll-3d-target.motion-v20.motion-seen,
+.scroll-3d-target.motion-stage{opacity:1!important;animation:none!important}
+body.cinematic-ready main section .scroll-3d-target.scroll-3d-in{
+ opacity:1!important;
+ animation:d3SmoothUp 1.08s cubic-bezier(.22,.72,.24,1) both!important;
+ animation-delay:var(--d3-delay,0ms)!important;
+}
+body.cinematic-ready main #about .scroll-3d-target.scroll-3d-in{animation-name:d3SmoothLeft!important}
+body.cinematic-ready main #work .scroll-3d-target.scroll-3d-in{animation-name:d3SmoothFlip!important}
+body.cinematic-ready main #services .scroll-3d-target.scroll-3d-in{animation-name:d3SmoothDepth!important}
+body.cinematic-ready main #skills .scroll-3d-target.scroll-3d-in{animation-name:d3SmoothRotate!important}
+body.cinematic-ready main #experience .scroll-3d-target.scroll-3d-in{animation-name:d3SmoothRight!important}
+body.cinematic-ready main #certifications .scroll-3d-target.scroll-3d-in{animation-name:d3SmoothFlip!important}
+body.cinematic-ready main #contact .scroll-3d-target.scroll-3d-in{animation-name:d3SmoothBloom!important}
+@keyframes d3SmoothUp{0%{opacity:.35;transform:perspective(1400px) translate3d(0,28px,-45px) rotateX(8deg) scale(.97)}100%{opacity:1;transform:perspective(1400px) translate3d(0,0,0) rotateX(0) scale(1)}}
+@keyframes d3SmoothLeft{0%{opacity:.35;transform:perspective(1400px) translate3d(-32px,12px,-35px) rotateY(10deg) scale(.97)}100%{opacity:1;transform:perspective(1400px) translate3d(0,0,0) rotateY(0) scale(1)}}
+@keyframes d3SmoothRight{0%{opacity:.35;transform:perspective(1400px) translate3d(32px,12px,-35px) rotateY(-10deg) scale(.97)}100%{opacity:1;transform:perspective(1400px) translate3d(0,0,0) rotateY(0) scale(1)}}
+@keyframes d3SmoothFlip{0%{opacity:.35;transform:perspective(1400px) translate3d(0,24px,-55px) rotateX(10deg) rotateY(-5deg) scale(.96)}100%{opacity:1;transform:perspective(1400px) translate3d(0,0,0) rotateX(0) rotateY(0) scale(1)}}
+@keyframes d3SmoothDepth{0%{opacity:.35;transform:perspective(1400px) translateZ(-75px) rotateX(12deg) scale(.94)}100%{opacity:1;transform:perspective(1400px) translateZ(0) rotateX(0) scale(1)}}
+@keyframes d3SmoothRotate{0%{opacity:.35;transform:perspective(1400px) translate3d(0,20px,-40px) rotateY(12deg) rotateX(6deg) scale(.96)}100%{opacity:1;transform:perspective(1400px) translate3d(0,0,0) rotateY(0) rotateX(0) scale(1)}}
+@keyframes d3SmoothBloom{0%{opacity:.35;transform:perspective(1400px) translateZ(-60px) rotateX(-10deg) scale(.95)}100%{opacity:1;transform:perspective(1400px) translateZ(0) rotateX(0) scale(1)}}
+.scroll-3d-target.scroll-3d-in{animation-duration:1.08s!important;animation-timing-function:cubic-bezier(.22,.72,.24,1)!important}
+.scroll-3d-target{transition:transform .45s cubic-bezier(.22,.72,.24,1),opacity .45s ease}
+.hero-x-left,.hero-x-right,.hero-portrait-wrap,.hero-light{transition:translate .22s ease-out,rotate .22s ease-out;transform-style:preserve-3d}
+.hero-x-left{transform:perspective(1200px) rotateY(var(--d3-rotate,0deg))}
+.hero-x-right{transform:perspective(1200px) rotateY(var(--d3-rotate,0deg))}
+.hero-portrait-wrap{transform:perspective(1200px) translateZ(var(--d3-depth,0px))}
+@media(prefers-reduced-motion:reduce){
+ .scroll-3d-target,.scroll-3d-target.scroll-3d-in,.scroll-3d-target.scroll-3d-out{animation:none!important;transform:none!important;opacity:1!important;filter:none!important;transition:none!important}
+ .hero-x-left,.hero-x-right,.hero-portrait-wrap,.hero-light{transition:none!important;translate:none!important;rotate:none!important}
+}
 </style>
 </head>
 <body>
@@ -598,75 +632,61 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  motionSections.forEach(id=>{const section=document.getElementById(id),heading=section?.querySelector('h2');if(!heading)return;heading.style.cursor='pointer';heading.title='Tap to replay section animation';heading.addEventListener('click',()=>{section.querySelectorAll('.motion-stage').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');});});});
 
 
-/* Reliable 3D scroll replay: re-trigger section choreography on each viewport entry */
+/* Smooth 3D scroll choreography: replay on re-entry without flicker or abrupt hide */
 (function(){
- const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- const sectionIds=['home','work','about','services','skills','experience','certifications','contact'];
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const ids=['home','work','about','services','skills','experience','certifications','contact'];
+ const sections=ids.map(id=>document.getElementById(id)).filter(Boolean);
  if(reduce)return;
- const sections=sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
- const allTargets=[];
- sections.forEach((section,si)=>{
-  const selectors='h1,h2,.hero-intro,.hero-title,.role-line,.hero-copy,.hero-actions a,.hero-meta,.hero-portrait-wrap,.hero-stats .glass > div,article,.card,.glass,.pill,.contact-links a';
-  [...section.querySelectorAll(selectors)].forEach((el,i)=>{
-   if(el.closest('#projectModal'))return;
-   if(el.matches('a,button,input,textarea,select'))return;
+ const targets=[];
+ sections.forEach(section=>{
+  const selector='h1,h2,.hero-intro,.hero-title,.role-line,.hero-copy,.hero-actions a,.hero-meta,.hero-portrait-wrap,.hero-stats .glass > div,article,.card,.glass,.pill,.contact-links a';
+  [...section.querySelectorAll(selector)].forEach((el,i)=>{
+   if(el.closest('#projectModal')||el.matches('a,button,input,textarea,select'))return;
    el.classList.add('scroll-3d-target');
-   el.style.setProperty('--d3-delay',Math.min(i%6,5)*70+'ms');
-   el.style.setProperty('--d3-index',String(i));
-   allTargets.push(el);
+   el.style.setProperty('--d3-delay',Math.min(i%5,4)*85+'ms');
+   targets.push(el);
   });
  });
- const reveal=new IntersectionObserver(entries=>{
+ function replay(el){
+  if(!el)return;
+  el.classList.remove('scroll-3d-in');
+  void el.offsetWidth;
+  el.classList.add('scroll-3d-in');
+ }
+ const observer=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
-   const el=entry.target;
-   if(entry.isIntersecting){
-    el.classList.remove('scroll-3d-in');
-    el.classList.add('scroll-3d-out');
-    void el.offsetWidth;
-    el.classList.remove('scroll-3d-out');
-    el.classList.add('scroll-3d-in');
-   }else{
-    el.classList.remove('scroll-3d-in');
-    el.classList.add('scroll-3d-out');
-   }
+   if(entry.isIntersecting)replay(entry.target);
   });
- },{threshold:.18,rootMargin:'0px 0px -7% 0px'});
- allTargets.forEach(el=>reveal.observe(el));
- // Active heading tap/click replays the entire section with its 3D entrance.
+ },{threshold:.16,rootMargin:'0px 0px -9% 0px'});
+ targets.forEach(el=>observer.observe(el));
+ // Re-entry replay; keep revealed content visible while outside the viewport to prevent flicker.
  sections.forEach(section=>{
   const heading=section.querySelector('h1,h2');
   if(!heading)return;
   heading.style.cursor='pointer';
-  heading.setAttribute('title','Tap to replay section animation');
-  heading.addEventListener('click',()=>{
-   section.querySelectorAll('.scroll-3d-target').forEach(el=>{
-    el.classList.remove('scroll-3d-in');el.classList.add('scroll-3d-out');
-   });
-   requestAnimationFrame(()=>section.querySelectorAll('.scroll-3d-target').forEach(el=>{
-    el.classList.remove('scroll-3d-out');void el.offsetWidth;el.classList.add('scroll-3d-in');
-   }));
+  heading.title='Tap to replay this section';
+  heading.addEventListener('click',()=>section.querySelectorAll('.scroll-3d-target').forEach(replay));
+  heading.addEventListener('keydown',e=>{
+   if((e.key==='Enter'||e.key===' ')&&document.activeElement===heading){e.preventDefault();section.querySelectorAll('.scroll-3d-target').forEach(replay);}
   });
  });
- // Scroll-linked 3D depth for the hero composition, frame-rate friendly.
+ // Gentle scroll depth on hero artwork, smoothed by CSS transitions.
  const depthEls=[...document.querySelectorAll('.hero-x-left,.hero-x-right,.hero-portrait-wrap,.hero-light')];
  let raf=0;
- const update=()=>{
-  raf=0;const h=innerHeight||1;
+ function updateDepth(){
+  raf=0;const vh=innerHeight||1;
   depthEls.forEach((el,i)=>{
-   const r=el.getBoundingClientRect();
-   const p=Math.max(-1,Math.min(1,(r.top+r.height*.5-h*.5)/h));
-   el.style.setProperty('--d3-depth',(p*(i===2?18:34)).toFixed(1)+'px');
-   el.style.setProperty('--d3-rotate',(p*(i===0?-5:i===1?5:2)).toFixed(2)+'deg');
+   const rect=el.getBoundingClientRect();
+   const progress=Math.max(-1,Math.min(1,(rect.top+rect.height*.5-vh*.5)/vh));
+   el.style.setProperty('--d3-depth',(progress*(i===2?10:16)).toFixed(1)+'px');
+   el.style.setProperty('--d3-rotate',(progress*(i===0?-2.5:i===1?2.5:1)).toFixed(2)+'deg');
   });
- };
- const onScroll=()=>{if(!raf)raf=requestAnimationFrame(update)};
- addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll,{passive:true});onScroll();
- // Re-run the home entrance when scrolling back into view, only after intro is finished.
- const home=document.getElementById('home');let wasIn=false;
- if(home){const homeIO=new IntersectionObserver(entries=>entries.forEach(e=>{
-  if(e.isIntersecting&&!wasIn){wasIn=true;if(document.body.classList.contains('cinematic-ready'))runPostIntroEntrance();}
-  if(!e.isIntersecting)wasIn=false;
- }),{threshold:.42});homeIO.observe(home);}
-})();;
+ }
+ function onScroll(){if(!raf)raf=requestAnimationFrame(updateDepth);}
+ addEventListener('scroll',onScroll,{passive:true});
+ addEventListener('resize',onScroll,{passive:true});
+ onScroll();
+})();
 </script>
 </body></html>
