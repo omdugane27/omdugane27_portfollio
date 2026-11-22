@@ -186,6 +186,51 @@ body.cursor-enabled,body.cursor-enabled a,body.cursor-enabled button{cursor:none
 @media(max-width:600px){.intro-x{inset:-40%}.intro-orbit{width:76vw}.intro-orbit-two{width:58vw}.intro-sequence-label{font-size:8px;letter-spacing:.12em}.intro-brand small{letter-spacing:.24em}}
 @media(prefers-reduced-motion:reduce){.intro-grid,.intro-x,.intro-orbit,.intro-core,.intro-brand,.intro-sequence-label,.intro-skip-wrap{opacity:1!important;transform:none!important;animation:none!important}}
 
+
+/* V20 — distinct section motion + mobile cinematic hero refinement */
+.cinema-hero{isolation:isolate;overflow:hidden!important}
+.cinema-hero>.hero-x{z-index:0;transform-origin:center;will-change:transform,opacity}
+.cinema-hero .hero-light{z-index:0}.cinema-hero .wrap{position:relative;z-index:2}
+.hero-x-left{animation:heroPanelLeft 1.65s cubic-bezier(.16,1,.3,1) .15s both,heroPanelBreath 10s ease-in-out 2s infinite alternate}
+.hero-x-right{animation:heroPanelRight 1.75s cubic-bezier(.16,1,.3,1) .22s both,heroPanelBreath 12s ease-in-out 2.2s infinite alternate}
+.hero-x-cross{animation:heroCrossDraw 1.8s cubic-bezier(.16,1,.3,1) .4s both}
+@keyframes heroPanelLeft{from{opacity:0;transform:translate3d(-8%,0,0) skewY(-8deg) scaleY(.82)}to{opacity:.16;transform:translate3d(0,0,0) skewY(0) scaleY(1)}}
+@keyframes heroPanelRight{from{opacity:0;transform:translate3d(8%,0,0) skewY(8deg) scaleY(.82)}to{opacity:.13;transform:translate3d(0,0,0) skewY(0) scaleY(1)}}
+@keyframes heroCrossDraw{from{opacity:0;transform:scaleY(.15)}to{opacity:.2;transform:scaleY(1)}}
+@keyframes heroPanelBreath{from{filter:brightness(.8)}to{filter:brightness(1.2)}}
+.hero-portrait-wrap{animation:portraitEntrance 1.45s cubic-bezier(.16,1,.3,1) .2s both,portraitFloat 7s ease-in-out 2s infinite!important}
+@keyframes portraitEntrance{from{opacity:0;clip-path:inset(18%);transform:translate3d(0,36px,0) scale(.92);filter:brightness(.5) saturate(.5)}to{opacity:1;clip-path:inset(0);transform:translate3d(0,0,0) scale(1);filter:brightness(1) saturate(1)}}
+.hero-intro>p:first-child{animation:eyebrowGlide .9s cubic-bezier(.16,1,.3,1) .15s both}
+.hero-title{animation:headlineRise 1.15s cubic-bezier(.16,1,.3,1) .28s both!important}
+@keyframes eyebrowGlide{from{opacity:0;letter-spacing:.5em;transform:translateX(-20px)}to{opacity:1;letter-spacing:.22em;transform:none}}
+@keyframes headlineRise{from{opacity:0;transform:translateY(45px) scale(.97);clip-path:inset(0 0 35% 0)}to{opacity:1;transform:none;clip-path:inset(0)}}
+.hero-stats>div.glass>div{transform-origin:50% 100%;animation:statFlip .85s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(.45s + var(--stat-i,0)*.13s)}
+.hero-stats>div.glass>div:nth-child(1){--stat-i:0}.hero-stats>div.glass>div:nth-child(2){--stat-i:1}.hero-stats>div.glass>div:nth-child(3){--stat-i:2}
+@keyframes statFlip{from{opacity:0;transform:perspective(650px) rotateX(35deg) translateY(22px)}to{opacity:1;transform:perspective(650px) rotateX(0) translateY(0)}}
+.motion-v20{will-change:transform,opacity,filter}.motion-v20.motion-seen{will-change:auto}
+.motion-heading{cursor:pointer;transform-origin:left center}
+.motion-heading.motion-seen{animation:headingSnap .9s cubic-bezier(.16,1,.3,1) both}
+@keyframes headingSnap{0%{opacity:0;transform:translateY(25px) skewY(2deg);filter:blur(4px)}65%{opacity:1;transform:translateY(-3px);filter:none}100%{transform:none}}
+#work .motion-v20.motion-seen{animation:workCardReveal .95s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes workCardReveal{from{opacity:0;transform:translateY(45px) scale(.91);clip-path:inset(0 0 20% 0);filter:blur(5px)}to{opacity:1;transform:none;clip-path:inset(0);filter:none}}
+#about .motion-v20.motion-seen{animation:aboutSlide .95s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes aboutSlide{from{opacity:0;transform:translateX(-44px) rotateY(-8deg);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+#services .motion-v20.motion-seen{animation:serviceFlip .9s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes serviceFlip{from{opacity:0;transform:perspective(750px) translateY(30px) rotateX(18deg) scale(.88)}to{opacity:1;transform:none}}
+#skills .motion-v20.motion-seen{animation:skillBloom .85s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes skillBloom{from{opacity:0;transform:translateY(20px) scale(.88);filter:blur(4px)}60%{opacity:1;transform:translateY(-2px) scale(1.015);filter:none}to{transform:none}}
+#experience .motion-v20.motion-seen{animation:journeySlide .95s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes journeySlide{from{opacity:0;transform:translateX(36px);clip-path:inset(0 0 0 16%)}to{opacity:1;transform:none;clip-path:inset(0)}}
+#certifications .motion-v20.motion-seen{animation:credentialTurn 1s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes credentialTurn{from{opacity:0;transform:perspective(850px) rotateY(16deg) translateZ(-24px) scale(.94)}to{opacity:1;transform:perspective(850px) rotateY(0) translateZ(0) scale(1)}}
+#contact .motion-v20.motion-seen{animation:contactBloom 1.05s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes contactBloom{from{opacity:0;transform:scale(.94) translateY(28px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+#home .motion-v20.motion-seen{animation:homeRise .9s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--motion-delay)}
+@keyframes homeRise{from{opacity:0;transform:translateY(25px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:900px){.cinema-hero>.hero-x{height:100%!important;top:0!important;filter:none!important}.cinema-hero .hero-x-left{left:10%!important;width:38%!important;opacity:.09!important}.cinema-hero .hero-x-right{left:48%!important;width:38%!important;opacity:.08!important}.cinema-hero .hero-x-cross{left:50%!important;height:90%!important;opacity:.12!important}.hero-portrait-wrap{max-width:390px}}
+@media(max-width:480px){.cinema-hero{min-height:auto!important;padding-top:92px!important;padding-bottom:42px!important}.hero-layout{gap:18px!important}.hero-intro{padding-top:8px!important}.hero-title{font-size:clamp(2.7rem,12.3vw,4.4rem)!important;line-height:.94!important}.hero-portrait-wrap{height:clamp(330px,94vw,390px)!important;min-height:330px!important;margin-top:0!important}.hero-stats{margin-top:18px!important}.hero-stats .glass{overflow:hidden}.hero-stats .glass>div{padding:14px 10px!important}.hero-stats .glass b{font-size:clamp(1.35rem,6vw,2rem)!important}.hero-stats .glass p{font-size:10px!important;line-height:1.35}.hero-x-left,.hero-x-right{clip-path:polygon(0 0,30% 0,100% 100%,70% 100%)!important}}
+@media(prefers-reduced-motion:reduce){.hero-x-left,.hero-x-right,.hero-x-cross,.hero-portrait-wrap,.hero-intro>p:first-child,.hero-title,.hero-stats>div.glass>div,.motion-v20.motion-seen,.motion-heading.motion-seen{animation:none!important;opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}}
+
 </style>
 </head>
 <body>
@@ -394,5 +439,29 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  // Respect reduced motion and avoid canvas work when tab is hidden.
  document.addEventListener('visibilitychange',()=>{if(document.hidden&&raf){cancelAnimationFrame(raf);raf=0;}else if(!document.hidden&&renderer&&!raf){const tick=()=>{if(document.hidden){raf=0;return;}raf=requestAnimationFrame(tick);points.rotation.z+=.0005;renderer.render(scene,camera)};tick();}});
 })();
+
+/* V20 section-specific scroll choreography + replay-on-heading click */
+(function(){
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const ids=['home','work','about','services','skills','experience','certifications','contact'];
+ const sections=ids.map(id=>document.getElementById(id)).filter(Boolean);
+ const selector='#work article,#about .glass,#about .card,#services article,#skills .glass,#skills .card,#skills .pill,#experience .glass,#experience article,#certifications article,#contact .glass,#contact .contact-links a,#home .hero-stats .glass>div';
+ const nodes=[...document.querySelectorAll(selector)];
+ nodes.forEach((el,i)=>{el.classList.add('motion-v20');el.style.setProperty('--motion-delay',(i%6)*105+'ms');});
+ sections.forEach(section=>section.querySelectorAll('.wrap > .reveal,.wrap > div > .reveal,.wrap h2,.wrap .hero-title').forEach(el=>{el.classList.add('motion-v20');}));
+ function play(el){if(!el||reduced)return;el.classList.remove('motion-seen');void el.offsetWidth;el.classList.add('motion-seen');}
+ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){play(entry.target);observer.unobserve(entry.target);}}),{threshold:.13,rootMargin:'0px 0px -7% 0px'});
+ document.querySelectorAll('.motion-v20').forEach(el=>observer.observe(el));
+ sections.forEach(section=>{
+  const heading=section.querySelector('h1,h2');if(!heading)return;
+  heading.classList.add('motion-heading');heading.tabIndex=0;
+  heading.setAttribute('aria-label',(heading.textContent.trim()||'Section')+' — replay section animation');
+  const replay=()=>{const items=[heading,...section.querySelectorAll('.motion-v20')].filter((el,i,a)=>a.indexOf(el)===i);items.forEach((el,i)=>{el.style.setProperty('--motion-delay',Math.min(i,7)*75+'ms');play(el);});heading.classList.remove('motion-seen');void heading.offsetWidth;heading.classList.add('motion-seen');};
+  heading.addEventListener('click',replay);heading.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();replay();}});
+ });
+ document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{const section=document.getElementById(link.getAttribute('href').slice(1));if(!section)return;setTimeout(()=>{section.querySelectorAll('.motion-v20').forEach((el,i)=>{el.style.setProperty('--motion-delay',(i%6)*85+'ms');play(el);});const heading=section.querySelector('h1,h2');if(heading)play(heading);},reduced?0:350);}));
+ if(!reduced&&matchMedia('(hover:hover) and (pointer:fine)').matches)document.querySelectorAll('#work article,#services article,#certifications article').forEach(card=>{card.addEventListener('pointerenter',()=>card.classList.add('motion-hover'));card.addEventListener('pointerleave',()=>card.classList.remove('motion-hover'));});
+})();
+
 </script>
 </body></html>
