@@ -48,6 +48,14 @@ body.motion-armed .hero-intro .hero-copy{opacity:0;transform:translateY(22px)}
 body.motion-armed .hero-intro .hero-actions{opacity:0;transform:translateY(18px)}
 body.motion-armed .hero-intro .hero-meta{opacity:0}
 @media(prefers-reduced-motion:reduce){body.motion-armed .hero-intro,body.motion-armed .hero-intro .hero-title,body.motion-armed .hero-intro .hero-copy,body.motion-armed .hero-intro .hero-actions,body.motion-armed .hero-intro .hero-meta{opacity:1;transform:none}}
+/* Final animation override — safe visible fallback, then deterministic intro */
+.hero-intro,.hero-intro .hero-title,.hero-intro .hero-copy,.hero-intro .hero-actions,.hero-intro .hero-meta{opacity:1;transform:none;animation:none}
+body.motion-armed .hero-intro{opacity:0;transform:translateY(28px)}
+body.motion-armed .hero-intro .hero-title{opacity:0;transform:translateY(38px)}
+body.motion-armed .hero-intro .hero-copy{opacity:0;transform:translateY(22px)}
+body.motion-armed .hero-intro .hero-actions{opacity:0;transform:translateY(18px)}
+body.motion-armed .hero-intro .hero-meta{opacity:0}
+@media(prefers-reduced-motion:reduce){body.motion-armed .hero-intro,body.motion-armed .hero-intro .hero-title,body.motion-armed .hero-intro .hero-copy,body.motion-armed .hero-intro .hero-actions,body.motion-armed .hero-intro .hero-meta{opacity:1;transform:none}}
 </style>
 </head>
 <body>\n<div id="siteLoader" aria-hidden="true"><div><div class="loader-mark">OM<span>.</span></div><div class="loader-line"></div></div></div>
@@ -76,7 +84,24 @@ body.motion-armed .hero-intro .hero-meta{opacity:0}
 <section id="experience" class="py-24"><div class="wrap"><div class="mb-10 reveal"><p class="red text-xs uppercase tracking-[.22em] font-bold mb-3">Experience</p><h2 class="display text-4xl sm:text-6xl font-extrabold uppercase">Learning by <span class="red">doing.</span></h2></div><div class="glass rounded-2xl p-6 sm:p-8 reveal"><div class="flex flex-col sm:flex-row sm:justify-between gap-3"><div><h3 class="display text-xl font-bold">Finance Research Analyst Intern</h3><p class="text-zinc-400 mt-1">Savvy Merit</p></div><span class="text-xs text-zinc-500">Completed · 20 Jul – 20 Aug 2025</span></div><p class="text-sm leading-6 text-zinc-500 mt-4">Completed a one-month finance research analyst internship. Certificate of completion available.</p></div><div class="glass rounded-2xl p-6 sm:p-8 mt-4 reveal"><div class="flex flex-col sm:flex-row sm:justify-between gap-3"><div><h3 class="display text-xl font-bold">AI Data Analytics Internship Opportunity</h3><p class="text-zinc-400 mt-1">Amigos Foundation</p></div><span class="text-xs text-zinc-500">Selected · Not started</span></div><p class="text-sm leading-6 text-zinc-500 mt-4">Listed as an opportunity only; not counted as completed work experience.</p></div></div></section>
 <section id="certifications" class="py-20 border-y border-white/5 bg-white/[.015]"><div class="wrap"><div class="mb-8 reveal"><p class="red text-xs uppercase tracking-[.22em] font-bold mb-3">Credentials</p><h2 class="display text-4xl sm:text-5xl font-extrabold uppercase">Certificates &amp; <span class="red">recognition.</span></h2></div><article class="glass rounded-2xl p-6 sm:p-8 max-w-3xl reveal"><span class="pill red">Completed</span><h3 class="display text-xl font-bold mt-4">Finance Research Analyst Internship</h3><p class="text-zinc-400 mt-2">Savvy Merit · 20 Jul – 20 Aug 2025</p><p class="text-sm text-zinc-500 leading-6 mt-4">Certificate of completion received. Available on request; no public credential URL is currently linked.</p></article></div></section><section id="contact" class="py-24"><div class="wrap grid lg:grid-cols-[.9fr_1.1fr] gap-10"><div class="reveal"><p class="red text-xs uppercase tracking-[.22em] font-bold mb-3">Have a project in mind?</p><h2 class="display text-4xl sm:text-6xl font-extrabold uppercase">Let's make<br><span class="red">it happen.</span></h2><p class="text-zinc-400 leading-7 mt-6 max-w-md">Open to learning opportunities, collaborations and entry-level roles in data analytics and web development.</p><div class="mt-8 space-y-4 text-sm"><a class="block text-zinc-300 hover:text-white" href="mailto:omdugane25@gmail.com">✉ omdugane25@gmail.com</a><a class="block text-zinc-300 hover:text-white" href="https://www.linkedin.com/in/om-dugane-48b6b02a8/" target="_blank" rel="noopener">in LinkedIn ↗</a><a class="block text-zinc-300 hover:text-white" href="https://github.com/omdugane27" target="_blank" rel="noopener">⌘ GitHub ↗</a></div><a class="btn inline-flex rounded-full px-5 py-3 mt-7 text-sm font-semibold" href="mailto:omdugane25@gmail.com?subject=Portfolio%20inquiry">Email directly ↗</a></div><form id="contactForm" class="glass rounded-3xl p-6 sm:p-8 reveal"><div class="grid sm:grid-cols-2 gap-4"><label class="text-xs text-zinc-400">Name<input required name="name" class="mt-2 w-full rounded-xl bg-black/30 border border-white/10 focus:border-red-500/60 outline-none px-4 py-3 text-sm" placeholder="Your name"></label><label class="text-xs text-zinc-400">Email<input required type="email" name="email" class="mt-2 w-full rounded-xl bg-black/30 border border-white/10 focus:border-red-500/60 outline-none px-4 py-3 text-sm" placeholder="you@example.com"></label></div><label class="block text-xs text-zinc-400 mt-4">Project goals / message<textarea required name="message" rows="5" class="mt-2 w-full rounded-xl bg-black/30 border border-white/10 focus:border-red-500/60 outline-none px-4 py-3 text-sm" placeholder="Tell me about your project..."></textarea></label><button class="btn rounded-full px-6 py-3.5 mt-5 w-full sm:w-auto text-sm font-semibold" type="submit">Send Message ↗</button><p class="text-[11px] text-zinc-600 mt-4">Frontend form demo: opens your email app with a prefilled message.</p></form></div></section>
 </main><div id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-panel glass rounded-3xl p-6 sm:p-8"><div class="flex items-start justify-between gap-4"><div><p class="red text-xs uppercase tracking-[.2em] mb-3">Project details</p><h2 id="modalTitle" class="display text-2xl sm:text-3xl font-bold"></h2></div><button id="modalClose" class="rounded-full border border-white/15 w-10 h-10" aria-label="Close project details">✕</button></div><div id="modalBody" class="text-sm text-zinc-400 leading-7 mt-5"></div><div id="modalLinks" class="flex flex-wrap gap-3 mt-6"></div></div></div><footer class="border-t border-white/5 py-7"><div class="wrap flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-600"><a href="#home" class="display font-extrabold text-lg"><span class="red">O</span>M DUGANE.</a><span>© <span id="year"></span> · Keep learning, keep building.</span><div class="flex gap-5"><a href="#work" class="hover:text-white">Work</a><a href="#contact" class="hover:text-white">Contact</a><a href="#home" class="hover:text-white">Top ↑</a></div></div></footer>
-<script>
+<script>\n/* Deterministic hero intro timeline */
+(function(){
+ const loader=document.getElementById("siteLoader");
+ const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ if(reduce){loader?.classList.add("done");return;}
+ document.body.classList.add("motion-armed");
+ const play=(el,delay,duration,offset)=>{if(!el)return;el.animate([{opacity:0,transform:"translateY("+offset+"px)"},{opacity:1,transform:"translateY(0)"}],{duration,delay,easing:"cubic-bezier(.16,1,.3,1)",fill:"both"});};
+ const start=()=>{
+  play(document.querySelector(".hero-intro"),100,900,28);
+  play(document.querySelector(".hero-title"),360,1050,38);
+  play(document.querySelector(".hero-copy"),650,850,22);
+  play(document.querySelector(".hero-actions"),820,800,18);
+  play(document.querySelector(".hero-meta"),1000,750,10);
+  setTimeout(()=>loader?.classList.add("done"),900);
+ };
+ if(document.readyState==="complete")setTimeout(start,80);else window.addEventListener("load",start,{once:true});
+})();
+
 
 /* Page intro + signature typing loop */
 const loader=document.getElementById("siteLoader");
