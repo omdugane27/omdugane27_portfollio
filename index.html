@@ -269,6 +269,28 @@ a.red-progress:not(.nav-link)::after,button.red-progress::after{content:"";posit
 a.red-progress:not(.nav-link):hover::after,a.red-progress:not(.nav-link):focus-visible::after,a.red-progress:not(.nav-link):active::after,button.red-progress:hover::after,button.red-progress:focus-visible::after,button.red-progress:active::after{transform:scaleX(1);opacity:1}
 .nav-link{padding-bottom:4px}
 @media(prefers-reduced-motion:reduce){a.red-progress::after,button.red-progress::after{transition:none}}
+
+/* SCROLL MOTION PATCH: replay on every viewport entry + section-specific choreography */
+@keyframes scrollRiseReplay{0%{opacity:0;transform:translate3d(0,42px,0) scale(.965);filter:blur(6px)}70%{filter:blur(0)}100%{opacity:1;transform:none;filter:none}}
+@keyframes scrollSlideLeftReplay{0%{opacity:0;transform:translate3d(-48px,12px,0) rotateY(-8deg);filter:blur(5px)}100%{opacity:1;transform:none;filter:none}}
+@keyframes scrollSlideRightReplay{0%{opacity:0;transform:translate3d(48px,12px,0) rotateY(8deg);filter:blur(5px)}100%{opacity:1;transform:none;filter:none}}
+@keyframes scrollScaleReplay{0%{opacity:0;transform:translate3d(0,30px,0) scale(.82) rotateX(12deg);filter:blur(5px)}100%{opacity:1;transform:none;filter:none}}
+@keyframes scrollFlipReplay{0%{opacity:0;transform:perspective(800px) rotateX(22deg) translateY(24px) scale(.94);filter:blur(4px)}100%{opacity:1;transform:perspective(800px) rotateX(0) translateY(0) scale(1);filter:none}}
+.scroll-motion-target.scroll-motion-active{animation:scrollRiseReplay .9s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--scroll-delay,0ms)}
+#about .scroll-motion-target.scroll-motion-active{animation-name:scrollSlideLeftReplay}
+#work .scroll-motion-target.scroll-motion-active{animation-name:scrollRiseReplay}
+#services .scroll-motion-target.scroll-motion-active{animation-name:scrollScaleReplay}
+#skills .scroll-motion-target.scroll-motion-active{animation-name:scrollFlipReplay}
+#experience .scroll-motion-target.scroll-motion-active{animation-name:scrollSlideRightReplay}
+#certifications .scroll-motion-target.scroll-motion-active{animation-name:scrollFlipReplay}
+#contact .scroll-motion-target.scroll-motion-active{animation-name:scrollRiseReplay}
+#home .scroll-motion-target.scroll-motion-active{animation-name:scrollRiseReplay}
+.scroll-parallax{will-change:translate}
+.hero-light.scroll-parallax{translate:0 var(--parallax-y,0px)}
+.hero-x-left.scroll-parallax{translate:0 var(--parallax-y,0px)}
+.hero-x-right.scroll-parallax{translate:0 calc(var(--parallax-y,0px)*-.72)}
+.hero-portrait-wrap.scroll-parallax{translate:0 calc(var(--parallax-y,0px)*-.32)}
+@media(prefers-reduced-motion:reduce){.scroll-motion-target.scroll-motion-active{animation:none!important}.scroll-parallax{translate:none!important}}
 </style>
 </head>
 <body>
@@ -551,5 +573,54 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  motionSections.forEach(id=>{const section=document.getElementById(id);if(section)motionObserver.observe(section);});
  motionSections.forEach(id=>{const section=document.getElementById(id),heading=section?.querySelector('h2');if(!heading)return;heading.style.cursor='pointer';heading.title='Tap to replay section animation';heading.addEventListener('click',()=>{section.querySelectorAll('.motion-stage').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');});});});
 
+
+/* Scroll replay system: animations trigger on scroll in AND re-trigger when revisiting */
+(function(){
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduced)return;
+ const sectionIds=['home','work','about','services','skills','experience','certifications','contact'];
+ sectionIds.forEach(id=>{
+  const section=document.getElementById(id);if(!section)return;
+  const candidates=[...section.querySelectorAll('h1,h2,.hero-intro,.hero-title,.role-line,.hero-copy,.hero-actions a,.hero-meta,.hero-portrait-wrap,.hero-stats .glass > div,article,.card,.glass,.pill,.contact-links a')];
+  const unique=[...new Set(candidates)].filter(el=>!el.closest('#projectModal'));
+  unique.forEach((el,i)=>{el.classList.add('scroll-motion-target');el.style.setProperty('--scroll-delay',Math.min(i%7,6)*75+'ms');});
+ });
+ const targets=[...document.querySelectorAll('.scroll-motion-target')];
+ const replayObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+   if(entry.isIntersecting){
+    entry.target.classList.remove('scroll-motion-active');
+    void entry.target.offsetWidth;
+    entry.target.classList.add('scroll-motion-active');
+   }else{
+    entry.target.classList.remove('scroll-motion-active');
+   }
+  });
+ },{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+ targets.forEach(el=>replayObserver.observe(el));
+ // Gentle scroll-linked depth on hero lighting and X panels, updated once per frame.
+ const parallaxEls=[...document.querySelectorAll('.hero-light,.hero-x-left,.hero-x-right,.hero-portrait-wrap')];
+ parallaxEls.forEach(el=>el.classList.add('scroll-parallax'));
+ let rafId=0;
+ const updateParallax=()=>{
+  rafId=0;
+  const vh=window.innerHeight||1;
+  parallaxEls.forEach((el,i)=>{
+   const rect=el.getBoundingClientRect();
+   const shift=(rect.top+rect.height*.5-vh*.5)*-.035*(i===3?.55:1);
+   el.style.setProperty('--parallax-y',Math.max(-26,Math.min(26,shift)).toFixed(1)+'px');
+  });
+ };
+ const requestParallax=()=>{if(!rafId)rafId=requestAnimationFrame(updateParallax)};
+ window.addEventListener('scroll',requestParallax,{passive:true});
+ window.addEventListener('resize',requestParallax,{passive:true});
+ requestParallax();
+ // If the user returns to the Home section by scrolling, replay the hero entrance too.
+ const home=document.getElementById('home');
+ if(home){let homeWasVisible=false;const homeObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting&&!homeWasVisible){homeWasVisible=true;runPostIntroEntrance();}
+  if(!entry.isIntersecting)homeWasVisible=false;
+ }),{threshold:.35});homeObserver.observe(home);}
+})();
 </script>
 </body></html>
