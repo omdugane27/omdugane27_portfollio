@@ -23,6 +23,44 @@ main{max-width:1180px;margin:auto;padding:50px clamp(20px,5vw,70px) 100px;perspe
 @media(max-width:760px){.topbar{padding:14px 18px}.hero{grid-template-columns:1fr;gap:28px;padding-top:22px;min-height:auto}.hero-copy{order:1}.portrait-stage{order:0}.portrait-shell{width:min(220px,60vw)}.hero h1{font-size:clamp(46px,13vw,76px)}main{padding-top:26px}.section{padding:22px 18px;border-radius:17px}.projects{grid-template-columns:1fr}.nav-actions .btn{padding:9px 12px}.hero-meta{gap:7px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.v-reveal{opacity:1;transform:none}}
 @media print{*{animation:none!important;transition:none!important;transform:none!important;box-shadow:none!important;text-shadow:none!important}body{background:#fff!important;color:#111!important;font-family:Arial,sans-serif}.topbar,.scroll-line,body:before,.portrait-stage,.hero-meta,.nav-actions,.eyebrow{display:none!important}main{max-width:none;padding:0;perspective:none}.hero{display:block;min-height:0;padding:0 0 12px;border-bottom:2px solid #111}.hero h1{font-size:28pt;color:#111;margin:0 0 6px}.hero h1 span{color:#111;text-shadow:none}.subtitle{font-size:11pt;color:#111}.section{background:#fff!important;border:0;border-radius:0;padding:12px 0;margin:0;break-inside:avoid}.section:before{display:none}.section-head{margin-bottom:8px}.section h2{font-size:14pt;color:#111}.section h2:after{background:#111;box-shadow:none}.section p,.entry p{color:#222;font-size:9.5pt;line-height:1.4}.entry{padding:8px 0}.entry h3,.project h3{font-size:11pt;color:#111}.entry .meta{color:#333}.skill{color:#111;border:1px solid #aaa;background:#fff;padding:4px 7px;font:9pt Arial}.project{background:#fff;border:1px solid #aaa;border-radius:4px;padding:9px}.project p{color:#222}.footer{display:none}.v-reveal{opacity:1!important;transform:none!important}.projects{gap:8px}}
+
+/* V24: cinematic page-entry sequence + replayable scroll entrance */
+.resume-enter .hero-copy{animation:resumeHeroIn 1.25s cubic-bezier(.18,.72,.2,1) both}
+.resume-enter .hero .eyebrow{animation:resumeEyebrowIn .8s .12s cubic-bezier(.18,.72,.2,1) both}
+.resume-enter .hero h1{animation:resumeTitleIn 1.35s .18s cubic-bezier(.18,.72,.2,1) both;transform-origin:left center}
+.resume-enter .hero .subtitle{animation:resumeTextIn 1s .42s cubic-bezier(.18,.72,.2,1) both}
+.resume-enter .hero-copy>p{animation:resumeTextIn 1s .55s cubic-bezier(.18,.72,.2,1) both}
+.resume-enter .hero-meta{animation:resumeTextIn 1s .68s cubic-bezier(.18,.72,.2,1) both}
+.resume-enter .portrait-stage{animation:resumePortraitIn 1.45s .18s cubic-bezier(.18,.72,.2,1) both}
+.resume-enter .portrait-shell{animation:portraitFloat 7s 1.6s ease-in-out infinite}
+.resume-enter .topbar{animation:resumeTopbarIn .9s cubic-bezier(.18,.72,.2,1) both}
+.resume-enter .section{animation:resumePanelIn 1s cubic-bezier(.18,.72,.2,1) both;animation-delay:calc(.18s + var(--section-delay,0ms))}
+.resume-enter .section:nth-of-type(1){--section-delay:100ms}.resume-enter .section:nth-of-type(2){--section-delay:180ms}.resume-enter .section:nth-of-type(3){--section-delay:260ms}.resume-enter .section:nth-of-type(4){--section-delay:340ms}.resume-enter .section:nth-of-type(5){--section-delay:420ms}.resume-enter .section:nth-of-type(6){--section-delay:500ms}.resume-enter .section:nth-of-type(7){--section-delay:580ms}.resume-enter .section:nth-of-type(8){--section-delay:660ms}
+.v-reveal.replay-3d{animation:resumeScrollIn 1.05s cubic-bezier(.18,.72,.2,1) both!important;animation-delay:var(--delay,0ms)!important}
+.section.replay-3d{animation:resumeSectionIn 1.05s cubic-bezier(.18,.72,.2,1) both!important}
+.entry.replay-3d{animation:resumeEntryIn .95s cubic-bezier(.18,.72,.2,1) both!important;animation-delay:var(--delay,0ms)!important}
+.project.replay-3d{animation:resumeProjectIn 1s cubic-bezier(.18,.72,.2,1) both!important;animation-delay:var(--delay,0ms)!important}
+.skill.replay-3d{animation:resumeSkillIn .75s cubic-bezier(.18,.72,.2,1) both!important;animation-delay:var(--delay,0ms)!important}
+.section-head{transform-style:preserve-3d}.section-head h2{transform:translateZ(18px)}
+.project{transform-style:preserve-3d;backface-visibility:hidden}
+.skill{transform-style:preserve-3d}
+.tap{animation:resumeTap3d .7s cubic-bezier(.18,.72,.2,1)!important}
+@keyframes resumeHeroIn{from{opacity:0;transform:perspective(1200px) translate3d(-30px,18px,-40px) rotateY(5deg)}to{opacity:1;transform:perspective(1200px) translate3d(0,0,0) rotateY(0)}}
+@keyframes resumeEyebrowIn{from{opacity:0;letter-spacing:.45em;transform:translateY(12px)}to{opacity:1;letter-spacing:.2em;transform:translateY(0)}}
+@keyframes resumeTitleIn{0%{opacity:0;clip-path:inset(0 0 100% 0);transform:perspective(900px) translateY(28px) rotateX(14deg)}100%{opacity:1;clip-path:inset(0 0 0 0);transform:perspective(900px) translateY(0) rotateX(0)}}
+@keyframes resumeTextIn{from{opacity:0;transform:translate3d(0,18px,-12px)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes resumePortraitIn{0%{opacity:0;transform:perspective(1100px) translate3d(35px,20px,-50px) rotateY(-18deg) scale(.82);filter:blur(8px)}70%{opacity:1;filter:blur(0)}100%{opacity:1;transform:perspective(1100px) translate3d(0,0,0) rotateY(0) scale(1);filter:blur(0)}}
+@keyframes resumeTopbarIn{from{opacity:0;transform:translateY(-18px);backdrop-filter:blur(0)}to{opacity:1;transform:translateY(0);backdrop-filter:blur(18px)}}
+@keyframes resumePanelIn{from{opacity:0;transform:perspective(1300px) translate3d(0,24px,-35px) rotateX(5deg)}to{opacity:1;transform:perspective(1300px) translate3d(0,0,0) rotateX(0)}}
+@keyframes resumeScrollIn{0%{opacity:0;transform:perspective(1000px) translate3d(0,28px,-28px) rotateX(7deg) scale(.985)}100%{opacity:1;transform:perspective(1000px) translate3d(0,0,0) rotateX(0) scale(1)}}
+@keyframes resumeSectionIn{0%{transform:perspective(1300px) translate3d(0,18px,-20px) rotateX(3deg)}100%{transform:perspective(1300px) translate3d(0,0,0) rotateX(0)}}
+@keyframes resumeEntryIn{0%{opacity:0;transform:perspective(900px) translate3d(0,20px,-20px) rotateX(6deg)}100%{opacity:1;transform:perspective(900px) translate3d(0,0,0) rotateX(0)}}
+@keyframes resumeProjectIn{0%{opacity:0;transform:perspective(1000px) translate3d(0,22px,-25px) rotateX(8deg) scale(.97)}100%{opacity:1;transform:perspective(1000px) translate3d(0,0,0) rotateX(0) scale(1)}}
+@keyframes resumeSkillIn{0%{opacity:0;transform:perspective(700px) translateY(14px) rotateX(12deg)}100%{opacity:1;transform:perspective(700px) translateY(0) rotateX(0)}}
+@keyframes resumeTap3d{0%{transform:perspective(800px) translateZ(0)}35%{transform:perspective(800px) translateZ(14px) rotateX(4deg) scale(1.02)}100%{transform:perspective(800px) translateZ(0)}}
+@media(max-width:760px){.resume-enter .hero h1{animation-duration:1.1s}.resume-enter .portrait-stage{animation-duration:1.2s}.resume-enter .section{animation-duration:.8s}}
+@media(prefers-reduced-motion:reduce){.resume-enter .hero-copy,.resume-enter .hero .eyebrow,.resume-enter .hero h1,.resume-enter .hero .subtitle,.resume-enter .hero-copy>p,.resume-enter .hero-meta,.resume-enter .portrait-stage,.resume-enter .topbar,.resume-enter .section,.v-reveal.replay-3d,.section.replay-3d,.entry.replay-3d,.project.replay-3d,.skill.replay-3d{animation-duration:.35s!important}.portrait-shell{animation-duration:14s!important}}
+
 </style>
 </head>
 <body>
@@ -33,8 +71,13 @@ main{max-width:1180px;margin:auto;padding:50px clamp(20px,5vw,70px) 100px;perspe
 <div class="hero-copy v-reveal"><div class="eyebrow">PROFILE · DATA / FINANCE / WEB</div><h1>Om <span>Dugane.</span></h1><div class="subtitle">BCA Student · Data & Finance Analyst · Web Developer</div><p style="max-width:650px;color:#b6a9ad;font-size:13px;line-height:1.8">Analytical and technology-focused BCA student interested in data analytics, finance research and web development. Seeking an entry-level opportunity to apply analytical and technical skills.</p><div class="hero-meta"><span>India</span><span>omdugane25@gmail.com</span><span>Entry-level opportunities</span></div></div>
 <div class="portrait-stage v-reveal"><div class="portrait-shell"><img src="https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/IMG-20260628-WA0008%20(1).jpg" alt="Om Dugane portrait" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/omdugane27/omdugane27_portfollio/main/omphoto.jpg'"></div></div>
 </section>
+
+<section class="section v-reveal"><div class="section-head"><span class="section-number">00</span><h2>Career Objective</h2></div><p>To begin a professional career in data analytics, finance research or a related technology role, applying my BCA learning, analytical foundations and project experience while continuing to develop practical skills.</p><div class="skill-grid"><span class="skill">Data Analytics</span><span class="skill">Finance Research</span><span class="skill">Web Development</span></div></section>
 <section class="section v-reveal"><div class="section-head"><span class="section-number">01</span><h2>Contact & Links</h2></div><p>Email: <a href="mailto:omdugane25@gmail.com">omdugane25@gmail.com</a></p><p>GitHub: <a href="https://github.com/omdugane27">github.com/omdugane27</a></p><p>LinkedIn: <a href="https://linkedin.com/in/om-dugane-48b6b02a8/">linkedin.com/in/om-dugane-48b6b02a8/</a></p><p>Portfolio: <a href="https://omdugane27.github.io/omdugane27_portfollio/">omdugane27.github.io/omdugane27_portfollio</a></p></section>
 <section class="section v-reveal"><div class="section-head"><span class="section-number">02</span><h2>Technical Skills</h2></div><div class="skill-grid">
+<div class="entry v-reveal"><div class="meta">SKILL CLUSTERS</div><h3>Data & Analytical Foundations</h3><p>Excel, SQL, Python, statistics, data cleaning and data visualization.</p></div>
+<div class="entry v-reveal"><h3>Web & Development Tools</h3><p>HTML, CSS, JavaScript, Firebase, Supabase, Git and GitHub.</p></div>
+
 <span class="skill">Microsoft Excel</span><span class="skill">SQL</span><span class="skill">Python</span><span class="skill">Statistics</span><span class="skill">Data Cleaning</span><span class="skill">Data Visualization</span><span class="skill">HTML</span><span class="skill">CSS</span><span class="skill">JavaScript</span><span class="skill">Firebase</span><span class="skill">Supabase</span><span class="skill">Git & GitHub</span>
 </div></section>
 <section class="section v-reveal"><div class="section-head"><span class="section-number">03</span><h2>Experience</h2></div>
@@ -53,7 +96,57 @@ main{max-width:1180px;margin:auto;padding:50px clamp(20px,5vw,70px) 100px;perspe
 <div class="footer">OM DUGANE · CINEMATIC RÉSUMÉ · 2026</div>
 </main>
 <script>
-(()=>{const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;const nodes=[...document.querySelectorAll(".v-reveal")];nodes.forEach((el,i)=>el.style.setProperty("--delay",(i%5)*70+"ms"));const show=el=>el.classList.add("visible");if(reduce||!("IntersectionObserver"in window)){nodes.forEach(show)}else{const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){show(e.target);io.unobserve(e.target)}}),{threshold:.08});nodes.forEach(el=>io.observe(el));nodes.filter(el=>el.getBoundingClientRect().top<innerHeight).forEach(show)}const line=document.getElementById("scrollLine");const progress=()=>{const max=document.documentElement.scrollHeight-innerHeight;line.style.width=(max>0?scrollY/max*100:0)+"%"};addEventListener("scroll",progress,{passive:true});progress();document.getElementById("savePdf").addEventListener("click",()=>window.print());document.addEventListener("click",e=>{const el=e.target.closest("a,button,.project,.skill");if(!el)return;el.classList.remove("tap");void el.offsetWidth;el.classList.add("tap");setTimeout(()=>el.classList.remove("tap"),700)});if(!reduce&&matchMedia("(pointer:fine)").matches){document.querySelectorAll(".project,.portrait-shell").forEach(card=>{card.addEventListener("pointermove",e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;card.style.transform="perspective(900px) rotateX("+((.5-y)*7)+"deg) rotateY("+((x-.5)*7)+"deg) translateZ(10px)"});card.addEventListener("pointerleave",()=>card.style.transform="")})}})();
+
+(()=> {
+  const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const nodes=[...document.querySelectorAll(".v-reveal")];
+  nodes.forEach((el,i)=>el.style.setProperty("--delay",(i%5)*70+"ms"));
+  const sections=[...document.querySelectorAll(".section")];
+  sections.forEach((el,i)=>el.style.setProperty("--section-delay",(i%8)*80+"ms"));
+  // Each fresh page entry starts a gentle, sequenced cinematic entrance.
+  requestAnimationFrame(()=>document.body.classList.add("resume-enter"));
+  const line=document.getElementById("scrollLine");
+  const progress=()=>{
+    const max=document.documentElement.scrollHeight-window.innerHeight;
+    line.style.width=(max>0?window.scrollY/max*100:0)+"%";
+  };
+  window.addEventListener("scroll",progress,{passive:true});progress();
+  document.getElementById("savePdf").addEventListener("click",()=>window.print());
+  const replay=el=>{
+    el.classList.remove("replay-3d");
+    void el.offsetWidth;
+    el.classList.add("replay-3d");
+  };
+  if(reduce||!("IntersectionObserver" in window)){
+    nodes.forEach(el=>el.classList.add("visible"));
+  }else{
+    const io=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        replay(entry.target);
+      }else{
+        entry.target.classList.remove("replay-3d");
+      }
+    }),{threshold:.08,rootMargin:"0px 0px -8% 0px"});
+    nodes.forEach(el=>io.observe(el));
+    nodes.filter(el=>el.getBoundingClientRect().top<window.innerHeight).forEach(el=>el.classList.add("visible"));
+  }
+  document.addEventListener("click",event=>{
+    const el=event.target.closest("a,button,.project,.skill");
+    if(!el)return;
+    el.classList.remove("tap");void el.offsetWidth;el.classList.add("tap");
+    window.setTimeout(()=>el.classList.remove("tap"),750);
+  });
+  if(!reduce&&window.matchMedia("(pointer:fine)").matches){
+    document.querySelectorAll(".project,.portrait-shell").forEach(card=>{
+      card.addEventListener("pointermove",event=>{
+        const r=card.getBoundingClientRect(),x=(event.clientX-r.left)/r.width,y=(event.clientY-r.top)/r.height;
+        card.style.transform="perspective(900px) rotateX("+((.5-y)*6)+"deg) rotateY("+((x-.5)*6)+"deg) translateZ(10px)";
+      },{passive:true});
+      card.addEventListener("pointerleave",()=>card.style.transform="");
+    });
+  }
+})();
 </script>
 </body>
 </html>
