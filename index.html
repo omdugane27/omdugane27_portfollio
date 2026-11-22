@@ -262,6 +262,13 @@ body.cinematic-ready main #contact .motion-stage{animation-name:stageContact}
 @keyframes stageContact{from{opacity:0;transform:translateY(26px) scale(.94);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
 @media(prefers-reduced-motion:reduce){body.cinematic-ready main #home .hero-intro,body.cinematic-ready main #home .hero-portrait-wrap,body.cinematic-ready main #home .hero-stats,body.cinematic-ready main #home .hero-intro .hero-title,body.cinematic-ready main #home .hero-intro .hero-copy,body.cinematic-ready main #home .hero-intro .hero-actions,body.cinematic-ready main #home .hero-intro .hero-meta,body.cinematic-ready main section .motion-stage{animation:none!important;opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}}
 
+
+/* Unified crimson progress line for every interactive control */
+a.red-progress:not(.nav-link),button.red-progress{position:relative;isolation:isolate}
+a.red-progress:not(.nav-link)::after,button.red-progress::after{content:"";position:absolute;left:14px;right:14px;bottom:7px;height:2px;border-radius:2px;background:linear-gradient(90deg,#e63946,#ff626b);box-shadow:0 0 9px #e6394670;transform:scaleX(.22);transform-origin:left center;transition:transform .42s cubic-bezier(.16,1,.3,1),opacity .25s;opacity:.65;pointer-events:none}
+a.red-progress:not(.nav-link):hover::after,a.red-progress:not(.nav-link):focus-visible::after,a.red-progress:not(.nav-link):active::after,button.red-progress:hover::after,button.red-progress:focus-visible::after,button.red-progress:active::after{transform:scaleX(1);opacity:1}
+.nav-link{padding-bottom:4px}
+@media(prefers-reduced-motion:reduce){a.red-progress::after,button.red-progress::after{transition:none}}
 </style>
 </head>
 <body>
@@ -270,7 +277,7 @@ body.cinematic-ready main #contact .motion-stage{animation-name:stageContact}
 
 <div id="siteLoader" aria-hidden="true"><div><div class="loader-mark">OM<span>.</span></div><div class="loader-line"></div></div></div>
 <div class="fixed inset-0 gridbg pointer-events-none z-0"></div><div id="particles" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
-<header class="fixed top-0 inset-x-0 z-50 bg-black/75 backdrop-blur-xl"><nav class="wrap h-[74px] flex items-center justify-between"><a href="#home" class="display font-extrabold text-xl"><span class="red">O</span>M DUGANE<span class="red">.</span></a><div class="desktop flex gap-7 text-sm text-zinc-400"><a class="nav-link hover:text-white active" href="#home" data-home-nav>Home</a><a class="nav-link hover:text-white" href="#work">Work</a><a class="hover:text-white" href="#about">About</a><a class="hover:text-white" href="#services">Services</a><a class="hover:text-white" href="#skills">Skills</a><a class="hover:text-white" href="#experience">Experience</a><a class="hover:text-white" href="#contact">Contact</a></div><a href="#contact" class="btn rounded-full px-5 py-3 text-sm font-semibold hidden sm:inline-flex">Let's Talk ↗</a><button id="menuBtn" class="md:hidden border border-white/10 rounded-xl p-2" aria-label="Toggle menu" aria-expanded="false">☰</button></nav><div id="mobileNav" class="menu wrap flex-col gap-4 pb-5 text-sm"><a href="#home" data-home-nav>Home</a><a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a></div></header>
+<header class="fixed top-0 inset-x-0 z-50 bg-black/75 backdrop-blur-xl"><nav class="wrap h-[74px] flex items-center justify-between"><a href="#home" class="display font-extrabold text-xl"><span class="red">O</span>M DUGANE<span class="red">.</span></a><div class="desktop flex gap-7 text-sm text-zinc-400"><a class="nav-link hover:text-white active" href="#home" data-home-nav>Home</a><a class="nav-link hover:text-white" href="#work">Work</a><a class="nav-link hover:text-white" href="#about">About</a><a class="nav-link hover:text-white" href="#services">Services</a><a class="nav-link hover:text-white" href="#skills">Skills</a><a class="nav-link hover:text-white" href="#experience">Experience</a><a class="nav-link hover:text-white" href="#contact">Contact</a></div><a href="#contact" class="btn rounded-full px-5 py-3 text-sm font-semibold hidden sm:inline-flex">Let's Talk ↗</a><button id="menuBtn" class="md:hidden border border-white/10 rounded-xl p-2" aria-label="Toggle menu" aria-expanded="false">☰</button></nav><div id="mobileNav" class="menu wrap flex-col gap-4 pb-5 text-sm"><a href="#home" data-home-nav>Home</a><a class="nav-link" href="#work">Work</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#services">Services</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#experience">Experience</a><a class="nav-link" href="#contact">Contact</a></div></header>
 <main class="relative z-10">
 <section id="home" class="cinema-hero relative min-h-[100svh] flex items-center pt-28 pb-16 overflow-hidden">
 <div class="hero-x hero-x-left" aria-hidden="true"></div><div class="hero-x hero-x-right" aria-hidden="true"></div><div class="hero-x hero-x-cross" aria-hidden="true"></div>
@@ -411,7 +418,8 @@ document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('c
  window.setTimeout(()=>{if(target.id==="home")runPostIntroEntrance();else replaySectionMotion(section);},matchMedia('(prefers-reduced-motion: reduce)').matches?0:420);
 }));
 const root=document.getElementById('particles');for(let i=0;i<18;i++){const p=document.createElement('i'),s=2+Math.random()*4;p.style.cssText='position:absolute;left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;width:'+s+'px;height:'+s+'px;border-radius:50%;background:rgba(230,57,70,.25);box-shadow:0 0 '+s*4+'px rgba(230,57,70,.2)';root.appendChild(p)}
-document.querySelectorAll('[data-home-nav]').forEach(link=>link.addEventListener('click',function(e){e.preventDefault();document.getElementById('home')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});if(typeof runPostIntroEntrance==='function')setTimeout(runPostIntroEntrance,matchMedia('(prefers-reduced-motion: reduce)').matches?0:420);mobileNav?.classList.remove('open');menuButton?.setAttribute('aria-expanded','false');}));
+
+document.querySelectorAll('a,button').forEach(el=>{if(!el.classList.contains('display')&&!el.classList.contains('intro-skip'))el.classList.add('red-progress');});
 document.getElementById('year').textContent=new Date().getFullYear();document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget),subject=encodeURIComponent('Portfolio inquiry from '+f.get('name')),body=encodeURIComponent('Name: '+f.get('name')+'\nEmail: '+f.get('email')+'\n\nMessage:\n'+f.get('message'));window.location.href='mailto:omdugane25@gmail.com?subject='+subject+'&body='+body;alert('Your email app will open with the message prefilled.')});
 
 /* Cinematic intro, infinity particle field, desktop cursor and safe motion enhancements */
@@ -500,21 +508,23 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  function runPostIntroEntrance(){
   const home=document.getElementById('home');if(!home)return;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){home.querySelectorAll('.hero-intro,.hero-title,.hero-copy,.hero-actions,.hero-meta,.hero-portrait-wrap,.hero-stats').forEach(el=>{el.style.opacity='1';el.style.transform='none';});return;}
+  const targets=home.querySelectorAll('.hero-intro,.hero-title,.role-line,.hero-copy,.hero-actions,.hero-meta,.hero-portrait-wrap,.hero-stats,.hero-x-left,.hero-x-right,.hero-x-cross');
+  if(reduce){targets.forEach(el=>{el.style.opacity='1';el.style.visibility='visible';el.style.transform='none';el.style.filter='none';});return;}
   if(window.gsap){
-   const gs=window.gsap;gs.killTweensOf(home.querySelectorAll('.hero-intro,.hero-title,.hero-copy,.hero-actions,.hero-meta,.hero-portrait-wrap,.hero-stats,.hero-x-left,.hero-x-right,.hero-x-cross'));
+   const gs=window.gsap;gs.killTweensOf(targets);gs.set(targets,{clearProps:'animation'});
    const tl=gs.timeline({defaults:{ease:'power4.out'}});
-   tl.fromTo('.hero-x-left',{xPercent:-18,rotation:-5,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.48,duration:1.15},0)
-    .fromTo('.hero-x-right',{xPercent:18,rotation:5,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.38,duration:1.15},0)
-    .fromTo('.hero-x-cross',{scaleY:.25,transformOrigin:'center'},{scaleY:1,duration:1.1,autoAlpha:.65},.15)
-    .fromTo('.hero-intro > p:first-child',{y:24,autoAlpha:0,filter:'blur(8px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:.7},.22)
-    .fromTo('.hero-title',{y:58,autoAlpha:0,filter:'blur(12px)',clipPath:'inset(0 0 35% 0)'},{y:0,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0 0 0% 0)',duration:1.05},.36)
-    .fromTo('.role-line',{x:-24,autoAlpha:0},{x:0,autoAlpha:1,duration:.65},.78)
-    .fromTo('.hero-copy',{y:24,autoAlpha:0},{y:0,autoAlpha:1,duration:.75},.9)
-    .fromTo('.hero-actions a',{y:22,autoAlpha:0,scale:.94},{y:0,autoAlpha:1,scale:1,duration:.6,stagger:.12},1.05)
-    .fromTo('.hero-meta',{y:12,autoAlpha:0},{y:0,autoAlpha:1,duration:.55},1.35)
-    .fromTo('.hero-portrait-wrap',{x:70,scale:.88,autoAlpha:0,filter:'blur(14px)',clipPath:'inset(0 0 0 18%)'},{x:0,scale:1,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0)',duration:1.2},.28)
-    .fromTo('.hero-stats .glass > div',{y:28,scale:.92,autoAlpha:0},{y:0,scale:1,autoAlpha:1,duration:.65,stagger:.13},1.35);
+   tl.fromTo('.hero-x-left',{xPercent:-22,rotation:-7,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.5,duration:1.2},0)
+    .fromTo('.hero-x-right',{xPercent:22,rotation:7,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.4,duration:1.2},0)
+    .fromTo('.hero-x-cross',{scaleY:.15,transformOrigin:'center',autoAlpha:0},{scaleY:1,autoAlpha:.7,duration:1.15},.12)
+    .fromTo('.hero-intro',{y:36,autoAlpha:0,filter:'blur(10px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:.8},.2)
+    .fromTo('.hero-title',{y:70,autoAlpha:0,filter:'blur(14px)',clipPath:'inset(0 0 40% 0)'},{y:0,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0)',duration:1.1},.35)
+    .fromTo('.role-line',{x:-28,autoAlpha:0},{x:0,autoAlpha:1,duration:.65},.72)
+    .fromTo('.hero-copy',{y:28,autoAlpha:0},{y:0,autoAlpha:1,duration:.75},.85)
+    .fromTo('.hero-actions a',{y:26,autoAlpha:0,scale:.92},{y:0,autoAlpha:1,scale:1,duration:.62,stagger:.13},1)
+    .fromTo('.hero-meta',{y:14,autoAlpha:0},{y:0,autoAlpha:1,duration:.55},1.28)
+    .fromTo('.hero-portrait-wrap',{x:90,y:20,scale:.84,autoAlpha:0,filter:'blur(16px)',clipPath:'inset(0 0 0 24%)'},{x:0,y:0,scale:1,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0)',duration:1.25},.25)
+    .fromTo('.hero-stats .stat-head',{y:16,autoAlpha:0},{y:0,autoAlpha:1,duration:.55},1.25)
+    .fromTo('.hero-stats .glass > div',{y:34,scale:.9,autoAlpha:0,filter:'blur(8px)'},{y:0,scale:1,autoAlpha:1,filter:'blur(0px)',duration:.7,stagger:.14},1.35);
    return tl;
   }
   home.classList.remove('home-entrance-replay');void home.offsetWidth;home.classList.add('home-entrance-replay');
