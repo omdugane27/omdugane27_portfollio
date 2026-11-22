@@ -40,6 +40,14 @@
 #projectModal.open{opacity:1;visibility:visible}.modal-panel{width:min(720px,100%);max-height:85vh;overflow:auto;transform:translateY(24px) scale(.98);transition:transform .45s var(--ease-out)}#projectModal.open .modal-panel{transform:none}
 .filter-chip{transition:background .25s,border-color .25s,color .25s,transform .25s}.filter-chip:active{transform:scale(.96)}
 @media(prefers-reduced-motion:reduce){#siteLoader{display:none}.hero-intro,.hero-intro .hero-title,.hero-intro .hero-copy,.hero-intro .hero-actions,.hero-intro .hero-meta{opacity:1;transform:none;animation:none}.particle,.orb{animation:none}.typing-caret{animation:none}}
+/* Animation reliability patch: visible fallback, then JS-driven entrance */
+.hero-intro,.hero-intro .hero-title,.hero-intro .hero-copy,.hero-intro .hero-actions,.hero-intro .hero-meta{opacity:1;transform:none;animation:none}
+body.motion-armed .hero-intro{opacity:0;transform:translateY(28px)}
+body.motion-armed .hero-intro .hero-title{opacity:0;transform:translateY(38px)}
+body.motion-armed .hero-intro .hero-copy{opacity:0;transform:translateY(22px)}
+body.motion-armed .hero-intro .hero-actions{opacity:0;transform:translateY(18px)}
+body.motion-armed .hero-intro .hero-meta{opacity:0}
+@media(prefers-reduced-motion:reduce){body.motion-armed .hero-intro,body.motion-armed .hero-intro .hero-title,body.motion-armed .hero-intro .hero-copy,body.motion-armed .hero-intro .hero-actions,body.motion-armed .hero-intro .hero-meta{opacity:1;transform:none}}
 </style>
 </head>
 <body>\n<div id="siteLoader" aria-hidden="true"><div><div class="loader-mark">OM<span>.</span></div><div class="loader-line"></div></div></div>
