@@ -375,6 +375,27 @@ body.cinematic-ready main #home.home-entrance-fallback .hero-stats{animation:hom
 @keyframes homePortraitSmooth{from{opacity:0;transform:translate3d(30px,18px,0) scale(.94);filter:blur(8px);clip-path:inset(0 0 0 14%)}to{opacity:1;transform:none;filter:none;clip-path:inset(0)}}
 @keyframes homeStatsSmooth{from{opacity:0;transform:perspective(900px) translate3d(0,22px,-30px) rotateX(8deg)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){body.cinematic-ready main #home.home-entrance-playing *{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important;clip-path:none!important}}
+
+/* Post-intro home reveal: deliberate, smooth 3D depth choreography */
+#home{perspective:1500px;perspective-origin:50% 42%;transform-style:preserve-3d}
+#home .hero-layout,#home .hero-intro,#home .hero-portrait-wrap,#home .hero-stats,
+#home .hero-title,#home .role-line,#home .hero-copy,#home .hero-actions,#home .hero-meta,
+#home .hero-x-left,#home .hero-x-right,#home .hero-x-cross{transform-style:preserve-3d;backface-visibility:hidden}
+body.home-reveal-pending #home .hero-intro,
+body.home-reveal-pending #home .hero-portrait-wrap,
+body.home-reveal-pending #home .hero-stats{visibility:hidden}
+body.home-reveal-playing header{will-change:transform,opacity}
+body.home-reveal-playing #home{overflow:hidden}
+body.home-reveal-playing #home .hero-intro,
+body.home-reveal-playing #home .hero-portrait-wrap,
+body.home-reveal-playing #home .hero-stats{visibility:visible}
+@media(prefers-reduced-motion:reduce){
+ #home{perspective:none!important}
+ body.home-reveal-pending #home .hero-intro,
+ body.home-reveal-pending #home .hero-portrait-wrap,
+ body.home-reveal-pending #home .hero-stats{visibility:visible!important}
+}
+
 </style>
 </head>
 <body>
@@ -745,5 +766,68 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  addEventListener('resize',onScroll,{passive:true});
  onScroll();
 })();
+
+/* Reliable post-intro entrance: one coordinated 3D reveal for the home hero */
+runPostIntroEntrance = function(){
+ const home=document.getElementById('home');
+ if(!home)return;
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const intro=document.getElementById('introSequence');
+ document.body.classList.add('cinematic-ready','home-reveal-pending');
+ const run=()=>{
+  document.body.classList.remove('home-reveal-pending');
+  document.body.classList.add('home-reveal-playing');
+  home.classList.add('home-entrance-playing');
+  const header=document.querySelector('header');
+  const copy=home.querySelector('.hero-intro');
+  const title=home.querySelector('.hero-title');
+  const role=home.querySelector('.role-line');
+  const desc=home.querySelector('.hero-copy');
+  const buttons=[...home.querySelectorAll('.hero-actions a')];
+  const meta=home.querySelector('.hero-meta');
+  const portrait=home.querySelector('.hero-portrait-wrap');
+  const stats=home.querySelector('.hero-stats');
+  const statCards=[...home.querySelectorAll('.hero-stats .glass > div')];
+  const panels=[home.querySelector('.hero-x-left'),home.querySelector('.hero-x-right'),home.querySelector('.hero-x-cross')].filter(Boolean);
+  const all=[header,copy,title,role,desc,...buttons,meta,portrait,stats,...statCards,...panels].filter(Boolean);
+  if(reduced){
+   all.forEach(el=>{el.style.opacity='1';el.style.visibility='visible';el.style.transform='none';el.style.filter='none';el.style.clipPath='none';});
+   document.body.classList.remove('home-reveal-playing');
+   home.classList.remove('home-entrance-playing');
+   return;
+  }
+  if(window.gsap){
+   const gs=window.gsap;
+   gs.killTweensOf(all);
+   gs.set(all,{clearProps:'animation,opacity,visibility,transform,filter,clipPath'});
+   const tl=gs.timeline({defaults:{ease:'power3.out'},onComplete:()=>{
+    gs.set(all,{autoAlpha:1,clearProps:'transform,filter,clipPath,transformPerspective'});
+    document.body.classList.remove('home-reveal-playing');
+    home.classList.remove('home-entrance-playing');
+   }});
+   if(header)tl.fromTo(header,{y:-24,z:-100,autoAlpha:0,rotationX:8,transformPerspective:1200},{y:0,z:0,autoAlpha:1,rotationX:0,duration:.72},0);
+   if(panels[0])tl.fromTo(panels[0],{xPercent:-20,z:-240,rotationY:-32,rotationZ:-5,autoAlpha:0},{xPercent:0,z:0,rotationY:0,rotationZ:0,autoAlpha:.52,duration:1.25},.05);
+   if(panels[1])tl.fromTo(panels[1],{xPercent:20,z:-240,rotationY:32,rotationZ:5,autoAlpha:0},{xPercent:0,z:0,rotationY:0,rotationZ:0,autoAlpha:.42,duration:1.25},.05);
+   if(panels[2])tl.fromTo(panels[2],{scaleY:.25,z:-180,autoAlpha:0},{scaleY:1,z:0,autoAlpha:.65,duration:.95},.2);
+   if(copy)tl.fromTo(copy,{y:34,z:-110,rotationX:12,autoAlpha:0,filter:'blur(9px)'},{y:0,z:0,rotationX:0,autoAlpha:1,filter:'blur(0px)',duration:.85},.12);
+   if(title)tl.fromTo(title,{y:62,z:-190,rotationX:18,rotationY:-8,scale:.9,autoAlpha:0,filter:'blur(12px)',clipPath:'inset(0 0 22% 0)'},{y:0,z:0,rotationX:0,rotationY:0,scale:1,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0 0 0 0)',duration:1.15,ease:'power4.out'},.25);
+   if(role)tl.fromTo(role,{x:-24,z:-90,rotationY:12,autoAlpha:0},{x:0,z:0,rotationY:0,autoAlpha:1,duration:.65},.58);
+   if(desc)tl.fromTo(desc,{y:24,z:-70,rotationX:8,autoAlpha:0,filter:'blur(5px)'},{y:0,z:0,rotationX:0,autoAlpha:1,filter:'blur(0px)',duration:.72},.68);
+   if(buttons.length)tl.fromTo(buttons,{y:28,z:-100,rotationX:14,scale:.94,autoAlpha:0},{y:0,z:0,rotationX:0,scale:1,autoAlpha:1,duration:.65,stagger:.12},.9);
+   if(meta)tl.fromTo(meta,{y:18,z:-60,autoAlpha:0},{y:0,z:0,autoAlpha:1,duration:.5},1.2);
+   if(portrait)tl.fromTo(portrait,{x:72,y:22,z:-260,rotationY:-28,rotationX:8,scale:.78,autoAlpha:0,filter:'blur(12px)',clipPath:'inset(0 0 0 35%)'},{x:0,y:0,z:0,rotationY:0,rotationX:0,scale:1,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0 0 0 0)',duration:1.35,ease:'power4.out'},.18);
+   if(stats)tl.fromTo(stats,{y:38,z:-160,rotationX:18,scale:.94,autoAlpha:0,filter:'blur(8px)'},{y:0,z:0,rotationX:0,scale:1,autoAlpha:1,filter:'blur(0px)',duration:.85},1.08);
+   if(statCards.length)tl.fromTo(statCards,{y:20,z:-60,rotationY:8,autoAlpha:0},{y:0,z:0,rotationY:0,autoAlpha:1,duration:.55,stagger:.1},1.25);
+   return tl;
+  }
+  // Lightweight browser-native 3D fallback if GSAP CDN is unavailable.
+  const seq=[[header,0,700,18],[panels[0],70,1000,-35],[panels[1],70,1000,35],[copy,120,800,28],[title,260,1050,48],[role,500,650,20],[desc,620,700,20],[portrait,180,1250,60],[...buttons,850,650,24],[stats,1050,850,30],[meta,1150,500,14]];
+  seq.forEach(([target,delay,duration,depth])=>{(Array.isArray(target)?target:[target]).filter(Boolean).forEach(el=>{el.animate([{opacity:0,transform:'perspective(1400px) translate3d(0,24px,'+(-Math.abs(depth))+'px) rotateX(12deg) rotateY('+(depth>0?-12:12)+'deg) scale(.92)',filter:'blur(8px)'},{opacity:1,transform:'perspective(1400px) translate3d(0,0,0) rotateX(0) rotateY(0) scale(1)',filter:'blur(0)'}],{duration,delay,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});});});
+  setTimeout(()=>{document.body.classList.remove('home-reveal-playing');home.classList.remove('home-entrance-playing');},2400);
+ };
+ const waitForOverlay=()=>setTimeout(run, intro?.classList.contains('intro-out')?520:0);
+ waitForOverlay();
+};
+
 </script>
 </body></html>
