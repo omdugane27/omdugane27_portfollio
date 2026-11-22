@@ -113,7 +113,48 @@ body.cursor-enabled,body.cursor-enabled a,body.cursor-enabled button{cursor:none
 @media(max-width:900px){.hero-layout{grid-template-columns:1fr;gap:16px;min-height:auto}.hero-intro{padding-top:20px}.hero-portrait-wrap{height:clamp(340px,82vw,500px);min-height:340px;width:min(100%,420px);margin-top:4px}.hero-stats{margin-top:18px}.hero-x-left{left:15%;width:50%}.hero-x-right{left:40%;width:50%}.hero-x-cross{left:55%}.hero-title{font-size:clamp(3rem,11vw,6rem)!important}}
 @media(max-width:480px){.hero-portrait-wrap{height:360px;min-height:360px}.hero-title{font-size:clamp(2.75rem,12.2vw,4.5rem)!important}.portrait-caption{font-size:7px}.hero-actions a{padding:12px 16px}}
 @media(prefers-reduced-motion:reduce){#introSequence,#introSequence *,.hero-portrait-wrap,.portrait-ring,.hero-light{animation:none!important;transition:none!important}#introSequence{display:none!important}#customCursor{display:none!important}}
-.js section .reveal:not(.show){opacity:0;transform:translateY(38px) scale(.985);filter:blur(4px)}.js section .reveal.show{opacity:1;transform:none;filter:none;animation:portfolioReveal .9s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}@keyframes portfolioReveal{from{opacity:0;transform:translateY(40px) scale(.985);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}#pageProgress{position:fixed;z-index:9999;left:0;top:0;height:3px;width:100%;pointer-events:none}#pageProgress:before{content:'';display:block;height:100%;width:var(--page-progress,0%);background:linear-gradient(90deg,#7f0007,#e50914,#ff555b);box-shadow:0 0 12px #ff1e1e88}@media(prefers-reduced-motion:reduce){.js section .reveal:not(.show),.js section .reveal.show{opacity:1;transform:none;filter:none;animation:none;transition:none}#pageProgress{display:none}}.js section .reveal:not(.show){opacity:0;transform:translateY(38px) scale(.985);filter:blur(4px)}.js section .reveal.show{opacity:1;transform:none;filter:none;animation:portfolioReveal .9s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}@keyframes portfolioReveal{from{opacity:0;transform:translateY(40px) scale(.985);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}#pageProgress{position:fixed!important;z-index:99999!important;left:0!important;top:0!important;height:4px!important;width:100%!important;pointer-events:none!important;background:#ffffff12!important}#pageProgressFill{display:block!important;height:100%!important;width:0;background:linear-gradient(90deg,#7f0007,#e50914,#ff555b)!important;box-shadow:0 0 14px #ff1e1e!important;transition:width .08s linear!important}@media(prefers-reduced-motion:reduce){.js section .reveal:not(.show),.js section .reveal.show{opacity:1;transform:none;filter:none;animation:none;transition:none}#pageProgress{display:none!important}}</style>
+
+/* Section-specific cinematic scroll motion */
+.js main section .reveal:not(.show){opacity:0;will-change:transform,opacity,filter;transition:none}
+.js main section .reveal.show{opacity:1;will-change:auto;animation-duration:1s;animation-timing-function:cubic-bezier(.16,1,.3,1);animation-fill-mode:both;animation-delay:var(--reveal-delay,0ms)}
+.js main #work .reveal:not(.show){transform:translateY(36px) scale(.96);clip-path:inset(0 0 14% 0)}
+.js main #work .reveal.show{animation:workReveal .95s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}
+@keyframes workReveal{from{opacity:0;transform:translateY(38px) scale(.96);clip-path:inset(0 0 18% 0);filter:blur(5px)}to{opacity:1;transform:none;clip-path:inset(0);filter:none}}
+.js main #about .reveal:not(.show){transform:translateX(-42px) rotateY(-7deg);filter:blur(4px)}
+.js main #about .reveal.show{animation:aboutReveal 1.05s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}
+@keyframes aboutReveal{from{opacity:0;transform:translateX(-42px) rotateY(-7deg);filter:blur(5px)}to{opacity:1;transform:translateX(0) rotateY(0);filter:none}}
+.js main #services .reveal:not(.show){transform:translateY(28px) scale(.88) rotateX(12deg);filter:blur(5px)}
+.js main #services .reveal.show{animation:serviceReveal .85s cubic-bezier(.2,1.4,.4,1) both;animation-delay:var(--reveal-delay,0ms)}
+@keyframes serviceReveal{from{opacity:0;transform:translateY(28px) scale(.88) rotateX(12deg);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+.js main #skills .reveal:not(.show){transform:translateY(24px) rotateX(18deg) scale(.94);filter:blur(3px)}
+.js main #skills .reveal.show{animation:skillReveal .8s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}
+@keyframes skillReveal{from{opacity:0;transform:translateY(24px) rotateX(18deg) scale(.94);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.js main #experience .reveal:not(.show){transform:translateX(48px);clip-path:inset(0 0 0 20%);filter:blur(4px)}
+.js main #experience .reveal.show{animation:journeyReveal 1s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}
+@keyframes journeyReveal{from{opacity:0;transform:translateX(48px);clip-path:inset(0 0 0 20%);filter:blur(4px)}to{opacity:1;transform:none;clip-path:inset(0);filter:none}}
+.js main #certifications .reveal:not(.show){transform:perspective(700px) rotateX(16deg) scale(.9);filter:blur(5px)}
+.js main #certifications .reveal.show{animation:certificateReveal 1s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}
+@keyframes certificateReveal{from{opacity:0;transform:perspective(700px) rotateX(16deg) scale(.9);filter:blur(5px)}to{opacity:1;transform:perspective(700px) rotateX(0) scale(1);filter:none}}
+.js main #contact .reveal:not(.show){transform:translateY(34px) scale(.97);filter:blur(8px)}
+.js main #contact .reveal.show{animation:contactReveal 1.15s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--reveal-delay,0ms)}
+@keyframes contactReveal{from{opacity:0;transform:translateY(34px) scale(.97);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+#projectsGrid article{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .45s}
+#projectsGrid article:hover{border-color:#e6394680;box-shadow:0 24px 60px #e6394620,0 0 24px #e6394610}
+#projectsGrid article img{transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s}
+#projectsGrid article:hover img{transform:scale(1.055);filter:saturate(1.15)}
+#services .card{position:relative;isolation:isolate;overflow:hidden}
+#services .card:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 0 0,#e6394622,transparent 58%);opacity:0;transition:opacity .5s}
+#services .card:hover:before{opacity:1}
+#skills .pill,#skills .card{transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,background .3s}
+#skills .pill:hover,#skills .card:hover{transform:translateY(-4px) scale(1.025);border-color:#e6394680;background:#e6394612}
+#experience .card{border-left:2px solid #e6394640;transition:border-color .4s,transform .5s,box-shadow .4s}
+#experience .card:hover{border-left-color:#ff2a2a;transform:translateX(5px);box-shadow:-8px 0 28px #e6394610}
+#certifications .card{overflow:hidden;transition:transform .55s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .4s}
+#certifications .card:hover{transform:translateY(-8px) rotate(-.5deg);border-color:#e6394670;box-shadow:0 20px 50px #e639461c}
+#contact .glass{transition:transform .55s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .4s}
+#contact .glass:hover{transform:translateY(-4px);border-color:#e6394660;box-shadow:0 20px 50px #e6394615}
+@media(prefers-reduced-motion:reduce){.js main section .reveal:not(.show),.js main section .reveal.show{opacity:1;transform:none;filter:none;clip-path:none;animation:none!important}#projectsGrid article,#projectsGrid article img,#services .card,#skills .pill,#skills .card,#experience .card,#certifications .card,#contact .glass{transition:none!important;transform:none!important}}
+</style>
 </head>
 <body>
 <canvas id="cinemaCanvas" aria-hidden="true"></canvas><div id="customCursor" aria-hidden="true"></div>
@@ -240,10 +281,10 @@ const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
 document.querySelectorAll("main section[id]").forEach(section=>sectionObserver.observe(section));
 
 const menuButton=document.getElementById('menuBtn'),mobileNav=document.getElementById('mobileNav');menuButton.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open))});mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.classList.remove('open');menuButton.setAttribute('aria-expanded','false')}));
-document.querySelectorAll('section h2, section .card, section article, section .mock, section .glass').forEach(el=>el.classList.add('reveal'));const revealObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('show');revealObserver.unobserve(entry.target);}});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});document.querySelectorAll('section .reveal').forEach(function(el){revealObserver.observe(el);});
+document.querySelectorAll('main section h2, main section .card, main section article, main section .mock, main section .glass').forEach(el=>el.classList.add('reveal'));document.querySelectorAll('main section').forEach(section=>{section.querySelectorAll('.reveal').forEach((el,index)=>{el.style.setProperty('--reveal-delay',Math.min(index%7,6)*95+'ms');});});const revealObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('show');revealObserver.unobserve(entry.target);}});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});document.querySelectorAll('main section .reveal').forEach(function(el){revealObserver.observe(el);});
 
 const root=document.getElementById('particles');for(let i=0;i<18;i++){const p=document.createElement('i'),s=2+Math.random()*4;p.style.cssText='position:absolute;left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;width:'+s+'px;height:'+s+'px;border-radius:50%;background:rgba(230,57,70,.25);box-shadow:0 0 '+s*4+'px rgba(230,57,70,.2)';root.appendChild(p)}
-let scrollProgressPending=false;function updateScrollProgress(){const max=document.documentElement.scrollHeight-window.innerHeight;const amount=max>0?window.scrollY/max*100:0;const progress=document.getElementById('pageProgress');const fill=document.getElementById('pageProgressFill');if(fill)fill.style.width=Math.min(100,Math.max(0,amount))+'%';scrollProgressPending=false;}window.addEventListener('scroll',function(){if(!scrollProgressPending){scrollProgressPending=true;requestAnimationFrame(updateScrollProgress);}}, {passive:true});updateScrollProgress();document.getElementById('year').textContent=new Date().getFullYear();document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget),subject=encodeURIComponent('Portfolio inquiry from '+f.get('name')),body=encodeURIComponent('Name: '+f.get('name')+'\nEmail: '+f.get('email')+'\n\nMessage:\n'+f.get('message'));window.location.href='mailto:omdugane25@gmail.com?subject='+subject+'&body='+body;alert('Your email app will open with the message prefilled.')});
+document.getElementById('year').textContent=new Date().getFullYear();document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget),subject=encodeURIComponent('Portfolio inquiry from '+f.get('name')),body=encodeURIComponent('Name: '+f.get('name')+'\nEmail: '+f.get('email')+'\n\nMessage:\n'+f.get('message'));window.location.href='mailto:omdugane25@gmail.com?subject='+subject+'&body='+body;alert('Your email app will open with the message prefilled.')});
 
 /* Cinematic intro, infinity particle field, desktop cursor and safe motion enhancements */
 (function(){
