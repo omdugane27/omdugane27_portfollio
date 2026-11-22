@@ -270,7 +270,7 @@ body.cinematic-ready main #contact .motion-stage{animation-name:stageContact}
 
 <div id="siteLoader" aria-hidden="true"><div><div class="loader-mark">OM<span>.</span></div><div class="loader-line"></div></div></div>
 <div class="fixed inset-0 gridbg pointer-events-none z-0"></div><div id="particles" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
-<header class="fixed top-0 inset-x-0 z-50 bg-black/75 backdrop-blur-xl"><nav class="wrap h-[74px] flex items-center justify-between"><a href="#home" class="display font-extrabold text-xl"><span class="red">O</span>M DUGANE<span class="red">.</span></a><div class="desktop flex gap-7 text-sm text-zinc-400"><a class="hover:text-white" href="#work">Work</a><a class="hover:text-white" href="#about">About</a><a class="hover:text-white" href="#services">Services</a><a class="hover:text-white" href="#skills">Skills</a><a class="hover:text-white" href="#experience">Experience</a><a class="hover:text-white" href="#contact">Contact</a></div><a href="#contact" class="btn rounded-full px-5 py-3 text-sm font-semibold hidden sm:inline-flex">Let's Talk ↗</a><button id="menuBtn" class="md:hidden border border-white/10 rounded-xl p-2" aria-label="Toggle menu" aria-expanded="false">☰</button></nav><div id="mobileNav" class="menu wrap flex-col gap-4 pb-5 text-sm"><a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a></div></header>
+<header class="fixed top-0 inset-x-0 z-50 bg-black/75 backdrop-blur-xl"><nav class="wrap h-[74px] flex items-center justify-between"><a href="#home" class="display font-extrabold text-xl"><span class="red">O</span>M DUGANE<span class="red">.</span></a><div class="desktop flex gap-7 text-sm text-zinc-400"><a class="nav-link hover:text-white active" href="#home" data-home-nav>Home</a><a class="nav-link hover:text-white" href="#work">Work</a><a class="hover:text-white" href="#about">About</a><a class="hover:text-white" href="#services">Services</a><a class="hover:text-white" href="#skills">Skills</a><a class="hover:text-white" href="#experience">Experience</a><a class="hover:text-white" href="#contact">Contact</a></div><a href="#contact" class="btn rounded-full px-5 py-3 text-sm font-semibold hidden sm:inline-flex">Let's Talk ↗</a><button id="menuBtn" class="md:hidden border border-white/10 rounded-xl p-2" aria-label="Toggle menu" aria-expanded="false">☰</button></nav><div id="mobileNav" class="menu wrap flex-col gap-4 pb-5 text-sm"><a href="#home" data-home-nav>Home</a><a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a></div></header>
 <main class="relative z-10">
 <section id="home" class="cinema-hero relative min-h-[100svh] flex items-center pt-28 pb-16 overflow-hidden">
 <div class="hero-x hero-x-left" aria-hidden="true"></div><div class="hero-x hero-x-right" aria-hidden="true"></div><div class="hero-x hero-x-cross" aria-hidden="true"></div>
@@ -408,9 +408,10 @@ document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('c
  mobileNav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');
  target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
  const section=target.matches('section')?target:target.closest('section');
- window.setTimeout(()=>replaySectionMotion(section),matchMedia('(prefers-reduced-motion: reduce)').matches?0:420);
+ window.setTimeout(()=>{if(target.id==="home")runPostIntroEntrance();else replaySectionMotion(section);},matchMedia('(prefers-reduced-motion: reduce)').matches?0:420);
 }));
 const root=document.getElementById('particles');for(let i=0;i<18;i++){const p=document.createElement('i'),s=2+Math.random()*4;p.style.cssText='position:absolute;left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;width:'+s+'px;height:'+s+'px;border-radius:50%;background:rgba(230,57,70,.25);box-shadow:0 0 '+s*4+'px rgba(230,57,70,.2)';root.appendChild(p)}
+document.querySelectorAll('[data-home-nav]').forEach(link=>link.addEventListener('click',function(e){e.preventDefault();document.getElementById('home')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});if(typeof runPostIntroEntrance==='function')setTimeout(runPostIntroEntrance,matchMedia('(prefers-reduced-motion: reduce)').matches?0:420);mobileNav?.classList.remove('open');menuButton?.setAttribute('aria-expanded','false');}));
 document.getElementById('year').textContent=new Date().getFullYear();document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.currentTarget),subject=encodeURIComponent('Portfolio inquiry from '+f.get('name')),body=encodeURIComponent('Name: '+f.get('name')+'\nEmail: '+f.get('email')+'\n\nMessage:\n'+f.get('message'));window.location.href='mailto:omdugane25@gmail.com?subject='+subject+'&body='+body;alert('Your email app will open with the message prefilled.')});
 
 /* Cinematic intro, infinity particle field, desktop cursor and safe motion enhancements */
@@ -498,7 +499,25 @@ document.getElementById('year').textContent=new Date().getFullYear();document.ge
  /* After the intro, run a deliberate hero entrance; other sections animate when entering the viewport. */
  function runPostIntroEntrance(){
   const home=document.getElementById('home');if(!home)return;
-  ['.hero-intro','.hero-title','.hero-copy','.hero-actions','.hero-meta','.hero-portrait-wrap','.hero-stats'].forEach(sel=>{const el=home.querySelector(sel);if(!el)return;el.style.animation='none';void el.offsetWidth;el.style.removeProperty('animation');});
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){home.querySelectorAll('.hero-intro,.hero-title,.hero-copy,.hero-actions,.hero-meta,.hero-portrait-wrap,.hero-stats').forEach(el=>{el.style.opacity='1';el.style.transform='none';});return;}
+  if(window.gsap){
+   const gs=window.gsap;gs.killTweensOf(home.querySelectorAll('.hero-intro,.hero-title,.hero-copy,.hero-actions,.hero-meta,.hero-portrait-wrap,.hero-stats,.hero-x-left,.hero-x-right,.hero-x-cross'));
+   const tl=gs.timeline({defaults:{ease:'power4.out'}});
+   tl.fromTo('.hero-x-left',{xPercent:-18,rotation:-5,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.48,duration:1.15},0)
+    .fromTo('.hero-x-right',{xPercent:18,rotation:5,autoAlpha:0},{xPercent:0,rotation:0,autoAlpha:.38,duration:1.15},0)
+    .fromTo('.hero-x-cross',{scaleY:.25,transformOrigin:'center'},{scaleY:1,duration:1.1,autoAlpha:.65},.15)
+    .fromTo('.hero-intro > p:first-child',{y:24,autoAlpha:0,filter:'blur(8px)'},{y:0,autoAlpha:1,filter:'blur(0px)',duration:.7},.22)
+    .fromTo('.hero-title',{y:58,autoAlpha:0,filter:'blur(12px)',clipPath:'inset(0 0 35% 0)'},{y:0,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0 0 0% 0)',duration:1.05},.36)
+    .fromTo('.role-line',{x:-24,autoAlpha:0},{x:0,autoAlpha:1,duration:.65},.78)
+    .fromTo('.hero-copy',{y:24,autoAlpha:0},{y:0,autoAlpha:1,duration:.75},.9)
+    .fromTo('.hero-actions a',{y:22,autoAlpha:0,scale:.94},{y:0,autoAlpha:1,scale:1,duration:.6,stagger:.12},1.05)
+    .fromTo('.hero-meta',{y:12,autoAlpha:0},{y:0,autoAlpha:1,duration:.55},1.35)
+    .fromTo('.hero-portrait-wrap',{x:70,scale:.88,autoAlpha:0,filter:'blur(14px)',clipPath:'inset(0 0 0 18%)'},{x:0,scale:1,autoAlpha:1,filter:'blur(0px)',clipPath:'inset(0)',duration:1.2},.28)
+    .fromTo('.hero-stats .glass > div',{y:28,scale:.92,autoAlpha:0},{y:0,scale:1,autoAlpha:1,duration:.65,stagger:.13},1.35);
+   return tl;
+  }
+  home.classList.remove('home-entrance-replay');void home.offsetWidth;home.classList.add('home-entrance-replay');
  }
  const motionSections=['work','about','services','skills','experience','certifications','contact'];
  const motionStyles={
